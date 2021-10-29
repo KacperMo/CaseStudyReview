@@ -1,19 +1,42 @@
 <?php
-    require_once('header.php');
-    ?>
+require_once('header.php');
+?>
 
 <body class="preload dashboard-setting">
 
 
-<?php
+    <?php
     require_once('navibar.php');
-    if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin']== true))
-    {
+    if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
         header('Location: index.php');
         exit();
-    }  
+    }
+    require_once "connect.php";
+
+    // use when all cols in users table created, also change from 'logindata' to 'users'
+    $query = "SELECT * FROM `users` WHERE `users`.`userID` = 2";
+    $result = mysqli_query($polaczenie, $query) or die(mysqli_error($polaczenie));
+    $user = $result->fetch_assoc();
+    /*
+    //this is the structure that is being used
+    $user = array(
+        'accountName' => 'kciesla',
+        'name' => 'Kamil',
+        'surname' => 'Cieśla',
+        'dateOfRegistration' => '2021',
+        'email' => 'kamilciesla34@gmail.com',
+        'website' => 'https://www.xyz.com',
+        'country' => 'Poland',
+        'motto' => 'FullStack',
+        'aboutMe' => 'im a new user...',
+        'colleges' => 'uek',
+    );
+    */
     ?>
-<!--================================
+
+
+
+    <!--================================
         START BREADCRUMB AREA
     =================================-->
     <section class="breadcrumb-area" style="background-image: url(images/library-869061.jpg);">
@@ -21,7 +44,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="breadcrumb">
-                      
+
                     </div>
                     <h1 class="page-title"> " Życie jest jak tabliczka czekolady ,,</h1>
                 </div>
@@ -38,7 +61,7 @@
     <!--================================
             START DASHBOARD AREA
     =================================-->
-    <section class="dashboard-area" >
+    <section class="dashboard-area">
         <div class="dashboard_menu_area">
             <div class="container">
                 <div class="row">
@@ -52,7 +75,7 @@
                                 <a href="dashboard-setting.php">
                                     <span class="lnr lnr-cog"></span>Ustawienia konta</a>
                             </li>
-                           <!--  <li>
+                            <!--  <li>
                                 <a href="dashboard-purchase.html">
                                     <span class="lnr lnr-cart"></span>Purchase</a>
                             </li>
@@ -97,7 +120,7 @@
                 </div>
                 <!-- end /.row -->
 
-                <form action="#" class="setting_form">
+                <form class="setting_form" action="update-user-settings.php" method="post" autocomplete="on">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="information_module">
@@ -113,24 +136,24 @@
                                             <label for="acname">Account Name
                                                 <sup>*</sup>
                                             </label>
-                                            <input type="text" id="acname" class="text_field" placeholder="First Name" value="Aazz Tech">
+                                            <input name="accountName" type="text" id="acname" class="text_field" placeholder="Account Name" value="<?php echo $user['accountName'] ?>">
+
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class=" form-group">
                                             <label for="usrname">Username
                                                 <sup>*</sup>
                                             </label>
-                                            <input type="text" id="usrname" class="text_field" placeholder="Account name" value="aazztech">
-                                            <p>Twój profil będzie dostępny pod adresem URL: https://casestudyreview.pl/
-                                                <span>Adam </span>
-                                            </p>
+                                            <input name="name" type="text" id="usrname" class="text_field" placeholder="Username" value="<?php echo $user['name'] ?>">
+                                            <p>Twój profil będzie dostępny pod adresem URL: <a href="https://casestudyreview.pl/<?php echo $user['accountName'] ?>">https://casestudyreview.pl/<?php echo $user['accountName'] ?>
+                                                </a></p>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="emailad">Email Address
                                                 <sup>*</sup>
                                             </label>
-                                            <input type="text" id="emailad" class="text_field" placeholder="Email address" value="contact@aazztech.com">
+                                            <input name="email" type="text" id="emailad" class="text_field" placeholder="Email address" value="<?php echo $user['email'] ?>">
                                         </div>
 
                                         <div class="row">
@@ -139,7 +162,7 @@
                                                     <label for="password">Password
                                                         <sup>*</sup>
                                                     </label>
-                                                    <input type="password" id="password" class="text_field" placeholder="Email address">
+                                                    <input type="password" id="password" class="text_field" placeholder="Password">
                                                 </div>
                                             </div>
 
@@ -148,14 +171,14 @@
                                                     <label for="conpassword">Confirm Password
                                                         <sup>*</sup>
                                                     </label>
-                                                    <input type="password" id="conpassword" class="text_field" placeholder="re-enter password">
+                                                    <input type="password" id="conpassword" class="text_field" placeholder="Re-enter password">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="website">Website</label>
-                                            <input type="password" id="website" class="text_field" placeholder="Website">
+                                            <input name="website" type="text" id="website" class="text_field" placeholder="Website" value="<?php echo $user['website'] ?>">
                                         </div>
 
                                         <div class="form-group">
@@ -163,8 +186,8 @@
                                                 <sup>*</sup>
                                             </label>
                                             <div class="select-wrap select-wrap2">
-                                                <select name="country" id="country" class="text_field">
-                                                    <option value="">Wybierz</option>
+                                                <select name="country" id="country" class="text_field" <?php echo $user['accountName'] ?>>
+                                                    <option value=""><?php echo $user['country'] ?></option>
                                                     <option value="pl">Polska</option>
                                                     <option value="usa">USA</option>
                                                     <option value="en">England</option>
@@ -176,12 +199,13 @@
 
                                         <div class="form-group">
                                             <label for="prohead">Motto</label>
-                                            <input type="text" id="prohead" class="text_field" placeholder="Ex: Webdesign & Development Service">
+                                            <input name="motto" type="text" id="prohead" class="text_field" placeholder="Ex: Webdesign & Development Service" value="<?php echo $user['motto'] ?>">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="authbio">Dodaj coś od siebie</label>
-                                            <textarea name="author_bio" id="authbio" class="text_field" placeholder="Short brief about yourself or your account..."></textarea>
+                                            <textarea name="aboutMe" id="authbio" class="text_field" placeholder="Short brief about yourself or your account..."><?php echo $user['aboutMe'] ?>
+                                        </textarea>
                                         </div>
                                     </div>
                                     <!-- end /.information_wrapper -->
@@ -190,7 +214,7 @@
                             </div>
                             <!-- end /.information_module -->
 
-                         
+
                         </div>
                         <!-- end /.col-md-6 -->
 
@@ -303,7 +327,7 @@
                                 <!-- end /.social_profile -->
                             </div>
                             <!-- end /.information_module -->
-<!-- 
+                            <!-- 
                             <div class="information_module">
                                 <a class="toggle_title" href="#collapse4" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapse1">
                                     <h4>Email Settings
