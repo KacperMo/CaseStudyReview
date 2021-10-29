@@ -51,7 +51,7 @@
                                  <div class='author-author__info inline has_dropdown'>
 
                                      <?php
-                                     session_start();
+                                   
                                         // Check if the user is already logged in, if yes then redirect him to welcome page
                                         if (isset($_SESSION['loggedin']) && @($_SESSION['loggedin'] == true)) {
                                             echo "
@@ -62,14 +62,14 @@
                                                     </div>
                                                     <div class='autor__info'>
                                                         <p class='name'>
-                                                        Imie Nazwisko
+                                                        Witaj ".$_SESSION["name"]."
                                                         </p>
                                                         
                                                     </div>
                                                     <div class='dropdowns dropdown--author'>
                                                             <ul> 
                                                                 <li><a href='author.php'>
-                                                                <span class='lnr lnr-user'></span>Zobacz swój profil Adam!</a>
+                                                                <span class='lnr lnr-user'></span>Profil</a>
                                                                 </li>
                                                                 <li>
                                                                     <a href='dashboard-setting.php'>

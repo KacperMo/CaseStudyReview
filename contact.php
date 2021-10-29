@@ -5,6 +5,7 @@
 <body class="preload contact-page">
 
 <?php
+    @session_start();
     require_once('navibar.php');
     ?>
 
