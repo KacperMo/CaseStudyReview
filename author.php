@@ -1,17 +1,16 @@
 <?php
-    require_once('header.php');
-    ?>
+require_once('header.php');
+?>
 
 
 <body class="preload">
 
-<?php
+    <?php
     require_once('navibar.php');
-    if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin']== true))
-    {
+    if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
         header('Location: index.php');
         exit();
-    }  
+    }
     ?>
 
     <!--================================
@@ -21,8 +20,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="breadcrumb" >
-                      
+                    <div class="breadcrumb">
+
                     </div>
                     <h1 class="page-title"> " Życie jest jak tabliczka czekolady ,,</h1>
                 </div>
@@ -51,12 +50,32 @@
                                 </div>
 
                                 <div class="author">
-                                    <h4>Imie Nazwisko </h4>
-                                    <p>Z nami od 2018 </p>
+                                    <?php
+                                    require_once "connect.php";
+                                    /*
+                                    // use when all cols in users table created, also change from 'logindata' to 'users'
+                                    $query = "SELECT * FROM `logindata` WHERE name = 'kamil'";
+                                    $result = mysqli_query($polaczenie, $query) or die(mysqli_error($polaczenie));
+                                    $user = $result->fetch_assoc();
+                                    */
+                                    $user = array(
+                                        'accountName' => 'kciesla',
+                                        'name' => 'Kamil',
+                                        'surname' => 'Cieśla',
+                                        'dateOfRegistration' => '2021',
+                                        'email' => 'kamilciesla34@gmail.com',
+                                        'website' => 'https://www.xyz.com',
+                                        'country' => 'Poland',
+                                        'motto' => 'FullStack',
+                                        'aboutMe' => 'im a new user...',
+                                    );
+                                    echo "<h4>{$user['name']} {$user['surname']}</h4>";
+                                    echo "<p>Z nami od {$user['dateOfRegistration']} </p>"
+                                    ?>
                                 </div>
                                 <!-- end /.author -->
 
-                                
+
 
                                 <div class="social social--color--filled">
                                     <ul>
@@ -98,7 +117,7 @@
                                 <li>
                                     <a href="author-items.html">Publikacje</a>
                                 </li>
-                                
+
                             </ul>
                         </div>
                         <!-- end /.author-menu -->
@@ -158,7 +177,7 @@
                             <div class="author-info scolorbg">
                                 <p>Ranga</p>
                                 <div class="rating product--rating">
-                                   
+
                                     <span class="rating__count">Pionier </span>
                                 </div>
                             </div>
@@ -171,7 +190,7 @@
                             </div>
 
                             <div class="author_module about_author">
-                                <h2>O 
+                                <h2>O
                                     <span>Mnie</span>
                                 </h2>
                                 <p>Cześć jestem ..... i bardzo lubie nauki ścisłe. Specjalizuję się w inżynierii oprogramowania.</p>
@@ -236,7 +255,8 @@
                                     <div class="price_love">
                                         <span>$10</span>
                                         <p>
-                                            <span class="lnr lnr-heart"></span> 48</p>
+                                            <span class="lnr lnr-heart"></span> 48
+                                        </p>
                                     </div>
 
                                     <div class="rating product--rating">
@@ -313,7 +333,8 @@
                                     <div class="price_love">
                                         <span>$10</span>
                                         <p>
-                                            <span class="lnr lnr-heart"></span> 48</p>
+                                            <span class="lnr lnr-heart"></span> 48
+                                        </p>
                                     </div>
 
                                     <div class="rating product--rating">
@@ -390,7 +411,8 @@
                                     <div class="price_love">
                                         <span>$10</span>
                                         <p>
-                                            <span class="lnr lnr-heart"></span> 48</p>
+                                            <span class="lnr lnr-heart"></span> 48
+                                        </p>
                                     </div>
 
                                     <div class="rating product--rating">
@@ -467,7 +489,8 @@
                                     <div class="price_love">
                                         <span>$10</span>
                                         <p>
-                                            <span class="lnr lnr-heart"></span> 48</p>
+                                            <span class="lnr lnr-heart"></span> 48
+                                        </p>
                                     </div>
 
                                     <div class="rating product--rating">
@@ -517,7 +540,7 @@
     =================================-->
 
 
-     <!--================================
+    <!--================================
         START CALL TO ACTION AREA
     =================================-->
     <section class="call-to-action bgimage">
