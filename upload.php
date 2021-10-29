@@ -95,30 +95,21 @@ function releaseSQL($JPGsrc, $PDFsrc, $userEmail, $userID, $src){
                                                     VALUES (:isPublic ,:userID, :autornIFnotlLogIn, :date, :JPGsrc, :Title, :category, :PDFsrc, :src, :description, :abstract);";
             
         $InsertPublicationData= $pdo->prepare($sqlUploadPublication);        
-                echo "isPublic: ".$isPublic."<br>";  
         $InsertPublicationData->bindValue('isPublic', $isPublic, PDO::PARAM_INT);      
         $InsertPublicationData->bindValue('userID', $userID, PDO::PARAM_STR);
-                echo "autor: ".$autor."<br>";
         $InsertPublicationData->bindValue('autornIFnotlLogIn', $autor, PDO::PARAM_STR);
         //$InsertPublicationData->bindValue('supervisor', $supervisor, PDO::PARAM_STR);
         $InsertPublicationData->bindValue('date', $date, PDO::PARAM_STR);
         $InsertPublicationData->bindValue('JPGsrc', $JPGsrc, PDO::PARAM_STR);
-                echo "Title: ".$Title."<br>";
-        $InsertPublicationData->bindValue('Title', $Title, PDO::PARAM_STR);
-                echo "category: ".$category."<br>";        
+        $InsertPublicationData->bindValue('Title', $Title, PDO::PARAM_STR);       
         $InsertPublicationData->bindValue('category', $category, PDO::PARAM_STR);
         //$InsertPublicationData->bindValue('retailBranch', $retailBranch, PDO::PARAM_STR);
         $InsertPublicationData->bindValue('PDFsrc', $PDFsrc, PDO::PARAM_STR);
-                echo "Src: ".$Src."<br>";
-        $InsertPublicationData->bindValue('src', $Src, PDO::PARAM_STR);  
-        echo "description: ".$description."<br>";                  
-        $InsertPublicationData->bindValue('description', $description, PDO::PARAM_STR);
-                echo "Tags: ".$Tags."<br>";                    
-        //$InsertPublicationData->bindValue('Tags', $Tags, PDO::PARAM_STR);    
-                echo "Streszczenie: ".$abstract."<br>";            
+        $InsertPublicationData->bindValue('src', $Src, PDO::PARAM_STR);                    
+        $InsertPublicationData->bindValue('description', $description, PDO::PARAM_STR);                   
+        //$InsertPublicationData->bindValue('Tags', $Tags, PDO::PARAM_STR);             
         $InsertPublicationData->bindValue('abstract', $abstract, PDO::PARAM_STR);
         $isLoginDataInserd = $InsertPublicationData->execute();
-                echo "</br>executed";
 
         echo $InsertPublicationData->debugDumpParams();
         if ($isLoginDataInserd) {
@@ -204,7 +195,7 @@ function handleFile($fileType, $userEmail){
     return $target_file;
 }
 function PDFtoJPGgenerate($PDFsrc,$target_dir){ 
-    /* try {
+    try {
         $im = new Imagick();
        $resolution = 300; 
        $im->setResolution($resolution,$resolution);
@@ -222,7 +213,7 @@ function PDFtoJPGgenerate($PDFsrc,$target_dir){
        $im->destroy(); 
     } catch (ImagickException $e){
             var_dump($e);            
-    }  */ 
+    }  
 
     
 echo"JPG generated.<br>";
