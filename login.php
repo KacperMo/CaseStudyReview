@@ -12,30 +12,34 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
 }
 
 
-// Check if the user is already logged in, if yes then redirect him to welcome page
-
-
 // Include config file
 require_once "connect.php";
-//require_once "navibar.php";
+$_SESSION["error_message"] = "";
+
+
+    
 
 // Define variables and initialize with empty values
 $userEmail = $password = "";
 $userEmail_err = $password_err = "";
 
+    
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+    
+    $error_message = "";
+    
+    
   // Check if userEmail is empty
   if (empty(trim($_POST["userEmail"]))) {
-    $userEmail_err = "Please enter username.";
+    $error_message =$error_message. "Please enter username.";
   } else {
     $userEmail = trim($_POST["userEmail"]);
   }
 
   // Check if password is empty
   if (empty(trim($_POST["password"]))) {
-    $password_err = "Please enter your password.";
+    $password_err = $error_message."Please enter your password.";
   } else {
     $password = trim($_POST["password"]);
   }
@@ -43,25 +47,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Jeśli nie ma pustych pól to...
   if (empty($userEmail_err) && empty($password_err)) {
     // Prepare a select statement
-    $sql = "SELECT `IdOfUser`,`name`,`email`,`password` FROM logindata natural join users where email= ?";
+    $sql = "SELECT `IdOfUser`,`name`,`email`,`password` FROM logindata where email = ?";
 
     if ($stmt = mysqli_prepare($polaczenie, $sql) or die(mysqli_error($polaczenie))) {
       // Bind variables to the prepared statement as parameters
       mysqli_stmt_bind_param($stmt, "s", $param_userEmail);
-
+        echo $userEmail;
       // Set parameters
       $param_userEmail = $userEmail;
 
       // Attempt to execute the prepared statement
       if (mysqli_stmt_execute($stmt)) {
+          echo"<br>execute";
         // Store result
         mysqli_stmt_store_result($stmt);
+          echo "<br>select  where email like email ->". mysqli_stmt_store_result($stmt)." <-";
 
         // Check if userEmail exists, if yes then verify password
         if (mysqli_stmt_num_rows($stmt) == 1) {
           // Bind result variables
           mysqli_stmt_bind_result($stmt, $idOfUser, $userName, $userEmail, $hashed_password);
-          //echo $id;
+            
+          echo "znaleziono ".$id;
           if (mysqli_stmt_fetch($stmt)) {
             if ($password == $hashed_password) {
               // Password is correct, so start a new session
@@ -77,27 +84,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               header("location: index.php");
             } else {
               // Display an error message if password is not valid
-              // echo $password,"->",$hashed_password;
-              //if($password==$hashed_password){echo "<br>takie same";}
-              //else{echo "<br>różne";}
-              $password_err = "The password you entered was not valid.";
+               echo $password,"->",$hashed_password;
+              if($password==$hashed_password){echo "<br>takie same";}
+              else{echo "<br>różne";}
+              $error_message = $error_message."The password you entered was not valid.";
             }
           }
         } else {
           // Display an error message if userEmail doesn't exist
-          $userEmail_err = "No account found with that username.";
+          $error_message = $error_message."No account found with that username.";
         }
       } else {
-        echo "Oops! Something went wrong. Please try again later.";
+        $error_message = $error_message."Oops! Something went wrong. Please try again later.";
       }
     }
-
+      $_SESSION["error_message"] = $error_message;
     // Close statement
     mysqli_stmt_close($stmt);
   }
 
   // Close connection
   mysqli_close($polaczenie);
+    $pdo=null;
+    $_POST = array();
 }
 
 

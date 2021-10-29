@@ -1,23 +1,30 @@
-<?php
-require_once('header.php');
-?>
+<?php  
 
+    session_start();
+    if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
+        require_once('header.php');
+        require_once('navibar.php');
+        require_once "connect.php";
+    }else{
+        echo
+         error_reporting(E_ALL); 
+         ini_set("display_errors", 1);
+         header("Location: index.php");
+         die();   
+        
+    }
+?>
 <body class="preload dashboard-setting">
 
 
     <?php
-    require_once('navibar.php');
-    if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
-        header('Location: index.php');
-        exit();
-    }
-    require_once "connect.php";
+   
 
     // use when all cols in users table created, also change from 'logindata' to 'users'
     $query = "SELECT * FROM `users` WHERE `users`.`userID` = 2";
     $result = mysqli_query($polaczenie, $query) or die(mysqli_error($polaczenie));
     $user = $result->fetch_assoc();
-    /*
+   
     //this is the structure that is being used
     $user = array(
         'accountName' => 'kciesla',
@@ -31,7 +38,7 @@ require_once('header.php');
         'aboutMe' => 'im a new user...',
         'colleges' => 'uek',
     );
-    */
+   
     ?>
 
 

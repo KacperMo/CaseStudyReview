@@ -1,7 +1,6 @@
 <!DOCTYPE html>
  <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <?php
-$pdo=null;
 session_start();
  // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin']== true))
@@ -11,6 +10,8 @@ if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin']== true))
 }
 // Include config file
 require_once "connect.php";
+$_SESSION["error_message"] = "";
+$error_message="";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -27,26 +28,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           // Loop over field names, make sure each one exists and is not empty
           $error = false;
           foreach($required as $field) {
-
             if (empty($field)) {
               $error = true;
+                $error_message=$error_message."Uzupełnij ".$field;
               //echo "<br>brakuje -> ".$_POST[$field]."albo".$field." <-<br>";
-            }else{
-              //echo "Jest -".$field." - ".$_POST[$field]."<br>";
             }
           }
 
-          if ($error) {
-            echo "Uzupełnij dane!";
-          } else {
-            //echo"Dane ok";
-          }
+         
     
           // Jeśli nie ma pustych pól to...
-    if(empty($username_err) && empty($password_err)){
+    if(!$error){
 
             if ($polaczenie->connect_errno!= 0){
-									echo " <style type='text/css'>.row{border: solid 1px red;}</style>Blad polaczenia z baza danych ".$polaczenie->connect_errno." opis ".$polaczenie->connect_error;
+									$error_message=$error_message."Blad polaczenia z baza danych".$polaczenie->connect_errno." opis ".$polaczenie->connect_error;
+                
 								}
 						else{          
                 $sqlCheckIsExist="SELECT name FROM `logindata` where email=:email";          
@@ -56,13 +52,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           
                 $countFoundedEmail =$CheckIsExistEmail->rowCount();
                 //echo $ExecuteEmailCheckQuery;
-                echo "<br>Znaleziono maili ->".$countFoundedEmail."<br>";
-                echo "data dzisiejsza: ".date("Y-d-m");
+                
                 $date=date("Y-d-m"); 
                 if($countFoundedEmail==0 && $ExecuteEmailCheckQuery==1){
-                
+                        $todayDate=date("Y.m.d");
                         echo"<br> nie istnieje jeszcze taki mail";
-                        
                         
                         $sqlInsertLoginData="INSERT INTO `logindata`( `name`, `password`,`dateOfRegistration`,`email`) VALUES (:FirstName, :Password, :Date, :Email)";
                         $InsertLoginData= $pdo->prepare($sqlInsertLoginData);
@@ -72,9 +66,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         $InsertLoginData->bindValue('Email', $Email, PDO::PARAM_STR);
                         $isLoginDataInserd = $InsertLoginData->execute();
 
-                        
-                        $lastId = $pdo->lastInsertId();
-
+                  
+                        //$lastId = $pdo->lastInsertId();
+                       
                         $sqlIfNoUser="SELECT IdOfUser FROM `logindata` where email=:email";          
                         $CheckUserID = $pdo1->prepare($sqlIfNoUser);
                         $CheckUserID->bindValue('email', $Email, PDO::PARAM_STR);
@@ -84,15 +78,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                         $lastId = $pdo->lastInsertId();
 
-                        $sqlInsertUserInfo="INSERT INTO `users` (`UserID`, `name`, `surname`, `college`,`avatar`, `lastLoginDate`) VALUES (:UserID, :UserName, :surname, :college, :avatar, :descriptions, :todayDate)";
+                        $sqlInsertUserInfo="INSERT INTO `users` (`UserID`, `name`, `surname`, `college`,`avatar`, `descriptions`, `dateOfRegistration`) VALUES (:UserID, :UserName, :surname, :college, :avatar, :descriptions, :dateOfRegistration)";
                         $InsertUserInfo= $pdo2->prepare($sqlInsertUserInfo);
                         $InsertUserInfo->bindValue('UserID', $UserID, PDO::PARAM_INT);
                         $InsertUserInfo->bindValue('UserName', $FirstName, PDO::PARAM_STR);
                         $InsertUserInfo->bindValue('surname', $LastName, PDO::PARAM_STR);
                         $InsertUserInfo->bindValue('college', $college, PDO::PARAM_STR);
                         $InsertUserInfo->bindValue('avatar', 'images/usr_avatar.png', PDO::PARAM_STR);
-                        $InsertUserInfo->bindValue('descriptions', 'images/usr_avatar.png', PDO::PARAM_STR);
-                        $InsertUserInfo->bindValue('todayDate', 'Cześć, jestem tu nowy :)', PDO::PARAM_STR);
+                        $InsertUserInfo->bindValue('descriptions', 'Cześć, jestem tu nowy :)', PDO::PARAM_STR);
+                        $InsertUserInfo->bindValue('dateOfRegistration', $todayDate, PDO::PARAM_STR);
                         $isInserdUserInfo = $InsertUserInfo->execute();
 
                         foreach($required as $field) {
@@ -112,20 +106,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
                         }else{
-                        echo "<br>nie udało się dodać do bazy";
+                        $error_message=$error_message. "<br>nie udało się dodać do bazy";
                         }
 
                 }else{
-                  echo "osoba juz istnieje ";	
+                  $error_message=$error_message. "osoba juz istnieje ";	
                 }
             
         }	
       }else{
-        echo"Uzupełnij puste pola";
+        $error_message=$error_message."Uzupełnij puste pola";
         //echo "<style>.card-body{border: 5px solid red; border-radius:0%;}</style>";
       } 
     
     // Close connection
+    $_SESSION["error_message"] = $error_message;
     mysqli_close($polaczenie);
     $pdo=null;
     header('Location: login.php');
@@ -155,6 +150,20 @@ $_POST = array();
             <div class="p-5">
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Chwal się wiedzą!</h1>
+                     <?php 
+                    if(!empty($_SESSION['error_message']))
+                    echo "  
+                    <div class='col-md-12 col-sm-12 col-12'>
+                        <div class='info-box'>                        
+                    <span class='info-box-icon bg-warning'><i class='	fas fa-exclamation'></i></span>
+                        <div class='info-box-content'><span class='info-box-text'>Wystąpił błąd podczas logowania</span>                  
+                    <span class='info-box-number'> $_SESSION[error_message] </span>
+                </div>
+              <!-- /.info-box-content -->   
+            </div>
+            <!-- /.info-box -->
+          </div>";              
+                  ?>
               </div>
             <!--registration form    -->
               <form class="user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
