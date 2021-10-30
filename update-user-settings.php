@@ -1,8 +1,6 @@
 <?php
 require_once "connect.php";
 
-$query = "UPDATE `users` SET `accountName` = '{$_POST['accountName']}' WHERE `users`.`userID` = 2";
-
 $user_data = [
     'accountName',
     'name',
