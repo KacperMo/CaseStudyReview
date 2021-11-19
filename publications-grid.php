@@ -1,10 +1,10 @@
 <?php
-    require_once('header.php');
-    ?>
+require_once('header.php');
+?>
 
 <body class="preload home3">
 
-<?php
+    <?php
     require_once('navibar.php');
     ?>
 
@@ -23,7 +23,8 @@
                         <div class="search">
                             <div class="search__title">
                                 <h3>
-                                    <span></span> </h3>
+                                    <span></span>
+                                </h3>
                             </div>
                             <div class="search__field">
                                 <form action="publication-grid.php">
@@ -37,10 +38,10 @@
                                 <ul>
                                     <li>
                                         <a href="#products">
-                                            <?php 
-                                                require_once("showpublication.php");
-                                                $TakeSolutions=TakeSolutions();
-                                                echo "Znaleziono ".$TakeSolutions->rowCount." publikacji";
+                                            <?php
+                                            require_once("showpublication.php");
+                                            $TakeSolutions = TakeSolutions();
+                                            echo "Znaleziono " . $TakeSolutions->rowCount . " publikacji";
                                             ?>
                                         </a>
                                     </li>
@@ -77,7 +78,7 @@
                                         <span>35</span>
                                     </a>
                                 </li>
-                                
+
                             </ul>
                         </div>
                         <!-- end /.filter__option -->
@@ -96,13 +97,13 @@
                                 <li>
                                     <a href="#">Najlepiej oceniane </a>
                                 </li>
-                                
+
                             </ul>
                         </div>
                         <!-- end /.filter__option -->
 
 
-                      <!--   <div class="filter__option filter--select">
+                        <!--   <div class="filter__option filter--select">
                             <div class="select-wrap">
                                 <select name="date">
                                     <option value="low"> od najnowwszych</option>
@@ -162,22 +163,22 @@
 
             <!-- start .row -->
             <div class="row">
-              
+
                 <?php
-                    $TakeSolutions=TakeSolutions();
-                    //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
-                    foreach($TakeSolutions->publicationData as $row){
-                        echo "<!-- start .col-md-4 -->
+                $TakeSolutions = TakeSolutions();
+                //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
+                foreach ($TakeSolutions->publicationData as $row) {
+                    echo "<!-- start .col-md-4 -->
                         <div class='col-lg-4 col-md-6'>
                         <!-- start .single-product -->
                         <div class='product product--card'>
     
                             <div class='product__thumbnail'>
                             ";
-                            if (@!file_exists($row[IMGsrc])) {
-                                @$row[IMGsrc]='images/lp1.jpg';
-                            }
-                            echo"
+                    if (@!file_exists($row[IMGsrc])) {
+                        @$row[IMGsrc] = 'images/lp1.jpg';
+                    }
+                    echo "
                                 <img src='$row[IMGsrc]' alt='Product Image'>
                                 <div class='prod_btn'>
                                     <a href='single-publication.php?publicationID=$row[publicationID]' class='transparent btn--sm btn--round'>Czytaj dalej</a>
@@ -220,16 +221,14 @@
                         <!-- end /.single-product -->
                         </div>
                         <!-- end /.col-md-4 -->";
-
-
-                    }
+                }
                 ?>
 
-                
 
-                
 
-               
+
+
+
             </div>
             <!-- end /.row -->
 
@@ -243,20 +242,20 @@
                                 </a>
 
                                 <?php
-                                    $NumOfPage = ceil(($TakeSolutions->rowCount)/9);
+                                $NumOfPage = ceil(($TakeSolutions->rowCount) / 9);
 
-                                    for($x=1; $x<$NumOfPage+1; $x++){
-                                        if(@($_GET['Page'])==$x){
+                                for ($x = 1; $x < $NumOfPage + 1; $x++) {
+                                    if (@($_GET['Page']) == $x) {
 
-                                            echo("<a class='page-numbers current' href='$_SERVER[REQUEST_URI]'>$x</a>");
-                                           // echo("<li class='page-item active'><a href='$_SERVER[REQUEST_URI]' class='page-link'>$x</a></li>");
-                                        }else{
-                                            echo("<a class='page-numbers' href='publications-grid.php?Page=$x'>$x</a>");
-                                        }                            
-                                    }    
-                                    echo "<a class='next page-numbers' href='publications-grid.php?Page=$NumOfPage'>
+                                        echo ("<a class='page-numbers current' href='$_SERVER[REQUEST_URI]'>$x</a>");
+                                        // echo("<li class='page-item active'><a href='$_SERVER[REQUEST_URI]' class='page-link'>$x</a></li>");
+                                    } else {
+                                        echo ("<a class='page-numbers' href='publications-grid.php?Page=$x'>$x</a>");
+                                    }
+                                }
+                                echo "<a class='next page-numbers' href='publications-grid.php?Page=$NumOfPage'>
                                     <span class='lnr lnr-arrow-right'></span>
-                                </a>";                           
+                                </a>";
 
                                 ?>
                                 <!-- <a class="page-numbers current" href="#">1</a>
@@ -265,7 +264,7 @@
 
 
 
-                                
+
                             </div>
                         </nav>
                     </div>
@@ -303,7 +302,7 @@
         END CALL TO ACTION AREA
     =================================-->
 
-    
+
     <?php
     require_once('footer.php');
     ?>
