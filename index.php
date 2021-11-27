@@ -1,6 +1,7 @@
 <?php
-    require_once('header.php');
-    ?>
+require_once('header.php');
+?>
+
 <body class="preload home1 mutlti-vendor">
 
 
@@ -88,7 +89,7 @@
     <!--================================
     END HERO AREA
 =================================-->
-<section class="features section--padding">
+    <section class="features section--padding">
         <!-- start container -->
         <div class="container">
             <!-- start row -->
@@ -115,7 +116,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="feature">
                         <div class="feature__img">
-                        <img src="images/svg/rocket.png" width="113px" alt="rocket">
+                            <img src="images/svg/rocket.png" width="113px" alt="rocket">
                         </div>
                         <div class="feature__title">
                             <h3>Przeszukuj Innowacyjne Publikacjie</h3>
@@ -133,7 +134,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="feature">
                         <div class="feature__img">
-                        <img src="images/svg/growth.png" width="113px" alt="partner">
+                            <img src="images/svg/growth.png" width="113px" alt="partner">
                         </div>
                         <div class="feature__title">
                             <h3>Rozwijaj Się i Twórz</h3>
@@ -155,7 +156,7 @@
     <!--================================
     START PRODUCTS AREA
 =================================-->
-<section class="proposal-area">
+    <section class="proposal-area">
 
         <!-- start container-fluid -->
         <div class="container-fluid">
@@ -167,7 +168,7 @@
                         </div>
                         <div class="content_above">
                             <div class="proposal__icon ">
-                                <img src="images/svg/search.png" width="100px"alt="create">
+                                <img src="images/svg/search.png" width="100px" alt="create">
                             </div>
                             <div class="proposal__content ">
                                 <h1 class="text--white">Twórz I Pozwól Się Odkyć</h1>
@@ -187,7 +188,7 @@
                         </div>
                         <div class="content_above">
                             <div class="proposal__icon">
-                            <img src="images/svg/discovery.png" width="100px"alt="create">
+                                <img src="images/svg/discovery.png" width="100px" alt="create">
                             </div>
                             <div class="proposal__content ">
                                 <h1 class="text--white">Znajdź Czystą Inspirację</h1>
@@ -207,8 +208,8 @@
     END PRODUCTS AREA
 =================================-->
 
-   
-<?php
+
+    <?php
     require_once('JSFromFooter.php');
     ?>
 

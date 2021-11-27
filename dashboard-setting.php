@@ -129,7 +129,7 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
                 </div>
                 <!-- end /.row -->
 
-                <form class="setting_form" action="update-user-settings.php" method="post" autocomplete="on">
+                <form class="setting_form" action="update-user-settings.php" method="post" autocomplete="on" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="information_module">
@@ -256,8 +256,8 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
 
                                             <div class="upload_title">
                                                 <p>JPG, GIF or PNG 750x370 px</p>
-                                                <label for="dp" class="upload_btn">
-                                                    <input type="file" id="dp">
+                                                <label for="banner-image" class="upload_btn">
+                                                    <input type="file" id="banner-image" name="banner-image">
                                                     <span class="btn btn--sm btn--round" aria-hidden="true">Prześlij zdjęcie</span>
                                                 </label>
                                             </div>
@@ -428,7 +428,7 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
 
                         <div class="col-md-12">
                             <div class="dashboard_setting_btn">
-                                <button type="submit" class="btn btn--round btn--md">Zapisz Zmiany</button>
+                                <button type="submit" name="submit" class="btn btn--round btn--md">Zapisz Zmiany</button>
                             </div>
                         </div>
                         <!-- end /.col-md-12 -->

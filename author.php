@@ -1,23 +1,21 @@
-
-<?php  
-  session_start();
-    if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
-        require_once('header.php');
-        require_once('navibar.php');
-        require_once "connect.php";
-    }else{
-        echo
-         error_reporting(E_ALL); 
-         ini_set("display_errors", 1);
-         header("Location: index.php");
-         die();   
-        
-    }
+<?php
+session_start();
+if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
+    require_once('header.php');
+    require_once('navibar.php');
+    require_once "connect.php";
+} else {
+    echo
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
+    header("Location: index.php");
+    die();
+}
 ?>
 
 <body class="preload">
 
-    
+
 
     <!--================================
         START BREADCRUMB AREA
@@ -192,7 +190,7 @@
 
                         <div class="col-md-12 col-sm-12">
                             <div class="author_module">
-                                <img src="images/authcvr.jpg" alt="author image">
+                                <img src="uploads/example.jpg" alt="author image">
                             </div>
 
                             <div class="author_module about_author">
