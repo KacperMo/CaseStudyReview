@@ -1,11 +1,15 @@
- <!--================================
-        START MENU AREA
-    =================================-->
+
 <?php
     $pdo=null;
 session_start();
 
 ?>
+<style>
+    .show{
+        display: flex;
+        height: min-content !important;
+    }
+</style>
    <!-- start menu-area -->
    <div class="menu-area">
     <!-- start .top-menu-area -->
@@ -37,7 +41,7 @@ session_start();
     <!-- start .mainmenu_area -->
     <div class="mainmenu">
         <!-- start .container -->
-        <div class="container">
+        <div class="container" style="display:flex; flex-direction: column; justify-content:center; ">
             <!-- start .row-->
             <div class="row">
                 <!-- start .col-md-12 -->
@@ -163,27 +167,27 @@ session_start();
                         <!-- start mainmenu__search -->
                     </div>
 
-                    <nav class="navbar navbar-expand-md navbar-light mainmenu__menu">
+                    <!-- <nav class="navbar navbar-expand-md navbar-light mainmenu__menu" style="height:100%; display:flex;">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                             aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="has_dropdown">
+                        <!-- Collect the nav links, forms, and other content for toggling
+                        <div class="collapse navbar-collapse" id="navbarNav" style="justify-content:space-between; height:min-content; overflow:hidden; padding:1rem; z-index:0; height:min-content;">
+                            <ul class="navbar-nav" style="margin-top:0;">
+                                <li class="has_dropdown_wip">
                                     <a href="index.php">Główna</a>                                    
                                 </li>
-                                <li class="has_dropdown">
+                                <li class="has_dropdown_wip">
                                     <a href="publications-grid.php">Publikacje</a>                                   
                                 </li>
-                                <li class="has_dropdown">
+                                <li class="has_dropdown_wip">
                                     <a href="contact.php">O nas</a>                                   
                                 </li>
                             </ul>
                         </div>
-                        <!-- /.navbar-collapse -->
-                    </nav>
+                        <!-- /.navbar-collapse
+                    </nav> -->
                 </div>
                 <!-- end /.col-md-12 -->
             </div>

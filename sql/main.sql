@@ -6,16 +6,19 @@ SET time_zone = "+01:00";
 -- Create csr database.
 CREATE DATABASE `csr`;
 
+-- Choose which database to use when querying.
+USE `csr`;
+
 -- Create required tables.
 CREATE TABLE `comments`(
-    `commentID` int(32) IDENTITY(1,1) PRIMARY KEY,
+    `commentID` int(32) AUTO_INCREMENT PRIMARY KEY,
     `publicationID` int(32) NOT NULL,
     `commentContent` varchar(1023) NOT NULL,
     `commentAuthor` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `authorizationData`(
-    `userID` int(32) IDENTITY(1,1) PRIMARY KEY,
+    `userID` int(32) AUTO_INCREMENT PRIMARY KEY,
     `username` varchar(255) NOT NULL UNIQUE,
     `password` varchar(255) NOT NULL,
     `registrationDate` date DEFAULT CURRENT_DATE(),
@@ -25,7 +28,7 @@ CREATE TABLE `authorizationData`(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `publications` (
-    `publicationID` int(32) IDENTITY(1,1) PRIMARY KEY,
+    `publicationID` int(32) AUTO_INCREMENT PRIMARY KEY,
     `isPublic` tinyint(1) NOT NULL,
     `authorID` int(32) NOT NULL,
     `caseSupervisor` varchar(255) DEFAULT NULL,
@@ -36,7 +39,7 @@ CREATE TABLE `publications` (
     `thumbnailPath` varchar(255) DEFAULT NULL,
     `publicationPath` varchar(255) NOT NULL,
     `description` varchar(1023) NOT NULL,
-    `rating` float(3,2) NOT NULL, 
+    `rating` float(3,2) NOT NULL
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `users` (
@@ -49,7 +52,7 @@ CREATE TABLE `users` (
     `description` varchar(1023) DEFAULT NULL,
     `country` varchar(255) NOT NULL,
     `website` varchar(255) DEFAULT NULL
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Create admin user.
 INSERT INTO `authorizationData` (`username`, `password`, `emailAddress`) VALUES
