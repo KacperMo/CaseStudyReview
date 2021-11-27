@@ -100,7 +100,7 @@
                         $connection = new mysqli($mysqlIPAddress, $mysqlUsername, $mysqlPassword, null, intval($mysqlPort));
                         $query = file_get_contents('../sql/main.sql');
                         $connection -> multi_query($query);
-                        //header('Refresh: 0');
+                        header('Refresh: 0');
                         break;
                     default:
                         echo "(Undefined error).";
