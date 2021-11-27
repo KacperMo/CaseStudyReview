@@ -5,6 +5,7 @@
 <body class="preload home3">
 
 <?php
+    @session_start();
     require_once('navibar.php');
     ?>
 

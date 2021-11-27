@@ -97,23 +97,36 @@ INSERT INTO `publications` (`publicationID`, `isPublic`, `authorID`, `autornIFno
 -- Struktura tabeli dla tabeli `users`
 --
 
+
 CREATE TABLE `users` (
   `userID` int(11) NOT NULL,
+  `accountName` text NOT NULL,
   `name` varchar(64) NOT NULL,
   `surname` varchar(64) NOT NULL,
   `college` varchar(64) NOT NULL,
   `avatar` varchar(255) DEFAULT NULL,
   `years` int(3) DEFAULT NULL,
   `descriptions` varchar(255) DEFAULT NULL,
-  `lastLoginDate` date NOT NULL
+  `lastLoginDate` date NOT NULL,
+  `dateOfRegistration` date DEFAULT NULL,
+  `email` varchar(535) NOT NULL,
+  `website` varchar(535) NOT NULL,
+  `country` text NOT NULL,
+  `motto` text NOT NULL,
+  `aboutMe` text NOT NULL,
+  `colleges` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Zrzut danych tabeli `users`
 --
 
-INSERT INTO `users` (`userID`, `name`, `surname`, `college`, `avatar`, `years`, `descriptions`, `lastLoginDate`) VALUES
-(1, '', '', '', 'img/defoultAvatar', NULL, 'I\'m new here.', '0000-00-00');
+
+INSERT INTO `users` (`userID`, `accountName`, `name`, `surname`, `college`, `avatar`, `years`, `descriptions`, `lastLoginDate`, `dateOfRegistration`, `email`, `website`, `country`, `motto`, `aboutMe`, `colleges`) VALUES
+(0, '', '', '', '', NULL, NULL, NULL, '0000-00-00', NULL, '', '', '', '', '', 'Uniwersytet Ekonomiczny w Krakowie'),
+(1, '', '', '', '', 'img/defoultAvatar', NULL, 'Im new here.', '0000-00-00', NULL, '', '', '', '', '', ''),
+ (2, 'kciesla34', 'Kamil', '', '', 'null', 99, 'null', '0000-00-00', '0000-00-00', 'kamilciesla34@gmail.com', 'kej', 'pl', 'Never give up', 'ok', '');
+
 
 --
 -- Indeksy dla zrzutów tabel

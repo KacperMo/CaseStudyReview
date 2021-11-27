@@ -1,7 +1,8 @@
 <?php
-    require_once('inc/head.php');
-    require_once('navibar.php')
+require_once('inc/head.php');
+require_once('navibar.php')
 ?>
+
 <body class="preload home1 mutlti-vendor">
     <section class="hero-area bgimage" style="z-index:-1;">
         <div class="bg_image_holder" style="z-index:-2;">
@@ -75,7 +76,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="feature">
                         <div class="feature__img">
-                        <img src="images/svg/rocket.png" width="113px" alt="rocket">
+                            <img src="images/svg/rocket.png" width="113px" alt="rocket">
                         </div>
                         <div class="feature__title">
                             <h3>Przeszukuj Innowacyjne Publikacjie</h3>
@@ -89,7 +90,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="feature">
                         <div class="feature__img">
-                        <img src="images/svg/growth.png" width="113px" alt="partner">
+                            <img src="images/svg/growth.png" width="113px" alt="partner">
                         </div>
                         <div class="feature__title">
                             <h3>Rozwijaj Się i Twórz</h3>
@@ -113,7 +114,7 @@
                         </div>
                         <div class="content_above">
                             <div class="proposal__icon ">
-                                <img src="images/svg/search.png" width="100px"alt="create">
+                                <img src="images/svg/search.png" width="100px" alt="create">
                             </div>
                             <div class="proposal__content ">
                                 <h1 class="text--white">Twórz I Pozwól Się Odkyć</h1>
@@ -131,7 +132,7 @@
                         </div>
                         <div class="content_above">
                             <div class="proposal__icon">
-                            <img src="images/svg/discovery.png" width="100px"alt="create">
+                                <img src="images/svg/discovery.png" width="100px" alt="create">
                             </div>
                             <div class="proposal__content ">
                                 <h1 class="text--white">Znajdź Czystą Inspirację</h1>
@@ -146,8 +147,9 @@
         </div>
     </section>
 
-<?php
+    <?php
     require_once('inc/footer.php');
-?>
+    ?>
 </body>
+
 </html>
