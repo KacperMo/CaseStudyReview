@@ -108,6 +108,7 @@
                 }
                 echo"</div>
                 </article>";
+
             }
             
             else{
@@ -121,6 +122,8 @@
                 $configContent = "<?php\n\$mysqlIPAddress = \"{$_POST['ip']}\";\n\$mysqlUsername = \"{$_POST['username']}\";\n\$mysqlPassword = \"{$_POST['password']}\";\n\$mysqlPort = \"{$mysqlPort}\";\n\$mysqlHasConfigured = true;\n?>";
                 fwrite($configFile, $configContent);
                 fclose($configFile);
+
+                header("Refresh: 0");
             }
         }
         echo "</div>";
