@@ -100,6 +100,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($isLoginDataInserd && $isInserdUserInfo) {
           mkdir("UsersFoldres/$Email");
           mkdir("UsersFoldres/$Email/Publications");
+          
+          mkdir("user_data/$userID");
+          mkdir("user_data/$userID/images");
+
           header("Location: login.php");
           exit();
         } else {

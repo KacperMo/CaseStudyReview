@@ -2,7 +2,7 @@
 
 session_start();
 if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
-    require_once('header.php');
+    require_once('inc/head.php');
     require_once('navibar.php');
     require_once "connect.php";
 } else {
@@ -19,9 +19,10 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
 
     <?php
 
-
+    $userID =  $_SESSION["userID"];
+    echo $userID;
     // use when all cols in users table created, also change from 'logindata' to 'users'
-    $query = "SELECT * FROM `users` WHERE `users`.`userID` = 2";
+    $query = "SELECT * FROM `users` WHERE `users`.`userID` = $userID";
     $result = mysqli_query($polaczenie, $query) or die(mysqli_error($polaczenie));
     $user = $result->fetch_assoc();
 
@@ -257,7 +258,7 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
                                             <div class="upload_title">
                                                 <p>JPG, GIF or PNG 750x370 px</p>
                                                 <label for="banner-image" class="upload_btn">
-                                                    <input type="file" id="banner-image" name="banner-image">
+                                                    <input type="file" id="banner-image" name="banner_image">
                                                     <span class="btn btn--sm btn--round" aria-hidden="true">Prześlij zdjęcie</span>
                                                 </label>
                                             </div>
@@ -447,7 +448,7 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
 
 
     <?php
-    @require_once('footer.php');
+    @require_once('inc/footer.php');
     ?>
 </body>
 

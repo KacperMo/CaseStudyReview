@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
-    require_once('header.php');
+    require_once('inc/head.php');
     require_once('navibar.php');
     require_once "connect.php";
 } else {
@@ -14,9 +14,6 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
 ?>
 
 <body class="preload">
-
-
-
     <!--================================
         START BREADCRUMB AREA
     =================================-->
@@ -56,23 +53,13 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
                                 <div class="author">
                                     <?php
                                     require_once "connect.php";
-                                    /*
-                                    // use when all cols in users table created, also change from 'logindata' to 'users'
-                                    $query = "SELECT * FROM `logindata` WHERE name = 'kamil'";
+                                    
+                                    $userID =  $_SESSION["userID"];
+                                    $query = "SELECT * FROM `users` WHERE userID = $userID";
                                     $result = mysqli_query($polaczenie, $query) or die(mysqli_error($polaczenie));
                                     $user = $result->fetch_assoc();
-                                    */
-                                    $user = array(
-                                        'accountName' => 'kciesla',
-                                        'name' => 'Kamil',
-                                        'surname' => 'Cieśla',
-                                        'dateOfRegistration' => '2021',
-                                        'email' => 'kamilciesla34@gmail.com',
-                                        'website' => 'https://www.xyz.com',
-                                        'country' => 'Poland',
-                                        'motto' => 'FullStack',
-                                        'aboutMe' => 'im a new user...',
-                                    );
+                                    
+                                   
                                     echo "<h4>{$user['name']} {$user['surname']}</h4>";
                                     echo "<p>Z nami od {$user['dateOfRegistration']} </p>"
                                     ?>
@@ -190,7 +177,7 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
 
                         <div class="col-md-12 col-sm-12">
                             <div class="author_module">
-                                <img src="uploads/example.jpg" alt="author image">
+                                <img src="user_data/<?php echo $userID ?>/images/banner_image.jpg" alt="author image">
                             </div>
 
                             <div class="author_module about_author">
@@ -568,7 +555,7 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
     =================================-->
 
     <?php
-    @require_once('footer.php');
+    @require_once('inc/footer.php');
     ?>
 </body>
 

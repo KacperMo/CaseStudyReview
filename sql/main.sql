@@ -17,7 +17,7 @@ CREATE TABLE `comments`(
     `commentAuthor` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `authorizationData`(
+CREATE TABLE `authorization_data`(
     `userID` int(32) AUTO_INCREMENT PRIMARY KEY,
     `username` varchar(255) NOT NULL UNIQUE,
     `password` varchar(255) NOT NULL,

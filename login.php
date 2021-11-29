@@ -79,6 +79,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               $_SESSION["idOfUser"] = $idOfUser;
               $_SESSION["name"] = $userName;
               $_SESSION["userEmail"] = $userEmail;
+              // new session vars
+              $_SESSION['userID'] = $idOfUser;
+              
 
               // Redirect user to welcome page
               header("location: index.php");
