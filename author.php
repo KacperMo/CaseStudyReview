@@ -11,6 +11,17 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
     header("Location: index.php");
     die();
 }
+
+require_once "connect.php";
+
+$userID =  $_SESSION["userID"];
+$query = "SELECT * FROM `users` WHERE userID = $userID";
+$result = mysqli_query($polaczenie, $query) or die(mysqli_error($polaczenie));
+$user = $result->fetch_assoc();
+
+$userBannerImgSrc = "user_data/{$userID}/images/banner_image.jpg";
+$userProfileImgSrc = "user_data/{$userID}/images/profile_image.jpg";
+
 ?>
 
 <body class="preload">
@@ -47,22 +58,12 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
                         <div class="author-card sidebar-card">
                             <div class="author-infos">
                                 <div class="author_avatar">
-                                    <img src="images/author-avatar.jpg" alt="Presenting the broken author avatar :D">
+                                    <img src="<?=$userProfileImgSrc?>" alt="Profile image">
                                 </div>
 
                                 <div class="author">
-                                    <?php
-                                    require_once "connect.php";
-                                    
-                                    $userID =  $_SESSION["userID"];
-                                    $query = "SELECT * FROM `users` WHERE userID = $userID";
-                                    $result = mysqli_query($polaczenie, $query) or die(mysqli_error($polaczenie));
-                                    $user = $result->fetch_assoc();
-                                    
-                                   
-                                    echo "<h4>{$user['name']} {$user['surname']}</h4>";
-                                    echo "<p>Z nami od {$user['dateOfRegistration']} </p>"
-                                    ?>
+                                    <h4><?=$user['name']?> <?=$user['surname']?></h4>
+                                    <p>Z nami od <?=$user['dateOfRegistration']?> </p>
                                 </div>
                                 <!-- end /.author -->
 
@@ -177,7 +178,7 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
 
                         <div class="col-md-12 col-sm-12">
                             <div class="author_module">
-                                <img src="user_data/<?php echo $userID ?>/images/banner_image.jpg" alt="author image">
+                                <img src="<?=$userBannerImgSrc ?>" alt="author image">
                             </div>
 
                             <div class="author_module about_author">

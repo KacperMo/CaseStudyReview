@@ -51,13 +51,22 @@
                                  <div class='author-author__info inline has_dropdown'>
 
                                      <?php
-                                   
+                                        require_once "connect.php";
+
+                                        $userID =  $_SESSION["userID"];
+                                        $query = "SELECT * FROM `users` WHERE userID = $userID";
+                                        $result = mysqli_query($polaczenie, $query) or die(mysqli_error($polaczenie));
+                                        $user = $result->fetch_assoc();
+                                        
+                                        $userBannerImgSrc = "user_data/{$userID}/images/banner_image.jpg";
+                                        $userProfileImgSrc = "user_data/{$userID}/images/profile_image.jpg";
+                                        
                                         // Check if the user is already logged in, if yes then redirect him to welcome page
                                         if (isset($_SESSION['loggedin']) && @($_SESSION['loggedin'] == true)) {
                                             echo "
                                                     
-                                                    <div class='author__avatar'>
-                                                        <img src='images/usr_avatar.png' alt='user avatar'>
+                                                    <div class='author_avatar'>
+                                                        <img src='${userProfileImgSrc}' alt='user avatar'>
                         
                                                     </div>
                                                     <div class='autor__info'>
@@ -112,7 +121,7 @@
                                      <span class="lnr lnr-cross close_menu"></span>
                                      <div class="author-author__info">
                                          <div class="author__avatar v_middle">
-                                             <img src="images/usr_avatar.png" alt="user avatar">
+                                             <img src="<?=$userProfileImgSrc?>" alt="user avatar">
                                          </div>
                                          <div class="autor__info v_middle">
                                              <p class="name">

@@ -21,9 +21,14 @@ foreach ($user_data as $key => $value) {
     }
 }
 uploadUserImage($userID,"banner_image");
-//header('Location: ' . 'dashboard-setting.php');
+uploadUserImage($userID,"profile_image");
+
+header('Location: ' . 'dashboard-setting.php');
 
 function uploadUserImage($userID, $fileName){
+    // Check if user uploaded file
+    if($_FILES[$fileName]["name"]!=""){
+       
     $maxFileSize = 50000000;
     $target_dir = "user_data/".$userID."/images//";
     $target_file = $target_dir . basename($_FILES[$fileName]["name"]);
@@ -47,7 +52,11 @@ function uploadUserImage($userID, $fileName){
         echo "Sorry, file already exists.";
         $uploadOk = 0;
     }
-    
+    // Check if user uploaded file
+    if($_FILES[$fileName]==""){
+        echo "No file uploaded";
+        $uploadOk = 0;
+    }
     // Check file size
     if ($_FILES[$fileName]["size"] > $maxFileSize) {
         echo "Sorry, your file is too large.";
@@ -75,4 +84,5 @@ function uploadUserImage($userID, $fileName){
             echo "Sorry, there was an error uploading your file.";
         }
     }
+}
 }
