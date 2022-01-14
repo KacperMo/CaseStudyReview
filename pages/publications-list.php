@@ -1,10 +1,10 @@
 <?php
-require_once('header.php');
-?>
+    require_once('header.php');
+    ?>
 
 <body class="preload home3">
 
-    <?php
+<?php
     @session_start();
     require_once('navibar.php');
     ?>
@@ -24,8 +24,7 @@ require_once('header.php');
                         <div class="search">
                             <div class="search__title">
                                 <h3>
-                                    <span></span>
-                                </h3>
+                                    <span></span> </h3>
                             </div>
                             <div class="search__field">
                                 <form action="publication-grid.php">
@@ -39,10 +38,10 @@ require_once('header.php');
                                 <ul>
                                     <li>
                                         <a href="#products">
-                                            <?php
-                                            require_once("showpublication.php");
-                                            $TakeSolutions = TakeSolutions();
-                                            echo "Znaleziono " . $TakeSolutions->rowCount . " publikacji";
+                                            <?php 
+                                                require_once("showpublication.php");
+                                                $TakeSolutions=TakeSolutions();
+                                                echo "Znaleziono ".$TakeSolutions->rowCount." publikacji";
                                             ?>
                                         </a>
                                     </li>
@@ -79,7 +78,7 @@ require_once('header.php');
                                         <span>35</span>
                                     </a>
                                 </li>
-
+                                
                             </ul>
                         </div>
                         <!-- end /.filter__option -->
@@ -98,13 +97,13 @@ require_once('header.php');
                                 <li>
                                     <a href="#">Najlepiej oceniane </a>
                                 </li>
-
+                                
                             </ul>
                         </div>
                         <!-- end /.filter__option -->
 
 
-                        <!--   <div class="filter__option filter--select">
+                      <!--   <div class="filter__option filter--select">
                             <div class="select-wrap">
                                 <select name="date">
                                     <option value="low"> od najnowwszych</option>
@@ -146,6 +145,7 @@ require_once('header.php');
                 </div>
                 <!-- end /.col-md-12 -->
             </div>
+            
             <!-- end filter-bar -->
         </div>
     </div>
@@ -153,119 +153,135 @@ require_once('header.php');
     <!--================================
         END FILTER AREA
     =================================-->
-
-
     <!--================================
         START PRODUCTS AREA
     =================================-->
-    <section class="products" id="products">
+    <section class="products section--padding2">
         <!-- start container -->
         <div class="container">
 
-            <!-- start .row -->
-            <div class="row">
 
-                <?php
-                $TakeSolutions = TakeSolutions();
-                //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
-                foreach ($TakeSolutions->publicationData as $row) {
-                    echo "<!-- start .col-md-4 -->
-                        <div class='col-lg-4 col-md-6'>
-                        <!-- start .single-product -->
-                        <div class='product product--card'>
-    
-                            <div class='product__thumbnail'>
-                            ";
-                    if (@!file_exists($row[IMGsrc])) {
-                        @$row[IMGsrc] = 'images/lp1.jpg';
+
+            <?php
+                    $TakeSolutions=TakeSolutions();
+                    //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
+                    foreach($TakeSolutions->publicationData as $row){
+                        echo("
+                        <!-- start .row -->
+                        <div class='row'>
+                            <!-- start .col-md-4 -->
+                            <div class='col-md-12'>
+                                <!-- start .single-product -->
+                                <div class='product product--list'>
+            
+                                    <div class='product__thumbnail'>
+                                    ");
+                                    if (@!file_exists($row[IMGsrc])) {
+                                        @$row[IMGsrc]='images/lp1.jpg';
+                                    }; 
+                                    echo("
+                                    <img src='$row[IMGsrc]' alt='Product Image'>
+                                        <div class='prod_btn'>
+                                            <div class='prod_btn__wrap'>
+                                                <a href='single-publication.php?publicationID=$row[publicationID]' class='transparent btn--sm btn--round'>Czytaj Dalej</a>
+                                            </div>
+                                        </div>
+                                        <!-- end /.prod_btn -->
+                                    </div>
+                                    <!-- end /.product__thumbnail -->
+            
+                                    <div class='product__details'>
+                                        <div class='product-desc'>
+                                            <a href='single-publication.php?publicationID=$row[publicationID]' class='product_title'>
+                                                <h4>$row[title]</h4>
+                                            </a>
+                                            <p>$row[abstract]</p>
+            
+                                            <ul class='titlebtm'>
+                                                <li class='product_cat'>
+                                                    <a href='#'>
+                                                        <span class='lnr lnr-book'></span>IT</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- end /.product-desc -->
+            
+                                        <div class='product-meta'>
+                                            <div class='author'>
+                                                <img class='auth-img' src='images/auth3.jpg' alt='author image'>
+                                                <p>
+                                                    <a href='#'>Imie Nazwisko</a>
+                                                </p>
+                                            </div>
+            
+                                            <div class='product-tags'>
+                                                <span>Tags:</span>
+                                                <ul>
+                                                    <li>
+                                                        <a href='#'>plugins</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href='#'>wordpress</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href='#'>dynamic</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href='#'>php</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+            
+                                        </div>
+                                        <!-- end product-meta -->
+            
+                                        <div class='product-purchase'>
+                                            <div class='price_love'>
+                                                <span>IT</span>
+                                            </div>
+                                            <div class='sell'>
+                                                <p>
+                                                    <span class='lnr lnr-heart'></span> 90 wyświetleń</p>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- end /.product-purchase -->
+                                    </div>
+                                </div>
+                                <!-- end /.single-product -->
+            
+                               
+                            </div>
+                            <!-- end /.col-md-4 -->
+                        </div>
+                        <!-- end /.row -->
+                        ");
                     }
-                    echo "
-                                <img src='$row[IMGsrc]' alt='Product Image'>
-                                <div class='prod_btn'>
-                                    <a href='single-publication.php?publicationID=$row[publicationID]' class='transparent btn--sm btn--round'>Czytaj dalej</a>
-                                </div>
-                                <!-- end /.prod_btn -->
-                            </div>
-                            <!-- end /.product__thumbnail -->
-    
-                            <div class='product-desc'>
-                                <a href='single-publication.php?publicationID=$row[publicationID]' 'class='product_title'>
-                                    <h4>$row[title]</h4>
-                                </a>
-                                <ul class='titlebtm'>
-                                    <li>
-                                        <img class='auth-img' src='images/usr_avatar.png' alt='author image'>
-                                        <p>
-                                            <a href='#'>Mgr. Jank Kowalski</a>
-                                        </p>
-                                    </li>
-                                    <li class='product_cat'>
-                                        <a href='publications-grid.php'>
-                                            <span class='lnr lnr-book'></span>Plugin</a>
-                                    </li>
-                                </ul>
-    
-                                <p>$row[abstract]</p>
-                            </div>
-                            <!-- end /.product-desc -->
-    
-                            <div class='product-purchase'>
-                                <div class='price_love'>
-                                    <p>
-                                        <span class='lnr lnr-heart'></span> $row[stars]</p>
-                                        
-                                </div>
-                                
-                            </div>
-                            <!-- end /.product-purchase -->
-                        </div>
-                        <!-- end /.single-product -->
-                        </div>
-                        <!-- end /.col-md-4 -->";
-                }
-                ?>
+
+
+
+            ?>
 
 
 
 
 
 
-            </div>
-            <!-- end /.row -->
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="pagination-area">
                         <nav class="navigation pagination" role="navigation">
                             <div class="nav-links">
-                                <a class="prev page-numbers" href="publications-grid.php">
+                                <a class="prev page-numbers" href="#">
                                     <span class="lnr lnr-arrow-left"></span>
                                 </a>
-
-                                <?php
-                                $NumOfPage = ceil(($TakeSolutions->rowCount) / 9);
-
-                                for ($x = 1; $x < $NumOfPage + 1; $x++) {
-                                    if (@($_GET['Page']) == $x) {
-
-                                        echo ("<a class='page-numbers current' href='$_SERVER[REQUEST_URI]'>$x</a>");
-                                        // echo("<li class='page-item active'><a href='$_SERVER[REQUEST_URI]' class='page-link'>$x</a></li>");
-                                    } else {
-                                        echo ("<a class='page-numbers' href='publications-grid.php?Page=$x'>$x</a>");
-                                    }
-                                }
-                                echo "<a class='next page-numbers' href='publications-grid.php?Page=$NumOfPage'>
-                                    <span class='lnr lnr-arrow-right'></span>
-                                </a>";
-
-                                ?>
-                                <!-- <a class="page-numbers current" href="#">1</a>
+                                <a class="page-numbers current" href="#">1</a>
                                 <a class="page-numbers" href="#">2</a>
-                                <a class="page-numbers" href="#">3</a> -->
-
-
-
-
+                                <a class="page-numbers" href="#">3</a>
+                                <a class="next page-numbers" href="#">
+                                    <span class="lnr lnr-arrow-right"></span>
+                                </a>
                             </div>
                         </nav>
                     </div>
@@ -278,6 +294,8 @@ require_once('header.php');
     <!--================================
         END PRODUCTS AREA
     =================================-->
+
+
 
 
     <!--================================
@@ -303,6 +321,7 @@ require_once('header.php');
         END CALL TO ACTION AREA
     =================================-->
 
+ 
 
     <?php
     require_once('footer.php');

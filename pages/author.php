@@ -1,27 +1,25 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start();
-}
 if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
-    require_once 'inc/head.php';
-    require_once 'inc/navibar.php';
-    require_once "inc/connect.php";
-    require_once "inc/user.php";
+    require_once('../components/head.php');
+    require_once('../components/navibar.php');
+    require_once "connect.php";
 } else {
     echo
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
-    header("Location: index.php");
+    header("Location: ../index.php");
     die();
 }
 
-require_once "inc/connect.php";
+require_once "connect.php";
 
-$user_id =  $_SESSION["user_id"];
-$user = get_user($user_id, $mysqli_connection);
+$userID =  $_SESSION["userID"];
+$query = "SELECT * FROM `users` WHERE userID = $userID";
+$result = mysqli_query($polaczenie, $query) or die(mysqli_error($polaczenie));
+$user = $result->fetch_assoc();
 
-$userBannerImgSrc = "users/{$user_id}/images/banner_image.jpg";
-$userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
+$userBannerImgSrc = "user_data/{$userID}/images/banner_image.jpg";
+$userProfileImgSrc = "user_data/{$userID}/images/profile_image.jpg";
 
 ?>
 
@@ -59,12 +57,12 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
                         <div class="author-card sidebar-card">
                             <div class="author-infos">
                                 <div class="author_avatar">
-                                    <img src="<?= $userProfileImgSrc ?>" alt="Profile image">
+                                    <img src="<?=$userProfileImgSrc?>" alt="Profile image">
                                 </div>
 
                                 <div class="author">
-                                    <h4><?= $user['name'] ?> <?= $user['surname'] ?></h4>
-                                    <p>Z nami od <?= $user['dateOfRegistration'] ?> </p>
+                                    <h4><?=$user['name']?> <?=$user['surname']?></h4>
+                                    <p>Z nami od <?=$user['dateOfRegistration']?> </p>
                                 </div>
                                 <!-- end /.author -->
 
@@ -179,7 +177,7 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
 
                         <div class="col-md-12 col-sm-12">
                             <div class="author_module">
-                                <img src="<?= $userBannerImgSrc ?>" alt="author image">
+                                <img src="<?=$userBannerImgSrc ?>" alt="author image">
                             </div>
 
                             <div class="author_module about_author">
