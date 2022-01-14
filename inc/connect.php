@@ -4,4 +4,4 @@ $db_user = "root";
 $db_password = "";
 $db_name = "ubw";
 
-$polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
+$mysqli_connection = @new mysqli($host, $db_user, $db_password, $db_name);

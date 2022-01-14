@@ -1,12 +1,10 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start();
-}
+
+session_start();
 if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
-    require_once 'inc/head.php';
-    require_once 'inc/navibar.php';
-    require_once "inc/connect.php";
-    require_once "inc/user.php";
+    require_once('inc/head.php');
+    require_once('navibar.php');
+    require_once "connect.php";
 } else {
     echo
     error_reporting(E_ALL);
@@ -14,17 +12,46 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
     header("Location: index.php");
     die();
 }
-
-$user_id =  $_SESSION["user_id"];
-$user = get_user($user_id, $mysqli_connection);
-
-//$userBannerImgSrc = "images/cvrplc.jpg" ;
-$userBannerImgSrc = "users/{$user_id}/images/banner_image.jpg";
-//$userProfileImgSrc = "images/authplc.png";
-$userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
 ?>
 
 <body class="preload dashboard-setting">
+
+
+    <?php
+    $userID =  $_SESSION["userID"];
+    $query = "SELECT * FROM `users` WHERE `users`.`userID` = $userID";
+    $result = mysqli_query($polaczenie, $query) or die(mysqli_error($polaczenie));
+    $user = $result->fetch_assoc();
+
+    //this is the structure that is being used
+    /*
+    $user = array(
+        'accountName' => 'kciesla',
+        'name' => 'Kamil',
+        'surname' => 'Cieśla',
+        'dateOfRegistration' => '2021',
+        'email' => 'kamilciesla34@gmail.com',
+        'website' => 'https://www.xyz.com',
+        'country' => 'Poland',
+        'motto' => 'FullStack',
+        'aboutMe' => 'im a new user...',
+        'colleges' => 'uek',
+    );
+    */
+    $userID =  $_SESSION["userID"];
+    $query = "SELECT * FROM `users` WHERE userID = $userID";
+    $result = mysqli_query($polaczenie, $query) or die(mysqli_error($polaczenie));
+    $user = $result->fetch_assoc();
+    
+    $userBannerImgSrc = "user_data/{$userID}/images/banner_image.jpg";
+    $userProfileImgSrc = "user_data/{$userID}/images/profile_image.jpg";
+
+    $userQuote = '" Życie jest jak tabliczka czekolady ,,';
+    $userProfileLink = "https://casestudyreview.pl/{$user['accountName']}";
+    ?>
+
+
+
     <!--================================
         START BREADCRUMB AREA
     =================================-->
@@ -35,7 +62,7 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
                     <div class="breadcrumb">
 
                     </div>
-                    <h1 class="page-title"> " Życie jest jak tabliczka czekolady ,,</h1>
+                    <h1 class="page-title"> <?=$userQuote?></h1>
                 </div>
                 <!-- end /.col-md-12 -->
             </div>
@@ -109,7 +136,7 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
                 </div>
                 <!-- end /.row -->
 
-                <form class="setting_form" action="inc/user.php?function=update_user_data" method="post" autocomplete="on" enctype="multipart/form-data">
+                <form class="setting_form" action="update-user-settings.php" method="post" autocomplete="on" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="information_module">
@@ -125,7 +152,7 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
                                             <label for="acname">Account Name
                                                 <sup>*</sup>
                                             </label>
-                                            <input name="accountName" type="text" id="acname" class="text_field" placeholder="Account Name" value="<?php echo $user['accountName'] ?>">
+                                            <input name="accountName" type="text" id="acname" class="text_field" placeholder="Account Name" value="<?= $user['accountName'] ?>">
 
                                         </div>
 
@@ -133,16 +160,18 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
                                             <label for="usrname">Username
                                                 <sup>*</sup>
                                             </label>
-                                            <input name="name" type="text" id="usrname" class="text_field" placeholder="Username" value="<?php echo $user['name'] ?>">
-                                            <p>Twój profil będzie dostępny pod adresem URL: <a href="https://casestudyreview.pl/<?php echo $user['accountName'] ?>">https://casestudyreview.pl/<?php echo $user['accountName'] ?>
-                                                </a></p>
+                                            <input name="name" type="text" id="usrname" class="text_field" placeholder="Username" value="<?= $user['name'] ?>">
+                                            <p>Twój profil będzie dostępny pod adresem URL: 
+                                                <a href="<?=$userProfileLink?>"><?=$userProfileLink?>
+                                                </a>
+                                            </p>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="emailad">Email Address
                                                 <sup>*</sup>
                                             </label>
-                                            <input name="email" type="text" id="emailad" class="text_field" placeholder="Email address" value="<?php echo $user['email'] ?>">
+                                            <input name="email" type="text" id="emailad" class="text_field" placeholder="Email address" value="<?= $user['email'] ?>">
                                         </div>
 
                                         <div class="row">
@@ -167,7 +196,7 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
 
                                         <div class="form-group">
                                             <label for="website">Website</label>
-                                            <input name="website" type="text" id="website" class="text_field" placeholder="Website" value="<?php echo $user['website'] ?>">
+                                            <input name="website" type="text" id="website" class="text_field" placeholder="Website" value="<?= $user['website'] ?>">
                                         </div>
 
                                         <div class="form-group">
@@ -175,8 +204,8 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
                                                 <sup>*</sup>
                                             </label>
                                             <div class="select-wrap select-wrap2">
-                                                <select name="country" id="country" class="text_field" <?php echo $user['accountName'] ?>>
-                                                    <option value=""><?php echo $user['country'] ?></option>
+                                                <select name="country" id="country" class="text_field" <?= $user['accountName'] ?>>
+                                                    <option value=""><?= $user['country'] ?></option>
                                                     <option value="pl">Polska</option>
                                                     <option value="usa">USA</option>
                                                     <option value="en">England</option>
@@ -188,12 +217,12 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
 
                                         <div class="form-group">
                                             <label for="prohead">Motto</label>
-                                            <input name="motto" type="text" id="prohead" class="text_field" placeholder="Ex: Webdesign & Development Service" value="<?php echo $user['motto'] ?>">
+                                            <input name="motto" type="text" id="prohead" class="text_field" placeholder="Ex: Webdesign & Development Service" value="<?= $user['motto'] ?>">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="authbio">Dodaj coś od siebie</label>
-                                            <textarea name="aboutMe" id="authbio" class="text_field" placeholder="Short brief about yourself or your account..."><?php echo $user['aboutMe'] ?>
+                                            <textarea name="aboutMe" id="authbio" class="text_field" placeholder="Short brief about yourself or your account..."><?= $user['aboutMe'] ?>
                                         </textarea>
                                         </div>
                                     </div>
@@ -218,7 +247,7 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
                                 <div class="information__set profile_images toggle_module collapse" id="collapse3">
                                     <div class="information_wrapper">
                                         <div class="profile_image_area">
-                                            <img src="<?= $userProfileImgSrc ?>" alt="Author profile area">
+                                            <img src="<?=$userProfileImgSrc?>" alt="Author profile area">
                                             <div class="img_info">
                                                 <p class="bold">Zdjęcie profilowe</p>
                                                 <p class="subtitle">JPG, GIF or PNG 100x100 px</p>
@@ -232,7 +261,7 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
 
                                         <div class="prof_img_upload">
                                             <p class="bold">Baner</p>
-                                            <img src="<?= $userBannerImgSrc ?>" alt="The great warrior of China">
+                                            <img src="<?=$userBannerImgSrc?>" alt="User banner image">
 
                                             <div class="upload_title">
                                                 <p>JPG, GIF or PNG 750x370 px</p>

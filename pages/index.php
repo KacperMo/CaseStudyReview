@@ -1,6 +1,6 @@
 <?php
-require_once('inc/head.php');
-require_once('inc/navibar.php')
+require_once('components/head.php');
+require_once('components/navibar.php')
 ?>
 
 <body class="preload home1 mutlti-vendor">
@@ -148,7 +148,7 @@ require_once('inc/navibar.php')
     </section>
 
     <?php
-    require_once('inc/footer.php');
+    require_once('components/footer.php');
     ?>
 </body>
 
