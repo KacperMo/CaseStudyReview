@@ -1,13 +1,10 @@
 <?php
-    require_once('header.php');
-    ?>
+require_once('inc/head.php');
+require_once('inc/navibar.php');
+
+?>
 
 <body class="preload single_prduct2">
-
-<?php
-    require_once('navibar.php');
-    ?>
-
     <!--================================
         START BREADCRUMB AREA
     =================================-->
@@ -18,23 +15,23 @@
                     <div class="breadcrumb">
                         <ul>
                             <li>
-                            <a href="index.php">Główna</a>
+                                <a href="index.php">Główna</a>
                             </li>
                             <li>
-                            <a href="publications-grid.php">Publikacje</a>
+                                <a href="publications-grid.php">Publikacje</a>
                             </li>
                         </ul>
                     </div>
 
                     <?php
-                        require_once("showpublication.php");
-                        $TakeSolutions=TakeSolutions();
-                        //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
-                                    
-                        foreach($TakeSolutions->publicationData as $row){                              
-                        }
-                        echo " <h1 class='page-title'>$row[title]</h1>";
-                    ?>                   
+                    require_once("showpublication.php");
+                    $get_solutions = get_solutions();
+                    //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
+
+                    foreach ($get_solutions->publication_data as $row) {
+                    }
+                    echo " <h1 class='page-title'>$row[title]</h1>";
+                    ?>
                 </div>
                 <!-- end /.col-md-12 -->
             </div>
@@ -56,13 +53,13 @@
                 <div class="col-lg-8">
                     <div class="item-preview item-preview2">
                         <div class="prev-slide">
-                        <?php 
-                            echo "<img src='$row[IMGsrc]' alt='$row[title]'>";
-                        ?>
-                           
+                            <?php
+                            echo "<img src='$row[img_src]' alt='$row[title]'>";
+                            ?>
+
                         </div>
 
-                        
+
 
                         <div class="tab tab2">
                             <div class="item-navigation">
@@ -78,30 +75,29 @@
                             <!-- end /.item-navigation -->
 
                             <div class="tab-content">
-                            <div class="tab-pane fade product-tab active show" id="product-details">
-                                <?php 
-                                echo "<div class='tab-content-wrapper'>
+                                <div class="tab-pane fade product-tab active show" id="product-details">
+                                    <?php
+                                    echo "<div class='tab-content-wrapper'>
 
-                                    <h1>".$row['title']."</h1>
-                                    <p>".$row['abstract']."</p>
+                                    <h1>" . $row['title'] . "</h1>
+                                    <p>" . $row['abstract'] . "</p>
                                     <h2>Opis</h2>
                                     <ul>
-                                    <p>".$row['description']."</p>
+                                    <p>" . $row['description'] . "</p>
                                     </ul>";
 
-                                    if ( file_exists($row['src'].'pageone.jpg') )
-                                    { 
-                                      echo "<img src='".$row['src'].'pageone.jpg'."' alt='$row[title]' style='margin-bottom: 0px; padding-bottom: 0px;'>";
+                                    if (file_exists($row['src'] . 'pageone.jpg')) {
+                                        echo "<img src='" . $row['src'] . 'pageone.jpg' . "' alt='$row[title]' style='margin-bottom: 0px; padding-bottom: 0px;'>";
                                     }
-                                echo "</div>";
-                                ?>
-
-                                
+                                    echo "</div>";
+                                    ?>
 
 
-                            </div>
+
+
+                                </div>
                                 <!-- end /.tab-content -->
-  <!--============================================
+                                <!--============================================
         START COMENT AREA
     ==============================================-->
                                 <div class="tab-pane product-tab fade" id="product-comment">
@@ -176,14 +172,14 @@
                                         </ul>
                                         <!-- end /.media-list -->
 
-                                        
+
                                         <!-- end /.comment pagination area -->
 
                                         <div class="comment-form-area">
                                             <h4>Leave a comment</h4>
                                             <!-- comment reply -->
                                             <div class="media comment-form">
-                                                
+
                                                 <div class="media-body">
                                                     <form action="#" class="comment-reply-form">
                                                         <textarea name="reply-comment" placeholder="Write your comment..."></textarea>
@@ -207,27 +203,27 @@
                 </div>
                 <!-- end /.col-md-8 -->
 
-                
+
                 <!-- start right side -->
                 <div class="col-lg-4">
                     <aside class="sidebar sidebar--single-product">
-                    <div class="author-card sidebar-card ">
-                    <div class="author-infos">
-                            <?php 
-                                        echo '
+                        <div class="author-card sidebar-card ">
+                            <div class="author-infos">
+                                <?php
+                                echo '
                                        
                                             <div class="author_avatar">
                                                 <img src="images/usr_avatar.png" alt="user avatar">
                                             </div>
             
                                             <div class="author">
-                                            <h4>'.$row['autornIFnotlLogIn'].'</h4>
+                                            <h4>' . $row['autornIFnotlLogIn'] . '</h4>
                                                 
                                             </div>
                                             <!-- end /.author -->            
-                                          '; 
-                            ?>
-                                           <!-- <div class="social social--color--filled">
+                                          ';
+                                ?>
+                                <!-- <div class="social social--color--filled">
                                                 <ul>
                                                     <li>
                                                         <a href="#">
@@ -246,15 +242,15 @@
                                                     </li>
                                                 </ul>
                                             </div> -->
-                                            <!-- end /.social -->
-            
-                                            <div class="author-btn">
-                                                <a href="#" class="btn btn--sm btn--round"> Profil</a>
-                                                <a href="#" class="btn btn--sm btn--round">Wiadomość</a>
-                                            </div>
-                                            <!-- end /.author-btn -->
-                                    
-                     </div>
+                                <!-- end /.social -->
+
+                                <div class="author-btn">
+                                    <a href="#" class="btn btn--sm btn--round"> Profil</a>
+                                    <a href="#" class="btn btn--sm btn--round">Wiadomość</a>
+                                </div>
+                                <!-- end /.author-btn -->
+
+                            </div>
                             <!-- end /.author-infos -->
 
 
@@ -265,18 +261,21 @@
                             <ul class="data">
                                 <li>
                                     <p>
-                                        <span class="lnr lnr-eye mcolor4"></span>Wyświetlenia</p>
+                                        <span class="lnr lnr-eye mcolor4"></span>Wyświetlenia
+                                    </p>
                                     <span>0</span>
                                 </li>
                                 <li>
                                     <p>
-                                        <span class="lnr lnr-bubble mcolor3"></span>Kommentarze</p>
+                                        <span class="lnr lnr-bubble mcolor3"></span>Kommentarze
+                                    </p>
                                     <span>0</span>
                                 </li>
-                                
+
                                 <li>
                                     <p>
-                                        <span class="lnr lnr-heart scolor"></span>Polubień</p>
+                                        <span class="lnr lnr-heart scolor"></span>Polubień
+                                    </p>
                                     <span>0</span>
                                 </li>
                             </ul>
@@ -333,14 +332,8 @@
     <!--===========================================
         END SINGLE PRODUCT DESCRIPTION AREA
     ===============================================-->
-
-  
-
-
-
-
     <?php
-    @require_once('footer.php');
+    @require_once('inc/footer.php');
     ?>
 </body>
 

@@ -1,109 +1,106 @@
 <?php
-    require_once('header.php');
-    ?>
+require_once('header.php');
+require_once('navibar.php');
+if (!isset($_SESSION)) {
+    session_start();
+}
+?>
 
 <body class="preload home3">
 
-<?php
-    @session_start();
-    require_once('navibar.php');
-    ?>
-
-
-    <!--================================
-        START SEARCH AREA
-    =================================-->
-    <section class="search-wrapper">
-        <div class="search-area2 bgimage">
-            <div class="bg_image_holder">
-                <img src="images/library-869061.jpg" alt="library">
-            </div>
-            <div class="container content_above">
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <div class="search">
-                            <div class="search__title">
-                                <h3>
-                                    <span></span> </h3>
-                            </div>
-                            <div class="search__field">
-                                <form action="publication-grid.php">
-                                    <div class="field-wrapper">
-                                        <input class="relative-field rounded" type="text" placeholder="Automatyzacja i rozwój">
-                                        <button class="btn btn--round" type="submit">Szukaj</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="breadcrumb">
-                                <ul>
-                                    <li>
-                                        <a href="#products">
-                                            <?php 
+    < <!--================================START SEARCH AREA=================================-->
+        <section class="search-wrapper">
+            <div class="search-area2 bgimage">
+                <div class="bg_image_holder">
+                    <img src="images/library-869061.jpg" alt="library">
+                </div>
+                <div class="container content_above">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="search">
+                                <div class="search__title">
+                                    <h3>
+                                        <span></span>
+                                    </h3>
+                                </div>
+                                <div class="search__field">
+                                    <form action="publication-grid.php">
+                                        <div class="field-wrapper">
+                                            <input class="relative-field rounded" type="text" placeholder="Automatyzacja i rozwój">
+                                            <button class="btn btn--round" type="submit">Szukaj</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="breadcrumb">
+                                    <ul>
+                                        <li>
+                                            <a href="#products">
+                                                <?php
                                                 require_once("showpublication.php");
-                                                $TakeSolutions=TakeSolutions();
-                                                echo "Znaleziono ".$TakeSolutions->rowCount." publikacji";
-                                            ?>
-                                        </a>
-                                    </li>
-                                </ul>
+                                                $get_solutions = get_solutions();
+                                                echo "Znaleziono " . $get_solutions->rowCount . " publikacji";
+                                                ?>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- end /.row -->
                 </div>
-                <!-- end /.row -->
+                <!-- end /.container -->
             </div>
-            <!-- end /.container -->
-        </div>
-        <!-- end /.search-area2 -->
-    </section>
-    <!--================================
+            <!-- end /.search-area2 -->
+        </section>
+        <!--================================
         END SEARCH AREA
     =================================-->
 
-    <!--================================
+        <!--================================
         START FILTER AREA
     =================================-->
-    <div class="filter-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="filter-bar">
-                        <div class="filter__option filter--dropdown">
-                            <a href="#" id="drop1" class="dropdown-trigger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategorie
-                                <span class="lnr lnr-chevron-down"></span>
-                            </a>
-                            <ul class="custom_dropdown custom_drop2 dropdown-menu" aria-labelledby="drop1">
-                                <li>
-                                    <a href="#">IT
-                                        <span>35</span>
-                                    </a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                        <!-- end /.filter__option -->
+        <div class="filter-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="filter-bar">
+                            <div class="filter__option filter--dropdown">
+                                <a href="#" id="drop1" class="dropdown-trigger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategorie
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </a>
+                                <ul class="custom_dropdown custom_drop2 dropdown-menu" aria-labelledby="drop1">
+                                    <li>
+                                        <a href="#">IT
+                                            <span>35</span>
+                                        </a>
+                                    </li>
 
-                        <div class="filter__option filter--dropdown">
-                            <a href="#" id="drop2" class="dropdown-trigger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sortuj po
-                                <span class="lnr lnr-chevron-down"></span>
-                            </a>
-                            <ul class="custom_dropdown dropdown-menu" aria-labelledby="drop2">
-                                <li>
-                                    <a href="#">Popularne</a>
-                                </li>
-                                <li>
-                                    <a href="#">Najnowsze</a>
-                                </li>
-                                <li>
-                                    <a href="#">Najlepiej oceniane </a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                        <!-- end /.filter__option -->
+                                </ul>
+                            </div>
+                            <!-- end /.filter__option -->
+
+                            <div class="filter__option filter--dropdown">
+                                <a href="#" id="drop2" class="dropdown-trigger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sortuj po
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </a>
+                                <ul class="custom_dropdown dropdown-menu" aria-labelledby="drop2">
+                                    <li>
+                                        <a href="#">Popularne</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Najnowsze</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Najlepiej oceniane </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <!-- end /.filter__option -->
 
 
-                      <!--   <div class="filter__option filter--select">
+                            <!--   <div class="filter__option filter--select">
                             <div class="select-wrap">
                                 <select name="date">
                                     <option value="low"> od najnowwszych</option>
@@ -112,61 +109,61 @@
                                 <span class="lnr lnr-chevron-down"></span>
                             </div>
                         </div> -->
-                        <!-- end /.filter__option -->
+                            <!-- end /.filter__option -->
 
-                        <div class="filter__option filter--select">
-                            <div class="select-wrap">
-                                <select name="publicationPerPage">
-                                    <option value="12" selected="selected">ilość na stronie</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="45">45</option>
-                                </select>
-                                <span class="lnr lnr-chevron-down"></span>
+                            <div class="filter__option filter--select">
+                                <div class="select-wrap">
+                                    <select name="publicationPerPage">
+                                        <option value="12" selected="selected">ilość na stronie</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="45">45</option>
+                                    </select>
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </div>
                             </div>
-                        </div>
-                        <!-- end /.filter__option -->
+                            <!-- end /.filter__option -->
 
-                        <div class="filter__option filter--layout">
-                            <a href="publications-grid.php">
-                                <div class="svg-icon">
-                                    <img class="svg" src="images/svg/grid.svg" alt="it's just a layout control folks!">
-                                </div>
-                            </a>
-                            <a href="publications-list.php">
-                                <div class="svg-icon">
-                                    <img class="svg" src="images/svg/list.svg" alt="it's just a layout control folks!">
-                                </div>
-                            </a>
+                            <div class="filter__option filter--layout">
+                                <a href="publications-grid.php">
+                                    <div class="svg-icon">
+                                        <img class="svg" src="images/svg/grid.svg" alt="it's just a layout control folks!">
+                                    </div>
+                                </a>
+                                <a href="publications-list.php">
+                                    <div class="svg-icon">
+                                        <img class="svg" src="images/svg/list.svg" alt="it's just a layout control folks!">
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- end /.filter__option -->
                         </div>
-                        <!-- end /.filter__option -->
+                        <!-- end /.filter-bar -->
                     </div>
-                    <!-- end /.filter-bar -->
+                    <!-- end /.col-md-12 -->
                 </div>
-                <!-- end /.col-md-12 -->
+
+                <!-- end filter-bar -->
             </div>
-            
-            <!-- end filter-bar -->
         </div>
-    </div>
-    <!-- end /.filter-area -->
-    <!--================================
+        <!-- end /.filter-area -->
+        <!--================================
         END FILTER AREA
     =================================-->
-    <!--================================
+        <!--================================
         START PRODUCTS AREA
     =================================-->
-    <section class="products section--padding2">
-        <!-- start container -->
-        <div class="container">
+        <section class="products section--padding2">
+            <!-- start container -->
+            <div class="container">
 
 
 
-            <?php
-                    $TakeSolutions=TakeSolutions();
-                    //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
-                    foreach($TakeSolutions->publicationData as $row){
-                        echo("
+                <?php
+                $get_solutions = get_solutions();
+                //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
+                foreach ($get_solutions->publicationData as $row) {
+                    echo ("
                         <!-- start .row -->
                         <div class='row'>
                             <!-- start .col-md-4 -->
@@ -176,11 +173,11 @@
             
                                     <div class='product__thumbnail'>
                                     ");
-                                    if (@!file_exists($row[IMGsrc])) {
-                                        @$row[IMGsrc]='images/lp1.jpg';
-                                    }; 
-                                    echo("
-                                    <img src='$row[IMGsrc]' alt='Product Image'>
+                    if (@!file_exists($row[img_src])) {
+                        @$row[img_src] = 'images/lp1.jpg';
+                    };
+                    echo ("
+                                    <img src='$row[img_src]' alt='Product Image'>
                                         <div class='prod_btn'>
                                             <div class='prod_btn__wrap'>
                                                 <a href='single-publication.php?publicationID=$row[publicationID]' class='transparent btn--sm btn--round'>Czytaj Dalej</a>
@@ -256,76 +253,64 @@
                         </div>
                         <!-- end /.row -->
                         ");
-                    }
-
-
-
-            ?>
-
-
-
-
-
-
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="pagination-area">
-                        <nav class="navigation pagination" role="navigation">
-                            <div class="nav-links">
-                                <a class="prev page-numbers" href="#">
-                                    <span class="lnr lnr-arrow-left"></span>
-                                </a>
-                                <a class="page-numbers current" href="#">1</a>
-                                <a class="page-numbers" href="#">2</a>
-                                <a class="page-numbers" href="#">3</a>
-                                <a class="next page-numbers" href="#">
-                                    <span class="lnr lnr-arrow-right"></span>
-                                </a>
-                            </div>
-                        </nav>
+                }
+                ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pagination-area">
+                            <nav class="navigation pagination" role="navigation">
+                                <div class="nav-links">
+                                    <a class="prev page-numbers" href="#">
+                                        <span class="lnr lnr-arrow-left"></span>
+                                    </a>
+                                    <a class="page-numbers current" href="#">1</a>
+                                    <a class="page-numbers" href="#">2</a>
+                                    <a class="page-numbers" href="#">3</a>
+                                    <a class="next page-numbers" href="#">
+                                        <span class="lnr lnr-arrow-right"></span>
+                                    </a>
+                                </div>
+                            </nav>
+                        </div>
                     </div>
                 </div>
+                <!-- end /.row -->
             </div>
-            <!-- end /.row -->
-        </div>
-        <!-- end /.container -->
-    </section>
-    <!--================================
+            <!-- end /.container -->
+        </section>
+        <!--================================
         END PRODUCTS AREA
     =================================-->
 
 
 
 
-    <!--================================
+        <!--================================
         START CALL TO ACTION AREA
     =================================-->
-    <section class="call-to-action bgimage">
-        <div class="bg_image_holder">
-            <img src="images/library-438389.jpg" alt="elibrary">
-        </div>
-        <div class="container content_above">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="call-to-wrap">
-                        <h1 class="text--white">Rozpocznij swoją scieżkę kariery!</h1>
-                        <h4 class="text--white">Dołącz do nas już dziś i rozwiń skrzydła</h4>
-                        <a href="register.php" class="btn btn--lg btn--round btn--white callto-action-btn">Zarejestruj</a>
+        <section class="call-to-action bgimage">
+            <div class="bg_image_holder">
+                <img src="images/library-438389.jpg" alt="elibrary">
+            </div>
+            <div class="container content_above">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="call-to-wrap">
+                            <h1 class="text--white">Rozpocznij swoją scieżkę kariery!</h1>
+                            <h4 class="text--white">Dołącz do nas już dziś i rozwiń skrzydła</h4>
+                            <a href="register.php" class="btn btn--lg btn--round btn--white callto-action-btn">Zarejestruj</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!--================================
+        </section>
+        <!--================================
         END CALL TO ACTION AREA
     =================================-->
 
- 
-
-    <?php
-    require_once('footer.php');
-    ?>
+        <?php
+        require_once('inc/footer.php');
+        ?>
 </body>
 
 </html>

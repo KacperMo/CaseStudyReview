@@ -2,7 +2,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
+if (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == true)) {
     require_once 'inc/head.php';
     require_once 'inc/navibar.php';
     require_once "inc/connect.php";
@@ -20,8 +20,8 @@ require_once "inc/connect.php";
 $user_id =  $_SESSION["user_id"];
 $user = get_user($user_id, $mysqli_connection);
 
-$userBannerImgSrc = "users/{$user_id}/images/banner_image.jpg";
-$userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
+$user_banner_img_src = "users/{$user_id}/images/banner_image.jpg";
+$user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
 
 ?>
 
@@ -59,7 +59,7 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
                         <div class="author-card sidebar-card">
                             <div class="author-infos">
                                 <div class="author_avatar">
-                                    <img src="<?= $userProfileImgSrc ?>" alt="Profile image">
+                                    <img src="<?= $user_profile_img_src ?>" alt="Profile image">
                                 </div>
 
                                 <div class="author">
@@ -179,7 +179,7 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
 
                         <div class="col-md-12 col-sm-12">
                             <div class="author_module">
-                                <img src="<?= $userBannerImgSrc ?>" alt="author image">
+                                <img src="<?= $user_banner_img_src ?>" alt="author image">
                             </div>
 
                             <div class="author_module about_author">

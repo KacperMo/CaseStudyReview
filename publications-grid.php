@@ -1,15 +1,12 @@
 <?php
-require_once('header.php');
+require_once('inc/head.php');
+require_once('inc/navibar.php');
+if (!isset($_SESSION)) {
+    session_start();
+}
 ?>
 
 <body class="preload home3">
-
-    <?php
-    @session_start();
-    require_once('navibar.php');
-    ?>
-
-
     <!--================================
         START SEARCH AREA
     =================================-->
@@ -40,9 +37,9 @@ require_once('header.php');
                                     <li>
                                         <a href="#products">
                                             <?php
-                                            require_once("showpublication.php");
-                                            $TakeSolutions = TakeSolutions();
-                                            echo "Znaleziono " . $TakeSolutions->rowCount . " publikacji";
+                                            require_once("show-publication.php");
+                                            $get_solutions = get_solutions();
+                                            echo "Znaleziono " . $get_solutions->rowCount . " publikacji";
                                             ?>
                                         </a>
                                     </li>
@@ -166,9 +163,9 @@ require_once('header.php');
             <div class="row">
 
                 <?php
-                $TakeSolutions = TakeSolutions();
+                $get_solutions = get_solutions();
                 //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
-                foreach ($TakeSolutions->publicationData as $row) {
+                foreach ($get_solutions->publicationData as $row) {
                     echo "<!-- start .col-md-4 -->
                         <div class='col-lg-4 col-md-6'>
                         <!-- start .single-product -->
@@ -176,11 +173,11 @@ require_once('header.php');
     
                             <div class='product__thumbnail'>
                             ";
-                    if (@!file_exists($row[IMGsrc])) {
-                        @$row[IMGsrc] = 'images/lp1.jpg';
+                    if (@!file_exists($row[img_src])) {
+                        @$row[img_src] = 'images/lp1.jpg';
                     }
                     echo "
-                                <img src='$row[IMGsrc]' alt='Product Image'>
+                                <img src='$row[img_src]' alt='Product Image'>
                                 <div class='prod_btn'>
                                     <a href='single-publication.php?publicationID=$row[publicationID]' class='transparent btn--sm btn--round'>Czytaj dalej</a>
                                 </div>
@@ -243,9 +240,9 @@ require_once('header.php');
                                 </a>
 
                                 <?php
-                                $NumOfPage = ceil(($TakeSolutions->rowCount) / 9);
+                                $page_number = ceil(($get_solutions->rowCount) / 9);
 
-                                for ($x = 1; $x < $NumOfPage + 1; $x++) {
+                                for ($x = 1; $x < $page_number + 1; $x++) {
                                     if (@($_GET['Page']) == $x) {
 
                                         echo ("<a class='page-numbers current' href='$_SERVER[REQUEST_URI]'>$x</a>");
@@ -254,7 +251,7 @@ require_once('header.php');
                                         echo ("<a class='page-numbers' href='publications-grid.php?Page=$x'>$x</a>");
                                     }
                                 }
-                                echo "<a class='next page-numbers' href='publications-grid.php?Page=$NumOfPage'>
+                                echo "<a class='next page-numbers' href='publications-grid.php?Page=$page_number'>
                                     <span class='lnr lnr-arrow-right'></span>
                                 </a>";
 

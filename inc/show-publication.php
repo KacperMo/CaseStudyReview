@@ -1,61 +1,59 @@
 <?php
-
-//TakeSolutions();
+//getSolutions();
 //@header("location: solutions.php");
-selectOny();
-function selectOny($what = "category")
+select_only();
+function select_only($what = "category")
 {
-    require "connect.php";
+    require "inc/connect.php";
     $sql = "select DISTINCT category from publications;";
-    $onlyone = $pdo->prepare($sql);
-    //$onlyone->bindParam(':what',$what);    
-    $result = $onlyone->execute();
-    $onlyone->bindColumn(1, $column);
+    $only_one = $pdo->prepare($sql);
+    //$only_one->bindParam(':what',$what);    
+    $result = $only_one->execute();
+    $only_one->bindColumn(1, $column);
 
-    $listOf = array();
-    while ($row = $onlyone->fetch(PDO::FETCH_BOUND)) {
+    $list_of = array();
+    while ($row = $only_one->fetch(PDO::FETCH_BOUND)) {
         $tmp = array();
         $tmp["item"] = $column;
-        array_push($listOf, $tmp);
+        array_push($list_of, $tmp);
     }
     //$stmt->close();
-    //echo("Znaleziono ".$onlyone->rowCount());
-    //print_r($listOf);
+    //echo("Znaleziono ".$only_one->rowCount());
+    //print_r($list_of);
 
-    return $listOf;
+    return $list_of;
 }
 
-function takeAuthorDate($authorID)
+/*
+function get_author_date($user_id)
 {
-    require_once "connect.php";
-
+    require_once "inc/connect.php";
     // ZROBIĆ BINDOWANIE 
-    $AuthorDetail = "SELECT * FROM `users` WHERE `userID`=$authorID";
-
-
-    $takeAuthorDetail = $pdo->prepare($AuthorDetail);
-    $executeAuthorDetail = $takeAuthorDetail->execute();
+    $author_detail = "SELECT * FROM `users` WHERE `userID`=$user_id";
+    $get_author_detail = $pdo->prepare($author_detail);
+    $execute_author_detail = $get_author_detail->execute();
     return 0;
 }
+*/
 
 
-function takeSolutions($publicationLimitOnPage = 9, $offset = 1)
+function get_solutions($publication_limit_on_page = 9, $offset = 1)
 {
-    require "connect.php";
+    require "inc/connect.php";
 
     //ilość wszystkich publikacji
-    $countAllPublication = "SELECT count(`publicationID`) as count FROM publications;";
-    $howManyPublication = $pdo->prepare($countAllPublication);
-    $ExecuteHowManyPublication = $howManyPublication->execute();
-    $numOfPublications = $howManyPublication->fetchAll();
-    $numOfPublications = $numOfPublications[0]['count'];
+    $count_all_publications = "SELECT count(`publicationID`) as count FROM publications;";
+    $how_many_publications = $pdo->prepare($count_all_publications);
+    $execute_how_many_publications = $how_many_publications->execute();
+    $publications_count = $how_many_publications->fetchAll();
+    $publications_count = $publications_count[0]['count'];
 
     //ilość wszystkich publikacji
-    //echo $numOfPublications;
+    //echo $publications_count;
 
     //Prepare a select statement  
-    $sqlTakeSolutions = prepareSQLquerry();
-    $stmt = $pdo->prepare($sqlTakeSolutions);
+    $sql_get_solutions = prepare_sql_query();
+    $stmt = $pdo->prepare($sql_get_solutions);
     /*   
         if($stmt){
             ///echo("prepare <br>");
@@ -111,7 +109,7 @@ function takeSolutions($publicationLimitOnPage = 9, $offset = 1)
         $stmt->bindColumn(15, $abstract);
         $stmt->bindColumn(16, $stars);
 
-        $publicationData = array();
+        $publication_data = array();
 
         while ($row = $stmt->fetch(PDO::FETCH_BOUND)) {
             $tmp = array();
@@ -131,11 +129,11 @@ function takeSolutions($publicationLimitOnPage = 9, $offset = 1)
             $tmp["abstract"] = $abstract;
             $tmp["stars"] = $stars;
 
-            array_push($publicationData, $tmp);
+            array_push($publication_data, $tmp);
         }
         //$stmt->close();
 
-        //echo("<br>Znaleziono ".$numOfPublications);
+        //echo("<br>Znaleziono ".$publications_count);
     } else {
         echo ("błąd wykonania");
     }
@@ -144,12 +142,12 @@ function takeSolutions($publicationLimitOnPage = 9, $offset = 1)
     }
     $count = $stmt->rowCount();
     //print("Found $count rows.\n");
-    //print_r($publicationData);
-    //echo($publicationData)."ee";
+    //print_r($publication_data);
+    //echo($publication_data)."ee";
     //echo("ee");
-    @$stmt->rowCount = $numOfPublications;
-    @$stmt->publicationData = $publicationData;
-    //@$stmt->countPublication =$numOfPublications;
+    @$stmt->rowCount = $publications_count;
+    @$stmt->publication_data = $publication_data;
+    //@$stmt->countPublication =$publications_count;
     //print_r($object);
 
     return $stmt;
@@ -161,29 +159,27 @@ function takeSolutions($publicationLimitOnPage = 9, $offset = 1)
 
 
 //this function get data from url 
-function prepareSQLquerry()
+function prepare_sql_query()
 {
     $page = 1;
     $query = "SELECT * FROM publications ";
-    $searchParam = "";
-    $searchParam = " WHERE 1=1";
+    $search_param = "";
+    $search_param = " WHERE 1=1";
     if ($_GET) {
         //do something if $_GET is set 
         if (isset($_GET['publicationID'])) {
-            $searchParam .= " AND publicationID = :publicationID";
+            $search_param .= " AND publicationID = :publicationID";
         }
         if (isset($_GET['category'])) {
-            $searchParam .= " AND category = :category";
+            $search_param .= " AND category = :category";
         }
         /* foreach($_GET as $key => $value){
-                        $searchParam .= ' OR '.$key.' like '.$value;
+                        $search_param .= ' OR '.$key.' like '.$value;
                 } */
     }
-
-
-    $searchParam .= ' ORDER BY publicationID DESC';
-    $searchParam .= " LIMIT :offset, :limit;";
-    $query .= $searchParam;
+    $search_param .= ' ORDER BY publicationID DESC';
+    $search_param .= " LIMIT :offset, :limit;";
+    $query .= $search_param;
     //echo("Query-> ".$query."<br>");
     return $query;
 }

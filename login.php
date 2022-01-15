@@ -2,39 +2,30 @@
 <html lang="pl">
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <?php
-
 session_start();
 if (isset($_SESSION['blad']))
   echo $_SESSION['blad'];
-if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
+if (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == true)) {
   header('Location: index.php');
   exit();
 }
-
-
 // Include config file
 require_once "inc/connect.php";
 $_SESSION["error_message"] = "";
 
-
-
-
 // Define variables and initialize with empty values
-$userEmail = $password = "";
-$userEmail_err = $password_err = "";
+$user_email = $password = "";
+$user_email_err = $password_err = "";
 
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
   $error_message = "";
-
-
-  // Check if userEmail is empty
-  if (empty(trim($_POST["userEmail"]))) {
+  // Check if user_email is empty
+  if (empty(trim($_POST["user_email"]))) {
     $error_message = $error_message . "Please enter username.";
   } else {
-    $userEmail = trim($_POST["userEmail"]);
+    $user_email = trim($_POST["user_email"]);
   }
 
   // Check if password is empty
@@ -45,16 +36,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   // Jeśli nie ma pustych pól to...
-  if (empty($userEmail_err) && empty($password_err)) {
+  if (empty($user_email_err) && empty($password_err)) {
     // Prepare a select statement
-    $sql = "SELECT `IdOfUser`,`name`,`email`,`password` FROM logindata where email = ?";
+    $sql = "SELECT `user_id`,`name`,`email`,`password` FROM logindata where email = ?";
 
     if ($stmt = mysqli_prepare($mysqli_connection, $sql) or die(mysqli_error($mysqli_connection))) {
       // Bind variables to the prepared statement as parameters
-      mysqli_stmt_bind_param($stmt, "s", $param_userEmail);
-      echo $userEmail;
+      mysqli_stmt_bind_param($stmt, "s", $param_user_email);
+      echo $user_email;
       // Set parameters
-      $param_userEmail = $userEmail;
+      $param_user_email = $user_email;
 
       // Attempt to execute the prepared statement
       if (mysqli_stmt_execute($stmt)) {
@@ -63,26 +54,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_store_result($stmt);
         echo "<br>select  where email like email ->" . mysqli_stmt_store_result($stmt) . " <-";
 
-        // Check if userEmail exists, if yes then verify password
+        // Check if user_email exists, if yes then verify password
         if (mysqli_stmt_num_rows($stmt) == 1) {
           // Bind result variables
-          mysqli_stmt_bind_result($stmt, $idOfUser, $userName, $userEmail, $hashed_password);
+          mysqli_stmt_bind_result($stmt, $user_id, $user_name, $user_email, $hashed_password);
 
           echo "znaleziono " . $id;
           if (mysqli_stmt_fetch($stmt)) {
             if ($password == $hashed_password) {
               // Password is correct, so start a new session
               session_start();
-
               // Store data in session variables
-              $_SESSION["loggedin"] = true;
-              $_SESSION["idOfUser"] = $idOfUser;
-              $_SESSION["name"] = $userName;
-              $_SESSION["userEmail"] = $userEmail;
-              // new session vars
-              $_SESSION['user_id'] = $idOfUser;
-
-
+              $_SESSION["logged_in"] = true;
+              $_SESSION["user_id"] = $user_id;
+              $_SESSION["name"] = $user_name;
+              $_SESSION["user_email"] = $user_email;
               // Redirect user to welcome page
               header("location: index.php");
             } else {
@@ -97,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
           }
         } else {
-          // Display an error message if userEmail doesn't exist
+          // Display an error message if user_email doesn't exist
           $error_message = $error_message . "No account found with that username.";
         }
       } else {
@@ -108,16 +94,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Close statement
     mysqli_stmt_close($stmt);
   }
-
   // Close connection
   mysqli_close($mysqli_connection);
   $pdo = null;
   $_POST = array();
 }
-
-
-
-
 ?>
 
 <body class="bg-gradient-primary">
@@ -142,14 +123,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h1 class="h4 text-gray-900 mb-4">Witaj ponownie!</h1>
                   </div>
 
-
-
-
                   <form class="user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="on">
 
-
                     <div class="form-group">
-                      <input type="login" class="form-control form-control-user" placeholder="Adres email" name="userEmail">
+                      <input type="login" class="form-control form-control-user" placeholder="Adres email" name="email">
                     </div>
 
                     <div class="form-group">
@@ -173,9 +150,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       <i class="fab fa-facebook-f fa-fw"></i> Zapomniałeś hasła?
                     </a>
                   </form>
-
-
-
 
                   <hr>
                   <!-- <div class="text-center">
@@ -206,8 +180,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-
-
 </body>
 
 </html>

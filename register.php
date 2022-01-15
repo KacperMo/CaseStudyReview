@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <?php
+require_once "inc/connect.php";
 session_start();
 // Check if the user is already logged in, if yes then redirect him to welcome page
-if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
+if (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == true)) {
   header('Location: index.php');
   exit();
 }
 // Include config file
-require_once "connect.php";
 $_SESSION["error_message"] = "";
 $error_message = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  $FirstName = strip_tags(trim($_POST["FirstName"]));
-  $LastName = strip_tags(trim($_POST["LastName"]));
-  $Email = strip_tags(trim($_POST["Email"]));
-  $college = strip_tags(trim($_POST["college"]));
-  $Password = strip_tags($_POST["Password"]);
+  $first_name = strip_tags(trim($_POST["first_name"]));
+  $last_name = strip_tags(trim($_POST["last_name"]));
+  $user_email = strip_tags(trim($_POST["user_email"]));
+  $user_college = strip_tags(trim($_POST["user_college"]));
+  $password = strip_tags($_POST["password"]);
 
   $required = array(
-    'FirstName', 'LastName', 'Email',
-    'college', 'Password'
+    'first_name', 'last_name', 'user_email',
+    'user_college', 'password'
   );
 
   // Loop over field names, make sure each one exists and is not empty
@@ -41,52 +41,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Jeśli nie ma pustych pól to...
   if (!$error) {
 
-    if ($polaczenie->connect_errno != 0) {
-      $error_message = $error_message . "Blad polaczenia z baza danych" . $polaczenie->connect_errno . " opis " . $polaczenie->connect_error;
+    if ($mysqli_connection->connect_errno != 0) {
+      $error_message = $error_message . "Blad polaczenia z baza danych" . $mysqli_connection->connect_errno . " opis " . $mysqli_connection->connect_error;
     } else {
-      $sqlCheckIsExist = "SELECT name FROM `logindata` where email=:email";
-      $CheckIsExistEmail = $pdo->prepare($sqlCheckIsExist);
-      $CheckIsExistEmail->bindValue('email', $Email, PDO::PARAM_STR);
-      $ExecuteEmailCheckQuery = $CheckIsExistEmail->execute();
+      $sql_check_if_exist = "SELECT name FROM `logindata` where user_email=:user_email";
+      $check_if_user_email_exists = $pdo->prepare($sql_check_if_exist);
+      $check_if_user_email_exists->bindValue('user_email', $user_email, PDO::PARAM_STR);
+      $execute_user_email_check_query = $check_if_user_email_exists->execute();
 
-      $countFoundedEmail = $CheckIsExistEmail->rowCount();
-      //echo $ExecuteEmailCheckQuery;
+      $count_found_user_email = $check_if_user_email_exists->rowCount();
+      //echo $execute_user_email_check_query;
 
       $date = date("Y-d-m");
-      if ($countFoundedEmail == 0 && $ExecuteEmailCheckQuery == 1) {
+      if ($count_found_user_email == 0 && $execute_user_email_check_query == 1) {
         $todayDate = date("Y.m.d");
         echo "<br> nie istnieje jeszcze taki mail";
 
-        $sqlInsertLoginData = "INSERT INTO `logindata`( `name`, `password`,`dateOfRegistration`,`email`) VALUES (:FirstName, :Password, :Date, :Email)";
-        $InsertLoginData = $pdo->prepare($sqlInsertLoginData);
-        $InsertLoginData->bindValue('FirstName', $FirstName, PDO::PARAM_STR);
-        $InsertLoginData->bindValue('Password', $Password, PDO::PARAM_STR);
-        $InsertLoginData->bindValue('Date', $date, PDO::PARAM_STR);
-        $InsertLoginData->bindValue('Email', $Email, PDO::PARAM_STR);
-        $isLoginDataInserd = $InsertLoginData->execute();
+        $sql_insert_login_data = "INSERT INTO `logindata`( `name`, `password`,`registration_date`,`user_email`) VALUES (:first_name, :password, :Date, :user_email)";
+        $insert_login_data = $pdo->prepare($sql_insert_login_data);
+        $insert_login_data->bindValue('first_name', $first_name, PDO::PARAM_STR);
+        $insert_login_data->bindValue('password', $password, PDO::PARAM_STR);
+        $insert_login_data->bindValue('Date', $date, PDO::PARAM_STR);
+        $insert_login_data->bindValue('user_email', $user_email, PDO::PARAM_STR);
+        $is_login_data_inserted = $insert_login_data->execute();
 
 
-        //$lastId = $pdo->lastInsertId();
+        //$last_id = $pdo->lastInsertId();
 
-        $sqlIfNoUser = "SELECT IdOfUser FROM `logindata` where email=:email";
-        $CheckUserID = $pdo1->prepare($sqlIfNoUser);
-        $CheckUserID->bindValue('email', $Email, PDO::PARAM_STR);
-        $CheckUserID->execute();
-        $UserID = $CheckUserID->fetch()['IdOfUser'];
+        $sql_if_no_user = "SELECT user_id FROM `logindata` where user_email=:user_email";
+        $check_user_id = $pdo1->prepare($sql_if_no_user);
+        $check_user_id->bindValue('user_email', $user_email, PDO::PARAM_STR);
+        $check_user_id->execute();
+        $user_id = $check_user_id->fetch()['user_id'];
 
 
-        $lastId = $pdo->lastInsertId();
+        $last_id = $pdo->lastInsertId();
 
-        $sqlInsertUserInfo = "INSERT INTO `users` (`UserID`, `name`, `surname`, `college`,`avatar`, `descriptions`, `dateOfRegistration`) VALUES (:UserID, :UserName, :surname, :college, :avatar, :descriptions, :dateOfRegistration)";
-        $InsertUserInfo = $pdo2->prepare($sqlInsertUserInfo);
-        $InsertUserInfo->bindValue('UserID', $UserID, PDO::PARAM_INT);
-        $InsertUserInfo->bindValue('UserName', $FirstName, PDO::PARAM_STR);
-        $InsertUserInfo->bindValue('surname', $LastName, PDO::PARAM_STR);
-        $InsertUserInfo->bindValue('college', $college, PDO::PARAM_STR);
-        $InsertUserInfo->bindValue('avatar', 'images/usr_avatar.png', PDO::PARAM_STR);
-        $InsertUserInfo->bindValue('descriptions', 'Cześć, jestem tu nowy :)', PDO::PARAM_STR);
-        $InsertUserInfo->bindValue('dateOfRegistration', $todayDate, PDO::PARAM_STR);
-        $isInserdUserInfo = $InsertUserInfo->execute();
+        $slq_insert_user_info = "INSERT INTO `users` (`user_id`, `name`, `surname`, `user_college`,`avatar`, `descriptions`, `registration_date`) VALUES (:user_id, :UserName, :surname, :user_college, :avatar, :descriptions, :registration_date)";
+        $insert_user_info = $pdo2->prepare($slq_insert_user_info);
+        $insert_user_info->bindValue('user_id', $user_id, PDO::PARAM_INT);
+        $insert_user_info->bindValue('UserName', $first_name, PDO::PARAM_STR);
+        $insert_user_info->bindValue('surname', $last_name, PDO::PARAM_STR);
+        $insert_user_info->bindValue('user_college', $user_college, PDO::PARAM_STR);
+        $insert_user_info->bindValue('avatar', 'images/usr_avatar.png', PDO::PARAM_STR);
+        $insert_user_info->bindValue('descriptions', '', PDO::PARAM_STR);
+        $insert_user_info->bindValue('registration_date', $todayDate, PDO::PARAM_STR);
+        $is_user_info_inserted = $insert_user_info->execute();
 
         foreach ($required as $field) {
 
@@ -97,12 +97,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //echo "Jest -".$field." - ".$_POST[$field]."<br>";
           }
         }
-        if ($isLoginDataInserd && $isInserdUserInfo) {
-          mkdir("UsersFoldres/$Email");
-          mkdir("UsersFoldres/$Email/Publications");
-          
-          mkdir("user_data/$userID");
-          mkdir("user_data/$userID/images");
+        if ($is_login_data_inserted && $is_user_info_inserted) {
+
+          create_user_folder($user_id);
 
           header("Location: login.php");
           exit();
@@ -120,11 +117,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // Close connection
   $_SESSION["error_message"] = $error_message;
-  mysqli_close($polaczenie);
+  mysqli_close($mysqli_connection);
   $pdo = null;
   header('Location: login.php');
 }
-function CheckIsNotEmpty($name)
+function check_is_not_empty($name)
 {
   if (empty(trim($_POST[$name]))) {
     $checked = False;
@@ -169,27 +166,27 @@ $_POST = array();
               <form class="user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="FirstName" name="FirstName" placeholder="Imie">
+                    <input type="text" class="form-control form-control-user" id="first_name" name="first_name" placeholder="Imie">
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" name="LastName" id="LastName" placeholder="Nazwisko">
+                    <input type="text" class="form-control form-control-user" name="last_name" id="last_name" placeholder="Nazwisko">
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="Email" name="Email" placeholder="Email">
+                  <input type="user_email" class="form-control form-control-user" id="user_email" name="user_email" placeholder="user_email">
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" name="Password" id="Password" placeholder="Hasło">
+                    <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Hasło">
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" name="CheckPassword" id="CheckPassword" placeholder="Powtórz hasło">
+                    <input type="password" class="form-control form-control-user" name="Checkpassword" id="Checkpassword" placeholder="Powtórz hasło">
                   </div>
 
                 </div>
 
                 <div class="form-group row">
-                  <input type="text" class="form-control form-control-user" id="college" name="college" placeholder="Uczelnia">
+                  <input type="text" class="form-control form-control-user" id="user_college" name="user_college" placeholder="Uczelnia">
                 </div>
                 <hr>
                 <input type="submit" value="Rejestruj konto" class="btn btn-primary btn-user btn-block" />

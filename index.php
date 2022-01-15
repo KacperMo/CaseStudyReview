@@ -79,7 +79,7 @@ require_once('inc/navibar.php')
                             <img src="images/svg/rocket.png" width="113px" alt="rocket">
                         </div>
                         <div class="feature__title">
-                            <h3>Przeszukuj Innowacyjne Publikacjie</h3>
+                            <h3>Przeszukuj Innowacyjne Publikacje</h3>
                         </div>
                         <div class="feature__desc">
                             <p>Nunc placerat mi id nisi interdum mollis. Praesent pharetra, justo ut scelerisque the mattis,

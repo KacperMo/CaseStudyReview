@@ -64,7 +64,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="copyright-text">
-                        <p>&copy;<script>document.write(new Date().getFullYear());</script>
+                        <p>&copy;
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>
                             <a href="#">Case Study Review</a>. &copy; All rights reserved. Proudly created by
                             <a href="#">UEK Students</a>
                         </p>
@@ -78,5 +81,5 @@
     </div>
 </footer>
 <?php
-    require_once("footerScripts.php");
+require_once("footer-scripts.php");
 ?>

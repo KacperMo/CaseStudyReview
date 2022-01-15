@@ -1,15 +1,16 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start();
-}
 require_once "inc/connect.php";
 require_once "inc/user.php";
 
+if (!isset($_SESSION)) {
+    session_start();
+}
 if (isset($_SESSION["user_id"])) {
     $user_id =  $_SESSION["user_id"];
     $user = get_user($user_id, $mysqli_connection);
-    $userBannerImgSrc = "users/{$user_id}/images/banner_image.jpg";
-    $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
+
+    $user_banner_img_src = "users/{$user_id}/images/banner_image.jpg";
+    $user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
 }
 ?>
 
@@ -69,11 +70,11 @@ if (isset($_SESSION["user_id"])) {
 
 
                                     // Check if the user is already logged in, if yes then redirect him to welcome page
-                                    if (isset($_SESSION['loggedin']) && @($_SESSION['loggedin'] == true)) {
+                                    if (isset($_SESSION['logged_in']) && @($_SESSION['logged_in'] == true)) {
                                         echo "
                                                     
                                                     <div class='author_avatar'>
-                                                        <img src='${userProfileImgSrc}' alt='user avatar'>
+                                                        <img src='${user_profile_img_src}' alt='user avatar'>
                         
                                                     </div>
                                                     <div class='autor__info'>
@@ -128,7 +129,7 @@ if (isset($_SESSION["user_id"])) {
                                     <span class="lnr lnr-cross close_menu"></span>
                                     <div class="author-author__info">
                                         <div class="author__avatar v_middle">
-                                            <img src="<?= $userProfileImgSrc ?>" alt="user avatar">
+                                            <img src="<?= $user_profile_img_src ?>" alt="user avatar">
                                         </div>
                                         <div class="autor__info v_middle">
                                             <p class="name">
@@ -148,10 +149,10 @@ if (isset($_SESSION["user_id"])) {
                                             </li>
                                             <?php
                                             // Check if the user is already logged in, if yes then redirect him to welcome page
-                                            if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
+                                            if (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == true)) {
                                                 echo "<li>
                                                     <a href='logout.php'>
-                                                        <span class='lnr lnr-exit'></span>Waloguj</a>
+                                                        <span class='lnr lnr-exit'></span>Wyloguj</a>
                                                 </li>";
                                             } else {
                                                 echo "<li><a href='author.php'>

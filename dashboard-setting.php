@@ -8,20 +8,17 @@ if (isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)) {
     require_once "inc/connect.php";
     require_once "inc/user.php";
 } else {
-    echo
-    error_reporting(E_ALL);
+    echo error_reporting(E_ALL);
     ini_set("display_errors", 1);
     header("Location: index.php");
     die();
 }
-
 $user_id =  $_SESSION["user_id"];
 $user = get_user($user_id, $mysqli_connection);
-
 //$userBannerImgSrc = "images/cvrplc.jpg" ;
-$userBannerImgSrc = "users/{$user_id}/images/banner_image.jpg";
+$user_banner_img_src = "users/{$user_id}/images/banner_image.jpg";
 //$userProfileImgSrc = "images/authplc.png";
-$userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
+$user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
 ?>
 
 <body class="preload dashboard-setting">
@@ -424,8 +421,6 @@ $userProfileImgSrc = "users/{$user_id}/images/profile_image.jpg";
     <!--================================
             END DASHBOARD AREA
     =================================-->
-
-
     <?php
     @require_once('inc/footer.php');
     ?>

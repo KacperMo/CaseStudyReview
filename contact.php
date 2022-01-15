@@ -1,14 +1,12 @@
 <?php
-    require_once('header.php');
-    ?>
+require_once('inc/navibar.php');
+require_once('inc/head.php');
+if (!isset($_SESSION)) {
+    session_start();
+}
+?>
 
 <body class="preload contact-page">
-
-<?php
-    @session_start();
-    require_once('navibar.php');
-    ?>
-
     <!--================================
         START BREADCRUMB AREA
     =================================-->
@@ -20,7 +18,7 @@
                         <h3>Potrzebujesz pomocy?</h3>
                         <p class="subtitle">Napisz do nas!</p>
                     </div>
-                   
+
                 </div>
                 <!-- end /.col-md-12 -->
             </div>
@@ -43,10 +41,10 @@
                         <!-- start col-md-12 -->
                         <div class="col-md-12">
                             <div class="section-title">
-                                <h1>Jak możemy 
+                                <h1>Jak możemy
                                     <span class="highlighted">pomóc?</span>
                                 </h1>
-                               <!--  <p>Laborum dolo rumes fugats untras. Etharums ser quidem rerum facilis dolores nemis omnis fugats.
+                                <!--  <p>Laborum dolo rumes fugats untras. Etharums ser quidem rerum facilis dolores nemis omnis fugats.
                                     Lid est laborum dolo rumes fugats untras.</p> -->
                             </div>
                         </div>
@@ -155,13 +153,8 @@
     <!--================================
         END BREADCRUMB AREA
     =================================-->
-
-   
-
- 
-
     <?php
-    @require_once('footer.php');
+    @require_once('inc/footer.php');
     ?>
 </body>
 
