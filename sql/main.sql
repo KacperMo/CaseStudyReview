@@ -17,12 +17,12 @@ CREATE TABLE `comments`(
     `comment_author` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `authorization_data`(
-    `user_id` int(32) AUTO_INCREMENT PRIMARY KEY,
-    `user_name` varchar(255) NOT NULL UNIQUE,
+CREATE TABLE `users`(
+    `user_id` int(32) AUTO_INCREMENT PRIMARY KEY ,
+    `username` varchar(255) NOT NULL UNIQUE,
     `password` varchar(255) NOT NULL,
     `registration_date` date DEFAULT CURRENT_DATE(),
-    `user_email` varchar(255) NOT NULL UNIQUE,
+    `email` varchar(255) NOT NULL UNIQUE,
     `user_permissions` varchar(255) NOT NULL,
     `last_login_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -42,18 +42,19 @@ CREATE TABLE `publications` (
     `rating` float(3,2) NOT NULL
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `users` (
-    `user_id` int(32) NOT NULL,
-    `first_name` varchar(63) NOT NULL,
-    `last_name` varchar(127) NOT NULL,
+CREATE TABLE `user_data` (
+    `user_id` int(32) UNIQUE NOT NULL,
+    `first_name` varchar(63) DEFAULT NULL,
+    `last_name` varchar(127) DEFAULT NULL,
     `college` varchar(255) DEFAULT NULL,
-    `avatar_path` varchar(255) DEFAULT NULL,
-    `birth_date` date NOT NULL,
+    `profile_image_path` varchar(255) DEFAULT NULL,
+    `banner_image_path` varchar(255) DEFAULT NULL,
+    `birth_date` date DEFAULT NULL,
     `description` varchar(1023) DEFAULT NULL,
-    `country` varchar(255) NOT NULL,
+    `country` varchar(255) DEFAULT NULL,
     `website` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Create admin user.
-INSERT INTO `authorization_data` (`user_name`, `password`, `user_email`) VALUES
+INSERT INTO `users` (`username`, `password`, `email`) VALUES
 ('admin', 'admincsr', 'hi@casestudyreview.com');

@@ -2,6 +2,6 @@
 $host = "localhost";
 $db_user = "root";
 $db_password = "";
-$db_name = "ubw";
+$db_name = "csr";
 
-$mysqli_connection = @new mysqli($host, $db_user, $db_password, $db_name);
+$db = @new mysqli($host, $db_user, $db_password, $db_name);

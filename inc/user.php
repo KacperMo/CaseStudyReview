@@ -3,51 +3,56 @@ require_once "connect.php";
 if (!isset($_SESSION)) {
     session_start();
 }
-$user_id =  $_SESSION["user_id"];
-
-if (isset($_GET['function'])) {
-    switch ($_GET['function']) {
-        case 'update_user_data':
-            update_user_data($user_id, $mysqli_connection);
-            upload_user_image($user_id, "profile_image");
-            upload_user_image($user_id, "banner_image");
-            break;
-    }
+if (isset($_SESSION['user_id'])) {
+    $user_id =  $_SESSION["user_id"];
 }
 
+if (isset($_SESSION['user_id'])) {
+    $user_id =  $_SESSION["user_id"];
+    update_user_data($user_id, $db);
+    upload_user_image($user_id, "profile_image");
+    upload_user_image($user_id, "banner_image");
+}
 
-function get_user($user_id, $mysqli_connection)
+function get_user($user_id, $db)
 {
-    $query = "SELECT * FROM `users` WHERE `users`.`userID` = $user_id";
-    $result = mysqli_query($mysqli_connection, $query) or die(mysqli_error($mysqli_connection));
+    $query = "SELECT * FROM `users` WHERE `users`.`user_id` = $user_id";
+    $result = mysqli_query($db, $query) or die(mysqli_error($db));
+    return $result->fetch_assoc();
+}
+function get_user_data($user_id, $db)
+{
+    $query = "SELECT * FROM `user_data` WHERE `user_id` = $user_id";
+    $result = mysqli_query($db, $query) or die(mysqli_error($db));
     return $result->fetch_assoc();
 }
 
+
 function create_user_folder($user_id)
 {
-    $path = '/users/{$user_id}/';
+    $path = "users/$user_id/";
+    mkdir($path);
+    $path = "users/$user_id/images";
     mkdir($path, 0777, true);
-    $path = '/users/{$user_id}/images';
-    mkdir($path, 0777, true);
-    $path = '/users/{$user_id}/publications';
+    $path = "users/$user_id/publications";
     mkdir($path, 0777, true);
 }
 
-function update_user_data($user_id, $mysqli_connection)
+function update_user_data($user_id, $db)
 {
     $data = [
-        'accountName',
-        'name',
-        'email',
-        'website',
+        'first_name',
+        'last_name',
+        'college',
+        'birth_date',
+        'description',
         'country',
-        'motto',
-        'aboutMe'
+        'website',
     ];
     foreach ($data as $key => $value) {
         if (isset($_POST[$value])) {
-            $query = "UPDATE `users` SET `$value` = '{$_POST[$value]}' WHERE `users`.`userID` = $user_id";
-            mysqli_query($mysqli_connection, $query) or die(mysqli_error($mysqli_connection));
+            $query = "UPDATE `user_data` SET `$value` = '{$_POST[$value]}' WHERE `user_id` = $user_id";
+            mysqli_query($db, $query) or die(mysqli_error($db));
         }
     }
 }
@@ -55,10 +60,10 @@ function update_user_data($user_id, $mysqli_connection)
 function upload_user_image($user_id, $file_name)
 {
     // Check if user uploaded file
-    if ($_FILES[$file_name]["name"] != "") {
+    if (!empty($_FILES[$file_name]) && $_FILES[$file_name]["name"] != "") {
 
         $max_file_size = 50000000;
-        $target_dir = "../users/" . $user_id . "/images//";
+        $target_dir = "users/" . $user_id . "/images//";
         $target_file = $target_dir . basename($_FILES[$file_name]["name"]);
         $upload_ok = 1;
         $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -67,27 +72,27 @@ function upload_user_image($user_id, $file_name)
         if (isset($_POST["submit"])) {
             $check = getimagesize($_FILES[$file_name]["tmp_name"]);
             if ($check !== false) {
-                echo "File is an image - " . $check["mime"] . ".";
+                //echo "File is an image - " . $check["mime"] . ".";
                 $upload_ok = 1;
             } else {
-                echo "File is not an image.";
+                //echo "File is not an image.";
                 $upload_ok = 0;
             }
         }
 
         // Check if file already exists
         if (file_exists($target_file)) {
-            echo "Sorry, file already exists.";
+            // echo "Sorry, file already exists.";
             $upload_ok = 0;
         }
         // Check if user uploaded file
         if ($_FILES[$file_name] == "") {
-            echo "No file uploaded";
+            //echo "No file uploaded";
             $upload_ok = 0;
         }
         // Check file size
         if ($_FILES[$file_name]["size"] > $max_file_size) {
-            echo "Sorry, your file is too large.";
+            // echo "Sorry, your file is too large.";
             $upload_ok = 0;
         }
 
@@ -96,20 +101,20 @@ function upload_user_image($user_id, $file_name)
             $image_file_type != "jpg" && $image_file_type != "png" && $image_file_type != "jpeg"
             && $image_file_type != "gif"
         ) {
-            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            //echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
             $upload_ok = 0;
         }
 
         // Check if $upload_ok is set to 0 by an error
         if ($upload_ok == 0) {
-            echo "Sorry, your file was not uploaded.";
+            //echo "Sorry, your file was not uploaded.";
             // if everything is ok, try to upload file
         } else {
             $final_file_name = $file_name . substr($_FILES[$file_name]["name"], strpos($_FILES[$file_name]["name"], ".", +1));
             if (move_uploaded_file($_FILES[$file_name]["tmp_name"], $target_dir . "/" . $final_file_name)) {
-                echo "The file " . htmlspecialchars(basename($_FILES[$file_name]["name"])) . " has been uploaded.";
+                //echo "The file " . htmlspecialchars(basename($_FILES[$file_name]["name"])) . " has been uploaded.";
             } else {
-                echo "Sorry, there was an error uploading your file.";
+                //echo "Sorry, there was an error uploading your file.";
             }
         }
     }

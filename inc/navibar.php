@@ -6,8 +6,9 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (isset($_SESSION["user_id"])) {
+    $user = get_user($user_id, $db);
     $user_id =  $_SESSION["user_id"];
-    $user = get_user($user_id, $mysqli_connection);
+
 
     $user_banner_img_src = "users/{$user_id}/images/banner_image.jpg";
     $user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
@@ -70,46 +71,45 @@ if (isset($_SESSION["user_id"])) {
 
 
                                     // Check if the user is already logged in, if yes then redirect him to welcome page
-                                    if (isset($_SESSION['logged_in']) && @($_SESSION['logged_in'] == true)) {
-                                        echo "
-                                                    
-                                                    <div class='author_avatar'>
-                                                        <img src='${user_profile_img_src}' alt='user avatar'>
-                        
-                                                    </div>
-                                                    <div class='autor__info'>
-                                                        <p class='name'>
-                                                        Witaj " . $_SESSION["name"] . "
-                                                        </p>
-                                                        
-                                                    </div>
-                                                    <div class='dropdowns dropdown--author'>
-                                                            <ul> 
-                                                                <li><a href='author.php'>
-                                                                <span class='lnr lnr-user'></span>Profil</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href='dashboard-setting.php'>
-                                                                        <span class='lnr lnr-cog'></span> Ustawienia konta</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href='logout.php'>
-                                                                        <span class='lnr lnr-exit'></span>Wyloguj</a>
-                                                                </li>
-                                                                
-                                                            </ul>
-                                                    </div>
-                                                ";
+                                    if (isset($_SESSION['user_id'])) {
+                                    ?>
+                                        <div class='author_avatar'>
+                                            <img src='<?= $user_profile_img_src ?>' alt='user avatar'>
+
+                                        </div>
+                                        <div class='autor__info'>
+                                            <p class='name'>
+                                                Witaj <?= $user['username'] ?>
+                                            </p>
+
+                                        </div>
+                                        <div class='dropdowns dropdown--author'>
+                                            <ul>
+                                                <li><a href='author.php'>
+                                                        <span class='lnr lnr-user'></span>Profil</a>
+                                                </li>
+                                                <li>
+                                                    <a href='dashboard-setting.php'>
+                                                        <span class='lnr lnr-cog'></span> Ustawienia konta</a>
+                                                </li>
+                                                <li>
+                                                    <a href='logout.php'>
+                                                        <span class='lnr lnr-exit'></span>Wyloguj</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    <?php
                                     } else {
-                                        echo "
-                                                        <div class='autor__info'>
-                                                            <p class='name'>
-                                                            <a href='login.php'>
-                                                            <span class='lnr lnr-exit'></span>Zaloguj</a>
-                                                            </p>
-                                                        </div> 
-                                                        
-                                                ";
+                                    ?>
+                                        <div class='autor__info'>
+                                            <p class='name'>
+                                                <a href='login.php'>
+                                                    <span class='lnr lnr-exit'></span>Zaloguj</a>
+                                            </p>
+                                        </div>
+
+                                    <?php
                                     }
                                     ?>
 

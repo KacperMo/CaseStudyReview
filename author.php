@@ -2,7 +2,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-if (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == true)) {
+if (isset($_SESSION['user_id'])) {
     require_once 'inc/head.php';
     require_once 'inc/navibar.php';
     require_once "inc/connect.php";
@@ -14,11 +14,11 @@ if (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == true)) {
     header("Location: index.php");
     die();
 }
-
 require_once "inc/connect.php";
 
 $user_id =  $_SESSION["user_id"];
-$user = get_user($user_id, $mysqli_connection);
+$user = get_user($user_id, $db);
+$user_data = get_user_data($user_id, $db);
 
 $user_banner_img_src = "users/{$user_id}/images/banner_image.jpg";
 $user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
@@ -63,8 +63,8 @@ $user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
                                 </div>
 
                                 <div class="author">
-                                    <h4><?= $user['name'] ?> <?= $user['surname'] ?></h4>
-                                    <p>Z nami od <?= $user['dateOfRegistration'] ?> </p>
+                                    <h4><?= $user_data['first_name'] ?> <?= $user_data['last_name'] ?></h4>
+                                    <p>Z nami od <?= $user['registration_date'] ?> </p>
                                 </div>
                                 <!-- end /.author -->
 

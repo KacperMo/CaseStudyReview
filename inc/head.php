@@ -24,5 +24,7 @@
     <link rel="stylesheet" href="css/trumbowyg.min.css">
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/register-login.css">
+
     <link rel="icon" type="image/png" sizes="16x16" href="images/authplc.png">
 </head>
