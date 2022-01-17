@@ -224,7 +224,7 @@ $user_data = get_user_data($user_id, $db);
                                         <div class="information__set profile_images toggle_module collapse" id="collapse3">
                                             <div class="information_wrapper">
                                                 <div class="profile_image_area">
-                                                    <img src="<?= $user_data['profile_image'] ?>" alt="Author profile area">
+                                                    <img id="profile_image_preview" src="<?= $user_data['profile_image'] ?>" alt="Author profile area">
                                                     <div class="img_info">
                                                         <p class="bold">Zdjęcie profilowe</p>
                                                         <p class="subtitle">JPG, GIF or PNG 100x100 px</p>
@@ -238,7 +238,7 @@ $user_data = get_user_data($user_id, $db);
 
                                                 <div class="prof_img_upload">
                                                     <p class="bold">Baner</p>
-                                                    <img src="<?= $user_data['banner_image'] ?>" alt="The great warrior of China">
+                                                    <img id="banner_image_preview" src="<?= $user_data['banner_image'] ?>" alt="The great warrior of China">
 
                                                     <div class="upload_title">
                                                         <p>JPG, GIF or PNG 750x370 px</p>
@@ -430,6 +430,23 @@ $user_data = get_user_data($user_id, $db);
     <!--================================
             END DASHBOARD AREA
     =================================-->
+    <script>
+        // Previewing uploaded images 
+        const banner_image = document.getElementById('banner_image');
+        banner_image.onchange = evt => {
+            const [file] = banner_image.files
+            if (file) {
+                document.getElementById('banner_image_preview').src = URL.createObjectURL(file)
+            }
+        }
+        const profile_image = document.getElementById('profile_image');
+        profile_image.onchange = evt => {
+            const [file] = profile_image.files
+            if (file) {
+                document.getElementById('profile_image_preview').src = URL.createObjectURL(file)
+            }
+        }
+    </script>
     <?php
     @require_once('inc/footer.php');
     ?>
