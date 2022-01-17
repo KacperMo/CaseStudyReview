@@ -16,11 +16,6 @@ if (isset($_SESSION['user_id'])) {
 $user_id =  $_SESSION["user_id"];
 $user = get_user($user_id, $db);
 $user_data = get_user_data($user_id, $db);
-
-//$userBannerImgSrc = "images/cvrplc.jpg" ;
-$user_banner_img_src = "users/{$user_id}/images/banner_image.jpg";
-//$userProfileImgSrc = "images/authplc.png";
-$user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
 ?>
 
 <body class="preload dashboard-setting">
@@ -204,7 +199,7 @@ $user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
                                 <div class="information__set profile_images toggle_module collapse" id="collapse3">
                                     <div class="information_wrapper">
                                         <div class="profile_image_area">
-                                            <img src="<?= $user_profile_img_src ?>" alt="Author profile area">
+                                            <img src="<?= $user_data['profile_image'] ?>" alt="Author profile area">
                                             <div class="img_info">
                                                 <p class="bold">Zdjęcie profilowe</p>
                                                 <p class="subtitle">JPG, GIF or PNG 100x100 px</p>
@@ -218,7 +213,7 @@ $user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
 
                                         <div class="prof_img_upload">
                                             <p class="bold">Baner</p>
-                                            <img src="<?= $user_banner_img_src ?>" alt="The great warrior of China">
+                                            <img src="<?= $user_data['banner_image'] ?>" alt="The great warrior of China">
 
                                             <div class="upload_title">
                                                 <p>JPG, GIF or PNG 750x370 px</p>

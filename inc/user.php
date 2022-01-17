@@ -9,9 +9,9 @@ if (isset($_SESSION['user_id'])) {
 
 if (isset($_SESSION['user_id'])) {
     $user_id =  $_SESSION["user_id"];
+    upload_user_image($user_id, "profile_image", $db);
+    upload_user_image($user_id, "banner_image", $db);
     update_user_data($user_id, $db);
-    upload_user_image($user_id, "profile_image");
-    upload_user_image($user_id, "banner_image");
 }
 
 function get_user($user_id, $db)
@@ -57,7 +57,7 @@ function update_user_data($user_id, $db)
     }
 }
 
-function upload_user_image($user_id, $file_name)
+function upload_user_image($user_id, $file_name, $db)
 {
     // Check if user uploaded file
     if (!empty($_FILES[$file_name]) && $_FILES[$file_name]["name"] != "") {
@@ -111,7 +111,10 @@ function upload_user_image($user_id, $file_name)
             // if everything is ok, try to upload file
         } else {
             $final_file_name = $file_name . substr($_FILES[$file_name]["name"], strpos($_FILES[$file_name]["name"], ".", +1));
-            if (move_uploaded_file($_FILES[$file_name]["tmp_name"], $target_dir . "/" . $final_file_name)) {
+            $final_path = $target_dir . "/" . $final_file_name;
+            if (move_uploaded_file($_FILES[$file_name]["tmp_name"], $final_path)) {
+                $query = "UPDATE `user_data` SET `$file_name` = '$final_path' WHERE `user_id` = $user_id";
+                mysqli_query($db, $query) or die(mysqli_error($db));
                 //echo "The file " . htmlspecialchars(basename($_FILES[$file_name]["name"])) . " has been uploaded.";
             } else {
                 //echo "Sorry, there was an error uploading your file.";

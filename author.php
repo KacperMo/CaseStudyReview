@@ -20,9 +20,6 @@ $user_id =  $_SESSION["user_id"];
 $user = get_user($user_id, $db);
 $user_data = get_user_data($user_id, $db);
 
-$user_banner_img_src = "users/{$user_id}/images/banner_image.jpg";
-$user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
-
 ?>
 
 <body class="preload">
@@ -59,7 +56,7 @@ $user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
                         <div class="author-card sidebar-card">
                             <div class="author-infos">
                                 <div class="author_avatar">
-                                    <img src="<?= $user_profile_img_src ?>" alt="Profile image">
+                                    <img src="<?= $user_data['profile_image'] ?>" alt="Profile image">
                                 </div>
 
                                 <div class="author">
@@ -179,7 +176,7 @@ $user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
 
                         <div class="col-md-12 col-sm-12">
                             <div class="author_module">
-                                <img src="<?= $user_banner_img_src ?>" alt="author image">
+                                <img src="<?= $user_data['banner_image'] ?>" alt="author image">
                             </div>
 
                             <div class="author_module about_author">

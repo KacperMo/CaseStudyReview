@@ -7,11 +7,9 @@ if (!isset($_SESSION)) {
 }
 if (isset($_SESSION["user_id"])) {
     $user = get_user($user_id, $db);
+    $user_data = get_user_data($user_id, $db);
+
     $user_id =  $_SESSION["user_id"];
-
-
-    $user_banner_img_src = "users/{$user_id}/images/banner_image.jpg";
-    $user_profile_img_src = "users/{$user_id}/images/profile_image.jpg";
 }
 ?>
 
@@ -74,7 +72,7 @@ if (isset($_SESSION["user_id"])) {
                                     if (isset($_SESSION['user_id'])) {
                                     ?>
                                         <div class='author_avatar'>
-                                            <img src='<?= $user_profile_img_src ?>' alt='user avatar'>
+                                            <img src='<?= $user_data['profile_image'] ?>' alt='user avatar'>
 
                                         </div>
                                         <div class='autor__info'>
