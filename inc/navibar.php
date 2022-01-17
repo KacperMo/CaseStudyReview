@@ -77,8 +77,18 @@ if (isset($_SESSION["user_id"])) {
                                         </div>
                                         <div class='autor__info'>
                                             <p class='name'>
-                                                <?= $user_data['first_name'] ?>
-                                                <?= $user_data['surname'] ?>
+                                                <?php if ($user_data['first_name']) {
+                                                ?>
+                                                    <?= $user_data['first_name'] ?>
+                                                    <?= $user_data['surname'] ?>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    Twój profil
+                                                <?php
+                                                }
+                                                ?>
+
                                             </p>
 
                                         </div>

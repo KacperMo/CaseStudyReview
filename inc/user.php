@@ -40,7 +40,7 @@ function create_user_folder($user_id)
 
 function update_user_data($user_id, $db)
 {
-    $data = [
+    $user_data = [
         'first_name',
         'surname',
         'college',
@@ -49,12 +49,19 @@ function update_user_data($user_id, $db)
         'country',
         'website',
     ];
-    foreach ($data as $key => $value) {
+    foreach ($user_data as $key => $value) {
         if (isset($_POST[$value])) {
             $query = "UPDATE `user_data` SET `$value` = '{$_POST[$value]}' WHERE `user_id` = $user_id";
             mysqli_query($db, $query) or die(mysqli_error($db));
         }
     }
+    /*
+    $user_authorization_data = [
+        'username',
+        'email',
+        'password',
+    ];
+    */
 }
 
 function upload_user_image($user_id, $file_name, $db)
@@ -110,7 +117,7 @@ function upload_user_image($user_id, $file_name, $db)
             //echo "Sorry, your file was not uploaded.";
             // if everything is ok, try to upload file
         } else {
-            $final_file_name = $file_name . substr($_FILES[$file_name]["name"], strpos($_FILES[$file_name]["name"], ".", +1));
+            $final_file_name = $file_name . '.jpg';
             $final_path = $target_dir . "/" . $final_file_name;
             if (move_uploaded_file($_FILES[$file_name]["tmp_name"], $final_path)) {
                 $query = "UPDATE `user_data` SET `$file_name` = '$final_path' WHERE `user_id` = $user_id";

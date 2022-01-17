@@ -130,7 +130,7 @@ $user_data = get_user_data($user_id, $db);
                                                     <label for="first_name">Imię
                                                         <sup>*</sup>
                                                     </label>
-                                                    <input type="text" name="first_name" id="first_name" class="text_field" placeholder="<?= $user_data['first_name'] ?>">
+                                                    <input type="text" name="first_name" id="first_name" class="text_field" value="<?php echo $user_data['first_name'] ?>" placeholder="<?= $user_data['first_name'] ?>">
                                                 </div>
                                             </div>
 
@@ -139,7 +139,7 @@ $user_data = get_user_data($user_id, $db);
                                                     <label for="surname">Nazwisko
                                                         <sup>*</sup>
                                                     </label>
-                                                    <input type="text" name="surname" id="surname" class="text_field" placeholder="<?= $user_data['surname'] ?>">
+                                                    <input type="text" name="surname" id="surname" class="text_field" value="<?php echo $user_data['surname'] ?>" placeholder="<?= $user_data['surname'] ?>">
                                                 </div>
                                             </div>
                                         </div>
