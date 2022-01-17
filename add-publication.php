@@ -1,7 +1,7 @@
 <?php
 require_once 'inc/navbar.php';
 require_once 'inc/head.php';
-require_once 'inc/add-publication-script.php';
+//require_once 'inc/add-publication-script.php';
 
 ?>
 

@@ -168,7 +168,7 @@ $user_data = get_user_data($user_id, $db);
                                                     <label for="conpassword">Powtórz hasło
                                                         <sup>*</sup>
                                                     </label>
-                                                    <input disabled type="password" id="conpassword" class="text_field"">
+                                                    <input disabled type="password" id="conpassword" class="text_field">
                                                 </div>
                                             </div>
                                         </div>
