@@ -1,6 +1,8 @@
 <?php
-require_once('inc/navbar.php');
-require_once('inc/head.php');
+require_once 'inc/navbar.php';
+require_once 'inc/head.php';
+require_once 'inc/add-publication-script.php';
+
 ?>
 
 <body class="preload dashboard-upload">
@@ -14,7 +16,7 @@ require_once('inc/head.php');
                     <div class="breadcrumb">
                         <ul>
                             <li>
-                                <a href="addsolution.php">Dodaj publikacje</a>
+                                <a href="add-publication.php">Dodaj publikacje</a>
                             </li>
                         </ul>
                     </div>
@@ -93,7 +95,7 @@ require_once('inc/head.php');
                     <!-- end /.col-md-12 -->
                 </div>
                 <!-- end /.row -->
-                <form action="upload.php" method="post" enctype="multipart/form-data">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-lg-8 col-md-7">
 

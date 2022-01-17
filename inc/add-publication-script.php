@@ -1,27 +1,29 @@
 <?php
+require_once "inc/connect.php";
+require_once "inc/user.php";
+
+if (!isset($_SESSION)) {
+    session_start();
+}
 //if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 $date = date("Y-m-d");
-@session_start();
-$user_id =  $_SESSION["user_id"];
 // getting user date ------------------------------------------------
-if (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == true)) {
-    $user_email = $_SESSION["userEmail"];
-    echo $user_email;
+if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION["user_id"];
-} else {
-    $user_id = 0;
-    $random_number = rand(100, 99999);
-    $user_email = "anonymous_publication" . $random_number . "@" . $date . "-" . "CaseStudy";
-    echo $user_email;
-}
-// End of getting user date ------------------------------------------------
+    $user = get_user($user_id, $db);
+    //uncomment if required
+    //$user_data = get_user_data($user_id, $db);
 
+} else {
+    $random_number = rand(100, 99999);
+    $anonymous_publication_file_name = "anonymous_publication" . $random_number . "@" . $date . "-" . "CaseStudy";
+}
+// End of getting user data ------------------------------------------------
 
 send_file_to_server("uploadJPG", "uploadPDF", $user_email, $user_id);
 /* header('Location: solutions.php');
 exit;  */
-
 
 function send_file_to_server($jpg_file, $pdf_file, $user_email, $user_id)
 {
@@ -29,8 +31,6 @@ function send_file_to_server($jpg_file, $pdf_file, $user_email, $user_id)
     $jpg_src = handle_file($jpg_file, $user_email);
     $pdf_src = handle_file($pdf_file, $user_email);
     $src = handle_directory($user_email);
-
-
     //Testowe logi 
     /*    echo "<br><b>".date ("Y-m-d (h-i)")."</b><br>";
     echo "<br> jpg_src ======> ".$jpg_src;
@@ -41,7 +41,6 @@ function send_file_to_server($jpg_file, $pdf_file, $user_email, $user_id)
 
 function releaseSQL($jpg_src, $pdf_src, $user_email, $user_id, $src)
 {
-    require "inc/connect.php";
     $date = date("Y-m-d");
 
     // Define variables and initialize with empty values 
@@ -56,22 +55,18 @@ function releaseSQL($jpg_src, $pdf_src, $user_email, $user_id, $src)
     @$author = strip_tags(trim($_POST["author"]));
     //dodać regółe jeżeli pole puste to author z sesji
 
-
     //$supervisor=strip_tags(trim($_POST["supervisor"]));
     $isPublic = strip_tags(trim($_POST["isPublic"]));
     //$agree=strip_tags(trim($_POST["agree"]));
-
 
     if (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == true)) {
         $author = $user_email;
     }
     echo "User ID:" . $user_id . "<br>";
-
     $required = array(
         'Title', 'Tags', 'Category',
         'description'
     );
-
 
     // Loop over field names, make sure each one exists and is not empty
     $error = false;
@@ -168,7 +163,7 @@ function handle_file($file_type, $user_email)
     // Check if image file is a actual image or fake image   
     // Check if file already exists
     if (file_exists($target_file)) {
-        echo "Przepraszam, plik o tej nazwie już ustnieje.";
+        echo "Przepraszamy, plik o tej nazwie już ustnieje.";
         $uploadCheck = 1;
     }
     // Check file size
@@ -226,5 +221,5 @@ function convert_pdf_to_jpg($pdf_src, $target_dir)
 
 //End of if($_SERVER["REQUEST_METHOD"] == "POST"){
 //}
-header('Location: publications-grid.php');
+//header('Location: publications-grid.php');
 exit;

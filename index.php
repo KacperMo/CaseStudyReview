@@ -20,8 +20,8 @@ require_once('inc/navbar.php')
                                 <p class="tagline">Internetowa baza wiedzy</p>
                             </div>
                             <div class="hero__btn-area">
-                                <a href="publications-grid.php" class="btn btn--round btn--lg">Zobacz Opracowania</a>
-                                <a href="addsolution.php" class="btn btn--round btn--lg">Dodaj Publikacje</a>
+                                <a href="publications-list.php" class="btn btn--round btn--lg">Zobacz Opracowania</a>
+                                <a href="add-publication.php" class="btn btn--round btn--lg">Dodaj Publikacje</a>
                             </div>
                         </div>
                     </div>

@@ -589,7 +589,7 @@ $user_data = get_user_data($user_id, $db);
                         <div class="call-to-wrap">
                             <h1 class="text--white">Miejsce na twoją nową publikację już czeka</h1>
                             <h4 class="text--white">Chwal się wiedzą!</h4>
-                            <a href="addsolution.php" class="btn btn--lg btn--round btn--white callto-action-btn">Opublikuj</a>
+                            <a href="add-publication.php" class="btn btn--lg btn--round btn--white callto-action-btn">Opublikuj</a>
                         </div>
                     </div>
                 </div>
