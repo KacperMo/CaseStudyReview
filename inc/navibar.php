@@ -77,7 +77,8 @@ if (isset($_SESSION["user_id"])) {
                                         </div>
                                         <div class='autor__info'>
                                             <p class='name'>
-                                                Witaj <?= $user['username'] ?>
+                                                <?= $user_data['first_name'] ?>
+                                                <?= $user_data['surname'] ?>
                                             </p>
 
                                         </div>
@@ -87,7 +88,7 @@ if (isset($_SESSION["user_id"])) {
                                                         <span class='lnr lnr-user'></span>Profil</a>
                                                 </li>
                                                 <li>
-                                                    <a href='dashboard-setting.php'>
+                                                    <a href='user-settings.php'>
                                                         <span class='lnr lnr-cog'></span> Ustawienia konta</a>
                                                 </li>
                                                 <li>

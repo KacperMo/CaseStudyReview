@@ -117,14 +117,32 @@ $user_data = get_user_data($user_id, $db);
                                     <div class="information_wrapper form--fields">
 
                                         <div class=" form-group">
-                                            <label for="usrname">Username
+                                            <label for="username">Username
                                                 <sup>*</sup>
                                             </label>
-                                            <input name="name" type="text" id="usrname" class="text_field" placeholder="Username" value="<?php echo $user['username'] ?>">
+                                            <input name="username" type="text" id="username" class="text_field" placeholder="Username" value="<?php echo $user['username'] ?>">
                                             <p>Twój profil będzie dostępny pod adresem URL: <a href="https://casestudyreview.pl/<?php echo $user['username'] ?>">https://casestudyreview.pl/<?php echo $user['username'] ?>
                                                 </a></p>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="first_name">Imię
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <input type="text" name="first_name" id="first_name" class="text_field" placeholder="<?= $user_data['first_name'] ?>">
+                                                </div>
+                                            </div>
 
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="surname">Nazwisko
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <input type="text" name="surname" id="surname" class="text_field" placeholder="<?= $user_data['surname'] ?>">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <label for="email">Email Address
                                                 <sup>*</sup>

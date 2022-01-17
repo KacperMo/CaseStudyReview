@@ -42,7 +42,7 @@ function update_user_data($user_id, $db)
 {
     $data = [
         'first_name',
-        'last_name',
+        'surname',
         'college',
         'birth_date',
         'description',

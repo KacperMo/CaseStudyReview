@@ -60,7 +60,7 @@ $user_data = get_user_data($user_id, $db);
                                 </div>
 
                                 <div class="author">
-                                    <h4><?= $user_data['first_name'] ?> <?= $user_data['last_name'] ?></h4>
+                                    <h4><?= $user_data['first_name'] ?> <?= $user_data['surname'] ?></h4>
                                     <p>Z nami od <?= $user['registration_date'] ?> </p>
                                 </div>
                                 <!-- end /.author -->
