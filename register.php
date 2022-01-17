@@ -29,7 +29,7 @@ require_once 'inc/head.php';
                                     <input required type="text" placeholder="Nazwa użytkownika" name="username" value="<?php echo $username; ?>" class="form-control form-control-user">
                                 </div>
                                 <div class="form-group">
-                                    <input required type="email" class="form-control form-control-user" name="email" value="<?php echo $email; ?>" placeholder="email">
+                                    <input required type="email" class="form-control form-control-user" name="email" value="<?php echo $email; ?>" placeholder="Adres Email">
 
                                 </div>
                                 <div class="form-group row">
@@ -44,7 +44,7 @@ require_once 'inc/head.php';
                                 </div>
 
                                 <div class="form-group row">
-                                    <input type="text" class="form-control form-control-user" id="user_college" name="user_college" placeholder="Uczelnia">
+                                    <input type="text" class="form-control form-control-user" id="college" name="college" placeholder="Nazwa uczelni">
                                 </div>
                                 <hr>
                                 <input type="submit" name="reg_user" value="Rejestruj konto" class="btn btn-primary btn-user btn-block" />

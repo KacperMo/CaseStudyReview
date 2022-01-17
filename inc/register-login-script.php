@@ -60,12 +60,12 @@ if (isset($_POST['reg_user'])) {
         $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
         $result = mysqli_query($db, $query) or die(mysqli_error($db));
         $user = $result->fetch_assoc();
-        $query = "INSERT INTO user_data (user_id) 
-  			  VALUES('{$user['user_id']}')";
+        $query = "INSERT INTO user_data (user_id, college) 
+  			  VALUES('{$user['user_id']}', '{$_POST['college']}')";
         mysqli_query($db, $query);
-        echo $user['user_id'];
+
         create_user_folder($user['user_id']);
-        header('location: index.php');
+        //header('location: index.php');
     }
 }
 

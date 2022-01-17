@@ -55,7 +55,7 @@ $user_data = get_user_data($user_id, $db);
                                     <span class="lnr lnr-home"></span>Podgląd profilu</a>
                             </li>
                             <li class="active">
-                                <a href="dashboard-setting.php">
+                                <a href="user-settings.php">
                                     <span class="lnr lnr-cog"></span>Ustawienia konta</a>
                             </li>
                             <!--  <li>
@@ -117,12 +117,15 @@ $user_data = get_user_data($user_id, $db);
                                     <div class="information_wrapper form--fields">
 
                                         <div class=" form-group">
-                                            <label for="username">Username
+                                            <label for="username">Nazwa użytkownika
                                                 <sup>*</sup>
                                             </label>
-                                            <input name="username" type="text" id="username" class="text_field" placeholder="Username" value="<?php echo $user['username'] ?>">
-                                            <p>Twój profil będzie dostępny pod adresem URL: <a href="https://casestudyreview.pl/<?php echo $user['username'] ?>">https://casestudyreview.pl/<?php echo $user['username'] ?>
-                                                </a></p>
+                                            <input disabled name="username" type="text" id="username" class="text_field" placeholder="Username" value="<?php echo $user['username'] ?>">
+                                            <p>
+                                                Twój profil będzie dostępny pod adresem URL:
+                                                <a href="https://casestudyreview.pl/<?php echo $user['username'] ?>/author.php">https://casestudyreview.pl/<?php echo $user['username'] ?>/author.php
+                                                </a>
+                                            </p>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
@@ -144,178 +147,182 @@ $user_data = get_user_data($user_id, $db);
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="email">Email Address
+                                            <label for="email">Adres email
                                                 <sup>*</sup>
                                             </label>
-                                            <input name="email" type="text" id="email" class="text_field" placeholder="Email address" value="<?php echo $user['email'] ?>">
+                                            <input disabled name="email" type="text" id="email" class="text_field" placeholder="Email address" value="<?php echo $user['email'] ?>">
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="password">Password
+                                                    <label for="password">Hasło
                                                         <sup>*</sup>
                                                     </label>
-                                                    <input type="password" id="password" class="text_field" placeholder="Password">
+                                                    <input disabled type="password" id="password" class="text_field">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="conpassword">Confirm Password
+                                                    <label for="conpassword">Powtórz hasło
                                                         <sup>*</sup>
                                                     </label>
-                                                    <input type="password" id="conpassword" class="text_field" placeholder="Re-enter password">
+                                                    <input disabled type="password" id="conpassword" class="text_field"">
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="website">Website</label>
-                                            <input name="website" type="text" id="website" class="text_field" placeholder="Website" value="<?php echo $user_data['website'] ?>">
-                                        </div>
+                                                <div class=" form-group">
+                                                    <label for="website">Strona internetowa</label>
+                                                    <input name="website" type="text" id="website" class="text_field" placeholder="<?= $user_data['website'] ?>" value="<?= $user_data['website'] ?>">
+                                                </div>
+                                                <div class=" form-group">
+                                                    <label for="college">Uczelnia</label>
+                                                    <input name="college" type="text" id="college" class="text_field" placeholder="<?= $user_data['college'] ?>" value="<?= $user_data['college'] ?>">
+                                                </div>
 
-                                        <div class="form-group">
-                                            <label for="country">Country
-                                                <sup>*</sup>
-                                            </label>
-                                            <div class="select-wrap select-wrap2">
-                                                <select name="country" id="country" class="text_field">
-                                                    <option value=""><?php echo $user_data['country'] ?></option>
-                                                    <option value="pl">Polska</option>
-                                                    <option value="usa">USA</option>
-                                                    <option value="en">England</option>
-                                                </select>
-                                                <span class="lnr lnr-chevron-down"></span>
-                                            </div>
-                                        </div>
+                                                <div class="form-group">
+                                                    <label for="country">Country
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <div class="select-wrap select-wrap2">
+                                                        <select name="country" id="country" class="text_field">
+                                                            <option value="<?= $user_data['country'] ?>"><?= $user_data['country'] ?></option>
+                                                            <option value="pl">Polska</option>
+                                                            <option value="usa">USA</option>
+                                                            <option value="en">England</option>
+                                                        </select>
+                                                        <span class="lnr lnr-chevron-down"></span>
+                                                    </div>
+                                                </div>
 
-                                        <div class="form-group">
-                                            <label for="authbio">Dodaj coś od siebie</label>
-                                            <textarea name="aboutMe" id="authbio" class="text_field" placeholder="Short brief about yourself or your account..."><?php echo $user_data['description'] ?>
+                                                <div class="form-group">
+                                                    <label for="description">Dodaj coś od siebie</label>
+                                                    <textarea name="description" id="description" class="text_field" placeholder="Short brief about yourself or your account..."><?php echo $user_data['description'] ?>
                                         </textarea>
+                                                </div>
+                                            </div>
+                                            <!-- end /.information_wrapper -->
+                                        </div>
+                                        <!-- end /.information__set -->
+                                    </div>
+                                    <!-- end /.information_module -->
+
+
+                                </div>
+                                <!-- end /.col-md-6 -->
+
+                                <div class="col-lg-6">
+                                    <div class="information_module">
+                                        <a class="toggle_title" href="#collapse3" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapse1">
+                                            <h4>Zdjęcie profilowe & baner
+                                                <span class="lnr lnr-chevron-down"></span>
+                                            </h4>
+                                        </a>
+
+                                        <div class="information__set profile_images toggle_module collapse" id="collapse3">
+                                            <div class="information_wrapper">
+                                                <div class="profile_image_area">
+                                                    <img src="<?= $user_data['profile_image'] ?>" alt="Author profile area">
+                                                    <div class="img_info">
+                                                        <p class="bold">Zdjęcie profilowe</p>
+                                                        <p class="subtitle">JPG, GIF or PNG 100x100 px</p>
+                                                    </div>
+
+                                                    <label for="profile_image" class="upload_btn">
+                                                        <input type="file" id="profile_image" name="profile_image">
+                                                        <span class="btn btn--sm btn--round" aria-hidden="true">Prześlij zdjęcie</span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="prof_img_upload">
+                                                    <p class="bold">Baner</p>
+                                                    <img src="<?= $user_data['banner_image'] ?>" alt="The great warrior of China">
+
+                                                    <div class="upload_title">
+                                                        <p>JPG, GIF or PNG 750x370 px</p>
+                                                        <label for="banner_image" class="upload_btn">
+                                                            <input type="file" id="banner_image" name="banner_image">
+                                                            <span class="btn btn--sm btn--round" aria-hidden="true">Prześlij zdjęcie</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- end /.information_wrapper -->
-                                </div>
-                                <!-- end /.information__set -->
-                            </div>
-                            <!-- end /.information_module -->
+                                    <!-- end /.information_module -->
 
+                                    <div class="information_module">
+                                        <a class="toggle_title" href="#collapse5" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapse1">
+                                            <h4>Social
+                                                <span class="lnr lnr-chevron-down"></span>
+                                            </h4>
+                                        </a>
 
-                        </div>
-                        <!-- end /.col-md-6 -->
+                                        <div class="information__set social_profile toggle_module collapse " id="collapse5">
+                                            <div class="information_wrapper">
+                                                <div class="social__single">
+                                                    <div class="social_icon">
+                                                        <span class="fa fa-facebook"></span>
+                                                    </div>
 
-                        <div class="col-lg-6">
-                            <div class="information_module">
-                                <a class="toggle_title" href="#collapse3" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapse1">
-                                    <h4>Zdjęcie profilowe & baner
-                                        <span class="lnr lnr-chevron-down"></span>
-                                    </h4>
-                                </a>
+                                                    <div class="link_field">
+                                                        <input type="text" class="text_field" placeholder="np. www.facebook.com/jankowalski">
+                                                    </div>
+                                                </div>
+                                                <!-- end /.social__single -->
 
-                                <div class="information__set profile_images toggle_module collapse" id="collapse3">
-                                    <div class="information_wrapper">
-                                        <div class="profile_image_area">
-                                            <img src="<?= $user_data['profile_image'] ?>" alt="Author profile area">
-                                            <div class="img_info">
-                                                <p class="bold">Zdjęcie profilowe</p>
-                                                <p class="subtitle">JPG, GIF or PNG 100x100 px</p>
+                                                <div class="social__single">
+                                                    <div class="social_icon">
+                                                        <span class="fa fa-twitter"></span>
+                                                    </div>
+
+                                                    <div class="link_field">
+                                                        <input type="text" class="text_field" placeholder="np. www.twitter.com/jankowalski">
+                                                    </div>
+                                                </div>
+                                                <!-- end /.social__single -->
+
+                                                <div class="social__single">
+                                                    <div class="social_icon">
+                                                        <span class="fa fa-google-plus"></span>
+                                                    </div>
+
+                                                    <div class="link_field">
+                                                        <input type="text" class="text_field" placeholder="np. www.google.com/jankowalski">
+                                                    </div>
+                                                </div>
+                                                <!-- end /.social__single -->
+
+                                                <div class="social__single">
+                                                    <div class="social_icon">
+                                                        <span class="fa fa-behance"></span>
+                                                    </div>
+
+                                                    <div class="link_field">
+                                                        <input type="text" class="text_field" placeholder="np. www.behance.com/jankowalski">
+                                                    </div>
+                                                </div>
+                                                <!-- end /.social__single -->
+
+                                                <div class="social__single">
+                                                    <div class="social_icon">
+                                                        <span class="fa fa-dribbble"></span>
+                                                    </div>
+
+                                                    <div class="link_field">
+                                                        <input type="text" class="text_field" placeholder="np. www.dribbble.com/jankowalski">
+                                                    </div>
+                                                </div>
+                                                <!-- end /.social__single -->
                                             </div>
-
-                                            <label for="profile_image" class="upload_btn">
-                                                <input type="file" id="profile_image" name="profile_image">
-                                                <span class="btn btn--sm btn--round" aria-hidden="true">Prześlij zdjęcie</span>
-                                            </label>
+                                            <!-- end /.information_wrapper -->
                                         </div>
-
-                                        <div class="prof_img_upload">
-                                            <p class="bold">Baner</p>
-                                            <img src="<?= $user_data['banner_image'] ?>" alt="The great warrior of China">
-
-                                            <div class="upload_title">
-                                                <p>JPG, GIF or PNG 750x370 px</p>
-                                                <label for="banner_image" class="upload_btn">
-                                                    <input type="file" id="banner_image" name="banner_image">
-                                                    <span class="btn btn--sm btn--round" aria-hidden="true">Prześlij zdjęcie</span>
-                                                </label>
-                                            </div>
-                                        </div>
+                                        <!-- end /.social_profile -->
                                     </div>
-                                </div>
-                            </div>
-                            <!-- end /.information_module -->
-
-                            <div class="information_module">
-                                <a class="toggle_title" href="#collapse5" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapse1">
-                                    <h4>Social
-                                        <span class="lnr lnr-chevron-down"></span>
-                                    </h4>
-                                </a>
-
-                                <div class="information__set social_profile toggle_module collapse " id="collapse5">
-                                    <div class="information_wrapper">
-                                        <div class="social__single">
-                                            <div class="social_icon">
-                                                <span class="fa fa-facebook"></span>
-                                            </div>
-
-                                            <div class="link_field">
-                                                <input type="text" class="text_field" placeholder="np. www.facebook.com/jankowalski">
-                                            </div>
-                                        </div>
-                                        <!-- end /.social__single -->
-
-                                        <div class="social__single">
-                                            <div class="social_icon">
-                                                <span class="fa fa-twitter"></span>
-                                            </div>
-
-                                            <div class="link_field">
-                                                <input type="text" class="text_field" placeholder="np. www.twitter.com/jankowalski">
-                                            </div>
-                                        </div>
-                                        <!-- end /.social__single -->
-
-                                        <div class="social__single">
-                                            <div class="social_icon">
-                                                <span class="fa fa-google-plus"></span>
-                                            </div>
-
-                                            <div class="link_field">
-                                                <input type="text" class="text_field" placeholder="np. www.google.com/jankowalski">
-                                            </div>
-                                        </div>
-                                        <!-- end /.social__single -->
-
-                                        <div class="social__single">
-                                            <div class="social_icon">
-                                                <span class="fa fa-behance"></span>
-                                            </div>
-
-                                            <div class="link_field">
-                                                <input type="text" class="text_field" placeholder="np. www.behance.com/jankowalski">
-                                            </div>
-                                        </div>
-                                        <!-- end /.social__single -->
-
-                                        <div class="social__single">
-                                            <div class="social_icon">
-                                                <span class="fa fa-dribbble"></span>
-                                            </div>
-
-                                            <div class="link_field">
-                                                <input type="text" class="text_field" placeholder="np. www.dribbble.com/jankowalski">
-                                            </div>
-                                        </div>
-                                        <!-- end /.social__single -->
-                                    </div>
-                                    <!-- end /.information_wrapper -->
-                                </div>
-                                <!-- end /.social_profile -->
-                            </div>
-                            <!-- end /.information_module -->
-                            <!-- 
+                                    <!-- end /.information_module -->
+                                    <!-- 
                             <div class="information_module">
                                 <a class="toggle_title" href="#collapse4" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapse1">
                                     <h4>Email Settings
@@ -401,18 +408,18 @@ $user_data = get_user_data($user_id, $db);
                                 </div>
                             </div>
                              -->
-                            <!-- end /.information_module -->
-                        </div>
-                        <!-- end /.col-md-6 -->
+                                    <!-- end /.information_module -->
+                                </div>
+                                <!-- end /.col-md-6 -->
 
-                        <div class="col-md-12">
-                            <div class="dashboard_setting_btn">
-                                <button type="submit" name="submit" class="btn btn--round btn--md">Zapisz Zmiany</button>
+                                <div class="col-md-12">
+                                    <div class="dashboard_setting_btn">
+                                        <button type="submit" name="submit" class="btn btn--round btn--md">Zapisz Zmiany</button>
+                                    </div>
+                                </div>
+                                <!-- end /.col-md-12 -->
                             </div>
-                        </div>
-                        <!-- end /.col-md-12 -->
-                    </div>
-                    <!-- end /.row -->
+                            <!-- end /.row -->
                 </form>
                 <!-- end /form -->
             </div>
