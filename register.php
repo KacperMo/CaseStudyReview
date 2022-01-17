@@ -26,19 +26,19 @@ require_once 'inc/head.php';
                             <form class="user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                 <?php require('inc/register-login-errors.php'); ?>
                                 <div class="form-group row">
-                                    <input type="text" placeholder="Nazwa użytkownika" name="username" value="<?php echo $username; ?>" class="form-control form-control-user">
+                                    <input required type="text" placeholder="Nazwa użytkownika" name="username" value="<?php echo $username; ?>" class="form-control form-control-user">
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" name="email" value="<?php echo $email; ?>" placeholder="email">
+                                    <input required type="email" class="form-control form-control-user" name="email" value="<?php echo $email; ?>" placeholder="email">
 
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user" name="password_1" placeholder="Hasło">
+                                        <input required type="password" class="form-control form-control-user" name="password_1" placeholder="Hasło">
 
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user" name="password_2" placeholder="Powtórz hasło">
+                                        <input required type="password" class="form-control form-control-user" name="password_2" placeholder="Powtórz hasło">
 
                                     </div>
                                 </div>

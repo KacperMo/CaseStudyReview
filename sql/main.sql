@@ -45,7 +45,7 @@ CREATE TABLE `publications` (
 CREATE TABLE `user_data` (
     `user_id` int(32) UNIQUE NOT NULL,
     `first_name` varchar(63) DEFAULT NULL,
-    `last_name` varchar(127) DEFAULT NULL,
+    `surname` varchar(127) DEFAULT NULL,
     `college` varchar(255) DEFAULT NULL,
     `profile_image` varchar(255) DEFAULT "images/usr_avatar.png",
     `banner_image` varchar(255) DEFAULT "images/cvrplc.jpg",

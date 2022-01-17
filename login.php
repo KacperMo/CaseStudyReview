@@ -27,15 +27,14 @@ require_once 'inc/head.php';
                                     </div>
 
                                     <form class="user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="on">
-                                        <?php include('inc/register-login-errors.php'); ?>
 
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" name="email" value="<?php echo $email; ?>" placeholder="Adres email">
+                                            <input required type="email" class="form-control form-control-user" name="email" value="<?php echo $email; ?>" placeholder="Adres email">
 
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" placeholder="Hasło" name="password" autocomplete="off">
+                                            <input required type="password" class="form-control form-control-user" placeholder="Hasło" name="password" autocomplete="off">
                                         </div>
                                         <!--      
                 <div class="form-group">

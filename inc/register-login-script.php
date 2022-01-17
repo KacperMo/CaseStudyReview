@@ -31,7 +31,7 @@ if (isset($_POST['reg_user'])) {
         array_push($errors, "Password is required");
     }
     if ($password_1 != $password_2) {
-        array_push($errors, "The two passwords do not match");
+        array_push($errors, "Hasła nie są takie same.");
     }
 
     // first check the database to make sure 
@@ -42,11 +42,11 @@ if (isset($_POST['reg_user'])) {
 
     if ($user) { // if user exists
         if ($user['username'] === $username) {
-            array_push($errors, "Username already exists");
+            array_push($errors, "Ta nazwa użytkownika jest zajęta.");
         }
 
         if ($user['email'] === $email) {
-            array_push($errors, "Email already exists");
+            array_push($errors, "Ten adres email jest zajęty.");
         }
     }
 
