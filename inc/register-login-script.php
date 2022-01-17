@@ -65,7 +65,7 @@ if (isset($_POST['reg_user'])) {
         mysqli_query($db, $query);
 
         create_user_folder($user['user_id']);
-        //header('location: index.php');
+        header('location: login.php');
     }
 }
 
