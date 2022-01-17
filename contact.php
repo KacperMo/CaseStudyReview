@@ -1,5 +1,5 @@
 <?php
-require_once('inc/navibar.php');
+require_once('inc/navbar.php');
 require_once('inc/head.php');
 if (!isset($_SESSION)) {
     session_start();

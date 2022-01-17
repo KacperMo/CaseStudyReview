@@ -1,6 +1,6 @@
 <?php
-require_once('header.php');
-require_once('navibar.php');
+require_once 'inc/head.php';
+require_once 'inc/navbar.php';
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -36,7 +36,7 @@ if (!isset($_SESSION)) {
                                         <li>
                                             <a href="#products">
                                                 <?php
-                                                require_once("showpublication.php");
+                                                require_once("inc/show-publication.php");
                                                 $get_solutions = get_solutions();
                                                 echo "Znaleziono " . $get_solutions->rowCount . " publikacji";
                                                 ?>

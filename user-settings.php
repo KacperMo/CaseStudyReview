@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
 }
 if (isset($_SESSION['user_id'])) {
     require_once 'inc/head.php';
-    require_once 'inc/navibar.php';
+    require_once 'inc/navbar.php';
     require_once "inc/connect.php";
     require_once "inc/user.php";
 } else {
@@ -71,7 +71,7 @@ $user_data = get_user_data($user_id, $db);
                                     <span class="lnr lnr-chart-bars"></span>Statements</a>
                             </li> -->
                             <li>
-                                <a href="addsolution.php">
+                                <a href="add-publication.php">
                                     <span class="lnr lnr-upload"></span>Dodaj publikacje</a>
                             </li>
                             <li>

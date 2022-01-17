@@ -1,6 +1,6 @@
 <?php
-require_once('navibar.php');
-require_once('head.php');
+require_once('inc/navbar.php');
+require_once('inc/head.php');
 ?>
 
 <body class="preload dashboard-upload">
@@ -44,7 +44,7 @@ require_once('head.php');
                                     <span class="lnr lnr-home"></span>Twój profil</a>
                             </li>
                             <li>
-                                <a href="dashboard-setting.php">
+                                <a href="user-settings.php">
                                     <span class="lnr lnr-cog"></span>Ustawienia konta</a>
                             </li>
                             <!--  <li>
@@ -60,7 +60,7 @@ require_once('head.php');
                                     <span class="lnr lnr-chart-bars"></span>Statements</a>
                             </li> -->
                             <li class="active">
-                                <a href="addsolution.php">
+                                <a href="add-publication.php">
                                     <span class="lnr lnr-upload"></span>Dodaj publikacje</a>
                             </li>
                             <li>
@@ -105,7 +105,7 @@ require_once('head.php');
                                     <div class="form-group">
                                         <label for="category">Kategoria</label>
                                         <div class="select-wrap select-wrap2">
-                                            <select name="Category" id="category" class="text_field" required>
+                                            <select name="category" id="category" class="text_field" required>
                                                 <option value="IT">IT</option>
                                                 <option value="graphic">Graphics</option>
                                                 <option value="illustration">Illustration</option>
@@ -117,17 +117,17 @@ require_once('head.php');
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="Title">Tytuł opracowania
+                                        <label for="publication_title">Tytuł opracowania
                                             <span>(Max. 50 znaków)</span>
                                         </label>
-                                        <input type="text" id="Title" name="Title" class="text_field" placeholder="Tytuł swojego opracowania..." onfocus="this.placeholder = '...'" required onblur="this.placeholder = 'Tytuł swojego opracowania...'">
+                                        <input type="text" id="publication_title" name="publication_title" class="text_field" placeholder="Tytuł twojego opracowania..." onfocus="this.placeholder = '...'" required onblur="this.placeholder = 'Tytuł swojego opracowania...'">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="Tags">Tagi
+                                        <label for="tags">Tagi
                                             <span>(Max. 5)</span>
                                         </label>
-                                        <input type="text" id="Tags" name="Tags" class="text_field" placeholder="Tagi" onfocus="this.placeholder = '...'" onblur="this.placeholder = 'Tagi'" required class="single-input">
+                                        <input type="text" id="tags" name="tags" class="text_field" placeholder="Tagi" onfocus="this.placeholder = '...'" onblur="this.placeholder = 'Tagi'" required class="single-input">
                                     </div>
                                     <div class="form-group">
                                         <label for="abstract">Streszczenie
@@ -172,8 +172,8 @@ require_once('head.php');
                                                     </p>
 
                                                     <div class="custom_upload">
-                                                        <label for="uploadJPG">
-                                                            <input type="file" class="files" name="uploadJPG" id="uploadJPG" multiple />
+                                                        <label for="publication_cover">
+                                                            <input type="file" class="files" name="publication_cover" id="publication_cover" multiple />
                                                             <span class="btn btn--round btn--sm">Wybierz</span>
                                                         </label>
                                                     </div>
@@ -199,8 +199,8 @@ require_once('head.php');
                                                 </p>
 
                                                 <div class="custom_upload">
-                                                    <label for="uploadPDF">
-                                                        <input type="file" class="files" name="uploadPDF" id="uploadPDF" multiple />
+                                                    <label for="publication_pdf">
+                                                        <input type="file" class="files" name="publication_pdf" id="publication_pdf" multiple />
                                                         <span class="btn btn--round btn--sm">Wybierz</span>
                                                     </label>
                                                 </div>
@@ -221,7 +221,7 @@ require_once('head.php');
                                         <div class="form-group radio-group">
                                             <p class="label">Chcę aby dokument był publiczny</p>
                                             <div class="custom-radio">
-                                                <input type="radio" id="ryes" class="" name="isPublic" value="yes" checked>
+                                                <input type="radio" id="ryes" class="" name="isPublic" value="yes">
                                                 <label for="ryes"><span class="circle"></span>Tak</label>
                                             </div>
 

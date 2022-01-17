@@ -1,10 +1,11 @@
 <?php
+require_once "inc/connect.php";
+
 //getSolutions();
 //@header("location: solutions.php");
 select_only();
 function select_only($what = "category")
 {
-    require "inc/connect.php";
     $sql = "select DISTINCT category from publications;";
     $only_one = $pdo->prepare($sql);
     //$only_one->bindParam(':what',$what);    

@@ -38,6 +38,7 @@ CREATE TABLE `publications` (
     `views` int(32) NOT NULL,
     `thumbnail_path` varchar(255) DEFAULT NULL,
     `publication_path` varchar(255) NOT NULL,
+    `abstract` varchar(255) NOT NULL,
     `description` varchar(1023) NOT NULL,
     `rating` float(3,2) NOT NULL
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
