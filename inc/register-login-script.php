@@ -80,15 +80,15 @@ if (isset($_POST['reg_user'])) {
         mysqli_stmt_execute($query);
 
         create_user_folder($user['user_id']);
-        //header('location: login.php');
+        header('location: login.php');
     }
 }
 
 // LOGIN USER
 
 if (isset($_POST['login_user'])) {
-    $email = mysqli_real_escape_string($db, $_POST['email']);
-    $password = mysqli_real_escape_string($db, $_POST['password']);
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
 
     if (empty($email)) {
         array_push($errors, "Email jest wymagany");
@@ -98,11 +98,13 @@ if (isset($_POST['login_user'])) {
     }
 
     if (count($errors) == 0) {
-        $password = md5($password);
-        $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-        $results = mysqli_query($db, $query);
-        if (mysqli_num_rows($results) == 1) {
-            $user = $results->fetch_assoc();
+        $query = mysqli_prepare($db, "SELECT * FROM users WHERE email=? AND password=?");
+        mysqli_stmt_bind_param($query, 'ss', $email, $password);
+        mysqli_stmt_execute($query);
+        $result = mysqli_stmt_get_result($query);
+
+        if (mysqli_num_rows($result) == 1) {
+            $user = mysqli_fetch_assoc($result);
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['success'] = "You are now logged in";
             header('location: index.php');
