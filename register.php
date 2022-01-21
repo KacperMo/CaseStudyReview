@@ -23,13 +23,13 @@ require_once 'inc/head.php';
 
                             </div>
                             <!--registration form    -->
-                            <form class="user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                            <form class="user" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                 <?php require('inc/register-login-errors.php'); ?>
                                 <div class="form-group row">
-                                    <input required type="text" placeholder="Nazwa użytkownika" name="username" value="<?php echo $username; ?>" class="form-control form-control-user">
+                                    <input required type="text" placeholder="Nazwa użytkownika" name="username" value="<?= $username; ?>" class="form-control form-control-user">
                                 </div>
                                 <div class="form-group">
-                                    <input required type="email" class="form-control form-control-user" name="email" value="<?php echo $email; ?>" placeholder="Adres Email">
+                                    <input required type="email" class="form-control form-control-user" name="email" value="<?= $email; ?>" placeholder="Adres Email">
 
                                 </div>
                                 <div class="form-group row">
