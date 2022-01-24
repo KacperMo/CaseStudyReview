@@ -1,7 +1,7 @@
 <?php
+require_once 'inc/add-publication-script.php';
 require_once 'inc/navbar.php';
 require_once 'inc/head.php';
-//require_once 'inc/add-publication-script.php';
 
 ?>
 
@@ -151,7 +151,7 @@ require_once 'inc/head.php';
 
 
                             <!-- submit button -->
-                            <button type="submit" class="btn btn--round btn--fullwidth btn--lg">Wysyłam!</button>
+                            <button name="add_publication" type="submit" class="btn btn--round btn--fullwidth btn--lg">Wysyłam!</button>
 
                         </div>
                         <!-- end /.col-md-8 -->

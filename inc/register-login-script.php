@@ -80,7 +80,7 @@ if (isset($_POST['reg_user'])) {
         mysqli_stmt_execute($query);
 
         create_user_folder($user['user_id']);
-        //header('location: login.php');
+        header('location: login.php');
     }
 }
 
