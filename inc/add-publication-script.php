@@ -21,6 +21,10 @@ if (isset($_POST['add_publication'])) {
 
 function insert_publication_data($db, $user_id)
 {
+    echo $_POST['category'];
+    echo $_POST['title'];
+    echo $_POST['abstract'];
+    echo $_POST['description'];
     $query = mysqli_prepare(
         $db,
         "INSERT INTO publications (author_id, category, title, abstract, description) VALUES (?, ?, ?, ?, ?)"

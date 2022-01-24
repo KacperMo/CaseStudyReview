@@ -119,10 +119,10 @@ require_once 'inc/head.php';
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="publication_title">Tytuł opracowania
+                                        <label for="title">Tytuł opracowania
                                             <span>(Max. 50 znaków)</span>
                                         </label>
-                                        <input type="text" id="publication_title" name="publication_title" class="text_field" placeholder="Tytuł twojego opracowania..." onfocus="this.placeholder = '...'" required onblur="this.placeholder = 'Tytuł swojego opracowania...'">
+                                        <input type="text" id="title" name="title" class="text_field" placeholder="Tytuł twojego opracowania..." onfocus="this.placeholder = '...'" required onblur="this.placeholder = 'Tytuł swojego opracowania...'">
                                     </div>
 
                                     <div class="form-group">
