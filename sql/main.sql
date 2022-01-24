@@ -14,10 +14,10 @@ CREATE TABLE `comments`(
     `comment_id` int(32) AUTO_INCREMENT PRIMARY KEY,
     `publication_id` int(32) NOT NULL,
     `comment_content` varchar(1023) NOT NULL,
-    `user_id` varchar(255) NOT NULL,
-    `creation_date`,
-    `modification_date`,
-    `like_count`,
+    `user_id` varchar(255) NOT NULL
+    --`creation_date`,
+    --`modification_date`,
+    --`like_count`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `users`(
@@ -29,7 +29,7 @@ CREATE TABLE `users`(
     `email_verified` tinyint(1) NOT NULL,
     --`user_permissions` varchar(255) NOT NULL, -- validation table
     `last_login_date` date NOT NULL,
-    'anonymous' tinyint(1) NOT NULL,
+    `anonymous` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `publications` (
