@@ -15,9 +15,10 @@ CREATE TABLE `comments`(
     `publication_id` int(32) NOT NULL,
     `comment_content` varchar(1023) NOT NULL,
     `user_id` varchar(255) NOT NULL
-    --`creation_date`,
-    --`modification_date`,
-    --`like_count`
+    -- uncomment later
+    -- `creation_date`,
+    -- `modification_date`,
+    -- `like_count`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `users`(
@@ -27,7 +28,7 @@ CREATE TABLE `users`(
     `registration_date` date DEFAULT CURRENT_DATE(),
     `email` varchar(255) NOT NULL UNIQUE,
     `email_verified` tinyint(1) NOT NULL,
-    --`user_permissions` varchar(255) NOT NULL, -- validation table
+    -- `user_permissions` varchar(255) NOT NULL, -- validation table
     `last_login_date` date NOT NULL,
     `anonymous` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -42,7 +43,7 @@ CREATE TABLE `publications` (
     `submission_date` date DEFAULT CURRENT_DATE(),
     `title` varchar(255) NOT NULL,
     `category` varchar(31) NOT NULL,-- validation table
-    --`views` int(32) NOT NULL, // to be implemented
+    -- `views` int(32) NOT NULL, // to be implemented
     `thumbnail_path` varchar(255) DEFAULT NULL,
     `publication_path` varchar(255) NOT NULL,
     `abstract` varchar(255) NOT NULL,
