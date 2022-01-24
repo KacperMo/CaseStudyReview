@@ -27,7 +27,7 @@ function insert_publication_data($db, $user_id)
     echo $_POST['description'];
     $query = mysqli_prepare(
         $db,
-        "INSERT INTO publications (author_id, category, title, abstract, description) VALUES (?, ?, ?, ?, ?)"
+        "INSERT INTO publications (sender_id, category, title, abstract, description) VALUES (?, ?, ?, ?, ?)"
     );
     mysqli_stmt_bind_param(
         $query,
