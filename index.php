@@ -149,6 +149,7 @@ require_once('inc/navbar.php')
 
     <?php
     require_once('inc/footer.php');
+    require_once('cookies.php')
     ?>
 </body>
 

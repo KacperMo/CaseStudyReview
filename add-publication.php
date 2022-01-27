@@ -140,7 +140,7 @@ require_once 'inc/head.php';
 
                                     <div class="form-group no-margin">
                                         <p class="label">Opis</p>
-                                        <textarea class="text_field" id="description" name="description" placeholder="Pełen opis publikacji"></textarea>
+                                        <textarea class="text_field" id="description" name="publication_description" placeholder="Pełen opis publikacji"></textarea>
                                     </div>
                                 </div>
                                 <!-- end /.modules__content -->

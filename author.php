@@ -19,7 +19,13 @@ require_once "inc/connect.php";
 $user_id =  $_SESSION["user_id"];
 $user = get_user($user_id, $db);
 $user_data = get_user_data($user_id, $db);
+$number_of_publications = get_number_of_publications($user_id, $db);
 
+if (!empty($user_data['first_name'])) {
+    $author_name = $user_data['first_name'] . ' ' . $user_data['surname'];
+} else {
+    $author_name = $user['username'];
+}
 ?>
 
 <body class="preload">
@@ -106,12 +112,10 @@ $user_data = get_user_data($user_id, $db);
                                     </div>
 
                                     <div class="author">
-                                        <h4><?= $user_data['first_name'] ?> <?= $user_data['surname'] ?></h4>
+                                        <h4><?= $author_name ?></h4>
                                         <p>Z nami od <?= $user['registration_date'] ?> </p>
                                     </div>
                                     <!-- end /.author -->
-
-
 
                                     <div class="social social--color--filled">
                                         <ul>
@@ -133,14 +137,17 @@ $user_data = get_user_data($user_id, $db);
                                         </ul>
                                     </div>
                                     <!-- end /.social -->
-
+                                    <div>
+                                        <p><b>Publikacji:</b> <?= $number_of_publications['count'] ?></p>
+                                    </div>
+                                    <!--
                                     <div class="author-btn">
                                         <a href="#" class="btn btn--md btn--round">Obserwuj</a>
                                     </div>
+                                    -->
                                     <!-- end /.author-btn -->
                                 </div>
                                 <!-- end /.author-infos -->
-
 
                             </div>
                             <!-- end /.author-card -->
@@ -158,6 +165,7 @@ $user_data = get_user_data($user_id, $db);
                             </div>
                             <!-- end /.author-menu -->
 
+                            <!--
                             <div class="sidebar-card freelance-status">
                                 <div class="custom-radio">
                                     <input type="radio" id="opt1" class="" name="filter_opt" checked>
@@ -165,6 +173,7 @@ $user_data = get_user_data($user_id, $db);
                                         <span class="circle"></span>Chętnie podejmuje dyskusje</label>
                                 </div>
                             </div>
+                            -->
                             <!-- end /.author-card -->
 
                             <div class="sidebar-card message-card">
@@ -193,22 +202,27 @@ $user_data = get_user_data($user_id, $db);
 
                     <div class="col-lg-8 col-md-12">
                         <div class="row">
+                            <!--
                             <div class="col-md-4 col-sm-4">
                                 <div class="author-info mcolorbg4">
                                     <p>Publikacji </p>
                                     <h3>9</h3>
                                 </div>
                             </div>
+                            -->
                             <!-- end /.col-md-4 -->
 
+                            <!--
                             <div class="col-md-4 col-sm-4">
                                 <div class="author-info pcolorbg">
                                     <p>Obserwujących </p>
                                     <h3>195</h3>
                                 </div>
                             </div>
+                            -->
                             <!-- end /.col-md-4 -->
 
+                            <!--
                             <div class="col-md-4 col-sm-4">
                                 <div class="author-info scolorbg">
                                     <p>Ranga</p>
@@ -218,6 +232,7 @@ $user_data = get_user_data($user_id, $db);
                                     </div>
                                 </div>
                             </div>
+                            -->
                             <!-- end /.col-md-4 -->
 
                             <div class="col-md-12 col-sm-12">
@@ -229,9 +244,7 @@ $user_data = get_user_data($user_id, $db);
                                     <h2>O
                                         <span>Mnie</span>
                                     </h2>
-                                    <p>Cześć jestem ..... i bardzo lubie nauki ścisłe. Specjalizuję się w inżynierii oprogramowania.</p>
-                                    <p>Nunc placerat mi id nisi interdum mollis. Praesent pharetra, justo ut scelerisque the mattisleo
-                                        quam aliquet congue. Nunc placerat mi id nisi interdum mollis. Praesent pharetra.</p>
+                                    <p><?= $user_data['description'] ?></p>
                                 </div>
                             </div>
                         </div>
