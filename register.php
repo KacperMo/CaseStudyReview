@@ -87,6 +87,10 @@ require_once 'inc/head.php';
     <script src="js/sb-admin-2.min.js"></script>
     <?php
     require_once('inc/footer.php');
+    if($_SESSION['accept_cookies'] == false)
+    {
+        require_once('cookies.php');
+    }
     ?>
 </body>
 

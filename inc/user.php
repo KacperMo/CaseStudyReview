@@ -1,8 +1,10 @@
 <?php
 require_once "connect.php";
+
 if (!isset($_SESSION)) {
     session_start();
 }
+
 if (isset($_SESSION['user_id'])) {
     $user_id =  $_SESSION["user_id"];
 }
@@ -20,6 +22,7 @@ function get_user($user_id, $db)
     $result = mysqli_query($db, $query) or die(mysqli_error($db));
     return $result->fetch_assoc();
 }
+
 function get_user_data($user_id, $db)
 {
     $query = "SELECT * FROM `user_data` WHERE `user_id` = $user_id";
@@ -27,6 +30,12 @@ function get_user_data($user_id, $db)
     return $result->fetch_assoc();
 }
 
+function get_number_of_publications($user_id, $db)
+{
+    $query = "SELECT COUNT(*) as count FROM `publications` WHERE `sender_id` = $user_id";
+    $result = mysqli_query($db, $query) or die(mysqli_error($db));
+    return mysqli_fetch_assoc($result);
+}
 
 function create_user_folder($user_id)
 {
