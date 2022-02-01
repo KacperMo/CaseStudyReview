@@ -449,10 +449,6 @@ $user_data = get_user_data($user_id, $db);
     </script>
     <?php
     @require_once('inc/footer.php');
-    if($_SESSION['accept_cookies'] == false)
-    {
-        @require_once('cookies.php');
-    }
     ?>
 </body>
 

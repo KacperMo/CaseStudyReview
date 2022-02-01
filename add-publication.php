@@ -107,7 +107,7 @@ require_once 'inc/head.php';
                                     <div class="form-group">
                                         <label for="category">Kategoria</label>
                                         <div class="select-wrap select-wrap2">
-                                            <select name="publication_category" id="category" class="text_field" required>
+                                            <select name="category" id="category" class="text_field" required>
                                                 <option value="IT">IT</option>
                                                 <option value="graphic">Graphics</option>
                                                 <option value="illustration">Illustration</option>
@@ -122,25 +122,25 @@ require_once 'inc/head.php';
                                         <label for="title">Tytuł opracowania
                                             <span>(Max. 50 znaków)</span>
                                         </label>
-                                        <input type="text" id="title" name="publication_title" class="text_field" placeholder="Tytuł twojego opracowania..." onfocus="this.placeholder = '...'" required onblur="this.placeholder = 'Tytuł swojego opracowania...'">
+                                        <input type="text" id="title" name="title" class="text_field" placeholder="Tytuł twojego opracowania..." onfocus="this.placeholder = '...'" required onblur="this.placeholder = 'Tytuł swojego opracowania...'">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="tags">Tagi
                                             <span>(Max. 5)</span>
                                         </label>
-                                        <input type="text" id="tags" name="publication_tags" class="text_field" placeholder="Tagi" onfocus="this.placeholder = '...'" onblur="this.placeholder = 'Tagi'" required class="single-input">
+                                        <input type="text" id="tags" name="tags" class="text_field" placeholder="Tagi" onfocus="this.placeholder = '...'" onblur="this.placeholder = 'Tagi'" required class="single-input">
                                     </div>
                                     <div class="form-group">
                                         <label for="abstract">Streszczenie
                                             <span>(Max. 200 znaków )</span>
                                         </label>
-                                        <textarea id="abstract" name="publication_abstract" class="text_field" placeholder="Opis krótki" onfocus="this.placeholder = '...'" onblur="this.placeholder = 'Uzupełnij'" required></textarea>
+                                        <textarea id="abstract" name="abstract" class="text_field" placeholder="Opis krótki" onfocus="this.placeholder = '...'" onblur="this.placeholder = 'Uzupełnij'" required></textarea>
                                     </div>
 
                                     <div class="form-group no-margin">
                                         <p class="label">Opis</p>
-                                        <textarea class="text_field" id="description" name="publication_description" placeholder="Pełen opis publikacji"></textarea>
+                                        <textarea class="text_field" id="description" name="description" placeholder="Pełen opis publikacji"></textarea>
                                     </div>
                                 </div>
                                 <!-- end /.modules__content -->
@@ -282,9 +282,6 @@ require_once 'inc/head.php';
     =================================-->
     <?php
     @require_once('inc/footer.php');
-    if ($_SESSION['accept_cookies'] == false) {
-        @require_once('cookies.php');
-    }
     ?>
 
 </body>

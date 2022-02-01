@@ -21,10 +21,10 @@ if (isset($_POST['add_publication'])) {
 
 function insert_publication_data($db, $user_id)
 {
-    echo $_POST['publication_category'];
-    echo $_POST['publication_title'];
-    echo $_POST['publication_abstract'];
-    echo $_POST['publication_description'];
+    echo $_POST['category'];
+    echo $_POST['title'];
+    echo $_POST['abstract'];
+    echo $_POST['description'];
     $query = mysqli_prepare(
         $db,
         "INSERT INTO publications (sender_id, category, title, abstract, description) VALUES (?, ?, ?, ?, ?)"
@@ -33,10 +33,10 @@ function insert_publication_data($db, $user_id)
         $query,
         'issss',
         $user_id,
-        $_POST['publication_category'],
-        $_POST['publication_title'],
-        $_POST['publication_abstract'],
-        $_POST['publication_description'],
+        $_POST['category'],
+        $_POST['title'],
+        $_POST['abstract'],
+        $_POST['description'],
     );
     mysqli_stmt_execute($query);
     //header('Location: publications-grid.php');

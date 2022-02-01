@@ -28,7 +28,8 @@
                         <h4 class="footer-widget-title text--white">O nas</h4>
                         <ul>
                             <li>
-                                <a href="contact.php">Kontakt</a</li>
+                                <a href="contact.php">Kontakt</a>
+                            </li>
                             <li>
                                 <a href="#">Jak działamy?</a>
                             </li>
@@ -44,13 +45,13 @@
                                 <a href="contact.php">Kontakt</a>
                             </li>
                             <li>
+                                <a href="#">Prawa autorskie</a>
+                            </li>
+                            <li>
                                 <a href="contact.php">Współpraca</a>
                             </li>
                             <li>
-                                <a href="statute.php">Regulamin</a>
-                            </li>
-                            <li>
-                                <a href="rodo.php">RODO</a>
+                                <a href="#">RODO</a>
                             </li>
                         </ul>
                     </div>

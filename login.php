@@ -77,10 +77,6 @@ require_once 'inc/head.php';
 
     <?php
     require_once('inc/footer.php');
-    if($_SESSION['accept_cookies'] == false)
-    {
-        require_once('cookies.php');
-    }
     ?>
 </body>
 
