@@ -1,6 +1,7 @@
 <?php
 require_once "inc/connect.php";
 require_once "inc/user.php";
+require_once "inc/cookies.php";
 
 if (!isset($_SESSION)) {
     session_start();
