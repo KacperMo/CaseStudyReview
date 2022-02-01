@@ -30,12 +30,12 @@ function get_user_data($user_id, $db)
 
 function create_user_folder($user_id)
 {
-    $path = "users/$user_id/";
+    $path = "users/$user_id";
     mkdir($path);
     $path = "users/$user_id/images";
-    mkdir($path, 0777, true);
+    mkdir($path);
     $path = "users/$user_id/publications";
-    mkdir($path, 0777, true);
+    mkdir($path);
 }
 
 function update_user_data($user_id, $db)
@@ -69,7 +69,7 @@ function upload_user_image($user_id, $file_name, $db)
     // Check if user uploaded file
     if (!empty($_FILES[$file_name]) && $_FILES[$file_name]["name"] != "") {
 
-        $max_file_size = 50000000;
+        $max_file_size = 15000000;
         $target_dir = "users/" . $user_id . "/images//";
         $target_file = $target_dir . basename($_FILES[$file_name]["name"]);
         $upload_ok = 1;
@@ -87,11 +87,6 @@ function upload_user_image($user_id, $file_name, $db)
             }
         }
 
-        // Check if file already exists
-        if (file_exists($target_file)) {
-            // echo "Sorry, file already exists.";
-            $upload_ok = 0;
-        }
         // Check if user uploaded file
         if ($_FILES[$file_name] == "") {
             //echo "No file uploaded";

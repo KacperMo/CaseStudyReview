@@ -9,26 +9,42 @@ if (isset($_POST['add_publication'])) {
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION["user_id"];
         $user = get_user($user_id, $db);
-        $email = $user['email'];
 
-        insert_publication_data($db, $user_id);
-        //upload_publication_files();
+        insert_publication_data($user_id, $db);
+        $publication_id = mysqli_insert_id($db);
+
+        //create publication folder
+        $publication_path = "users/" . $user_id . "/publications/" . $publication_id . "/";
+        mkdir($publication_path);
+        /*
+        upload_file(
+            $user_id,
+            $publication_id,
+            'publication_pdf',
+            ['pdf'],
+        );
+        */
+        upload_file(
+            $user_id,
+            $publication_id,
+            'publication_cover',
+            ['png', 'jpg', 'jpeg'],
+        );
+
         //create_publication_preview();
     }
     //header('Location: publications-grid.php');
-
 }
 
-function insert_publication_data($db, $user_id)
+function insert_publication_data($user_id, $db)
 {
-    echo $_POST['category'];
-    echo $_POST['title'];
-    echo $_POST['abstract'];
-    echo $_POST['description'];
     $query = mysqli_prepare(
         $db,
-        "INSERT INTO publications (sender_id, category, title, abstract, description) VALUES (?, ?, ?, ?, ?)"
+        "INSERT INTO publications (sender_id, category, title, abstract, description) 
+        VALUES (?, ?, ?, ?, ?)
+        "
     );
+
     mysqli_stmt_bind_param(
         $query,
         'issss',
@@ -39,73 +55,38 @@ function insert_publication_data($db, $user_id)
         $_POST['description'],
     );
     mysqli_stmt_execute($query);
-    //header('Location: publications-grid.php');
 }
 
-function upload_publication_files($user_id)
+function upload_file($user_id, $publication_id, $file_name, $file_types)
 {
-    //"publication_cover_jpg", "publication_pdf_file"
-    $publication_cover_src = handle_file($publication_cover_jpg, $user_id);
-    $publication_pdf_src = handle_file($publication_pdf_file, $user_id);
-    $publication_folder_src = handle_directory($user_id);
-    //$upload_date = date("Y-m-d");
-    $upload_date = date("Y-m-d_(h-i)");
-    /*
-    if (!file_exists("users/" . $user_id . "/publications/" . $file_date . "/")) {
-        @mkdir("users");
-        @mkdir("users/" . $user_id);
-        @mkdir("users/" . $user_id . "/publications/");
-        @mkdir("users/" . $user_id . "/publications/" . $file_date);
-    }
-    */
-    $target_dir = "users/" . $user_id . "/publications/" . $file_date . "/";
-    return $target_dir;
-}
-
-function handle_file($file_type, $user_id)
-{
-    $target_dir = handle_directory($user_id);
-    $target_file = $target_dir . basename($_FILES[$file_type]["name"]);
-    $uploadCheck = 0;
-
-    $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    echo "<br>";
-    echo $image_file_type . " <= typ<br>";
-    echo $_FILES[$file_type]["name"] . "<br>";
-    echo $_FILES[$file_type]["tmp_name"] . "<br>";
-    echo $_FILES[$file_type]["size"] . "<br>";
-
-    // Check if image file is a actual image or fake image   
-    // Check if file already exists
-    if (file_exists($target_file)) {
-        echo "Przepraszamy, plik o tej nazwie już ustnieje.";
-        $uploadCheck = 1;
-    }
+    $target_dir = "users/" . $user_id . "/publications/" . $publication_id . "/";
+    $upload_failed = false;
+    $file_type = strtolower(
+        pathinfo(basename($_FILES[$file_name]["name"]), PATHINFO_EXTENSION)
+    );
+    $target_file = $target_dir . $file_name . "_" . $publication_id . '.' . $file_type;
     // Check file size
-    if ($_FILES[$file_type]["size"] > 500000) {
+    if ($_FILES[$file_name]["size"] > 15000000) {
         echo "Sorry, your file is too large.";
-        $uploadCheck = 1;
+        $upload_failed = true;
     }
     // Allow certain file formats
-    if ($image_file_type != "jpg" && $image_file_type != "png" && $image_file_type != "jpeg" && $image_file_type != "pdf") {
-        echo "Sorry, only JPG, JPEG, PDF files are allowed.";
-        $uploadCheck = 1;
+    if (in_array($file_type, $file_types) == false) {
+        $upload_failed = true;
+        echo "Wrong file format.";
     }
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadCheck == 1) {
+    if ($upload_failed) {
         echo "<br>Sorry, your file was not uploaded.";
         // if everything is ok, try to upload file
     } else {
-        if (move_uploaded_file($_FILES[$file_type]["tmp_name"], $target_file)) {
-            echo "<br>The file " . basename($_FILES[$file_type]["name"]) . " has been uploaded.";
+        $final_file_name = $target_dir . $file_name . "_" . $publication_id . '.' . $file_type;
+
+        if (move_uploaded_file($_FILES[$file_name]["tmp_name"], $target_file)) {
+            echo "<br>The file " . basename($_FILES[$file_name]["name"]) . " has been uploaded.";
         } else {
             echo "<br>Sorry, there was an error uploading your file.";
         }
     }
-    if ($image_file_type == "pdf") {
-        convert_pdf_to_jpg($target_file, $target_dir);
-    }
-    return $target_file;
 }
 
 function create_publication_preview()
