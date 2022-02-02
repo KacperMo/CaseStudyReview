@@ -40,6 +40,7 @@ function get_publications($db)
     }
     return $publications;
 }
+
 if (isset($_POST['add_publication'])) {
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION["user_id"];
@@ -73,7 +74,7 @@ if (isset($_POST['add_publication'])) {
         $full_publication_file_path = $full_publication_dir . 'publication_pdf' . "_" . $publication_id . ".pdf";
         convert_pdf_to_jpg($full_publication_file_path, 1);
     }
-    //header('Location: publications-grid.php');
+    header('Location: publications-grid.php');
 }
 
 function insert_publication_data($user_id, $db)

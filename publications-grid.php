@@ -167,7 +167,7 @@ $publications = get_publications($db);
                         <!-- start .single-product -->
                         <div class='product product--card'>
                             <div class='product__thumbnail'>
-                                <img src='<?= $publication['cover_path'] ?>' alt='Product Image'>
+                                <img src='<?= $publication['cover_path'] ?>' style="height:185px;" alt='Product Image'>
                                 <div class='prod_btn'>
                                     <a href="single-publication.php?publication_id=<? $publication['publication_id'] ?>" class='transparent btn--sm btn--round'>Czytaj dalej</a>
                                 </div>

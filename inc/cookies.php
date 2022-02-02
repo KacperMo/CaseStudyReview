@@ -4,7 +4,7 @@
         {
             document.getElementById("cookieNotice").style.display = "none";
             <?php
-            $_SESSION['accept_cookies'] = true;
+            $_SESSION['accept_cookies'] = false;
             ?>
         }
     </script>

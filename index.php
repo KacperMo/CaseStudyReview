@@ -36,7 +36,7 @@ require_once('inc/navbar.php');
                             <!-- start .hero__btn-area-->
                             <div class="hero__btn-area">
                                 <a href="publications-grid.php" class="btn btn--round btn--lg">Zobacz Opracowania</a>
-                                <a href="addsolution.php" class="btn btn--round btn--lg">Dodaj Publikacje</a>
+                                <a href="add-publication.php" class="btn btn--round btn--lg">Dodaj Publikacje</a>
                             </div>
                             <!-- end .hero__btn-area-->
                         </div>
