@@ -1,9 +1,12 @@
 <?php
-require_once('inc/head.php');
-require_once('inc/navbar.php');
+require_once 'inc/head.php';
+require_once 'inc/navbar.php';
+require_once "inc/publications-script.php";
+
 if (!isset($_SESSION)) {
     session_start();
 }
+$publications = get_publications($db);
 ?>
 
 <body class="preload home3">
@@ -37,9 +40,7 @@ if (!isset($_SESSION)) {
                                     <li>
                                         <a href="#products">
                                             <?php
-                                            require_once("show-publication.php");
-                                            $get_solutions = get_solutions();
-                                            echo "Znaleziono " . $get_solutions->rowCount . " publikacji";
+                                            echo "Znaleziono " . count($publications) . " publikacji";
                                             ?>
                                         </a>
                                     </li>
@@ -158,36 +159,25 @@ if (!isset($_SESSION)) {
     <section class="products" id="products">
         <!-- start container -->
         <div class="container">
-
             <!-- start .row -->
             <div class="row">
-
-                <?php
-                $get_solutions = get_solutions();
-                //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
-                foreach ($get_solutions->publicationData as $row) {
-                    echo "<!-- start .col-md-4 -->
-                        <div class='col-lg-4 col-md-6'>
+                <?php foreach ($publications as $publication) : ?>
+                    <!-- start .col-md-4 -->
+                    <div class='col-lg-4 col-md-6'>
                         <!-- start .single-product -->
                         <div class='product product--card'>
-    
                             <div class='product__thumbnail'>
-                            ";
-                    if (@!file_exists($row[img_src])) {
-                        @$row[img_src] = 'images/lp1.jpg';
-                    }
-                    echo "
-                                <img src='$row[img_src]' alt='Product Image'>
+                                <img src='images/lp1.jpg' alt='Product Image'>
                                 <div class='prod_btn'>
-                                    <a href='single-publication.php?publicationID=$row[publicationID]' class='transparent btn--sm btn--round'>Czytaj dalej</a>
+                                    <a href='single-publication.php?publication_id=<? $publication['publication_id'] ?>' class='transparent btn--sm btn--round'>Czytaj dalej</a>
                                 </div>
                                 <!-- end /.prod_btn -->
                             </div>
                             <!-- end /.product__thumbnail -->
-    
+
                             <div class='product-desc'>
-                                <a href='single-publication.php?publicationID=$row[publicationID]' 'class='product_title'>
-                                    <h4>$row[title]</h4>
+                                <a href='single-publication.php?publication_id=<?= $publication['publication_id'] ?>' class='product_title'>
+                                    <h4><?= $publication['title'] ?></h4>
                                 </a>
                                 <ul class='titlebtm'>
                                     <li>
@@ -201,32 +191,26 @@ if (!isset($_SESSION)) {
                                             <span class='lnr lnr-book'></span>Plugin</a>
                                     </li>
                                 </ul>
-    
-                                <p>$row[abstract]</p>
+
+                                <p><?= $publication['abstract'] ?></p>
                             </div>
                             <!-- end /.product-desc -->
-    
+
                             <div class='product-purchase'>
                                 <div class='price_love'>
                                     <p>
-                                        <span class='lnr lnr-heart'></span> $row[stars]</p>
-                                        
+                                        <span class='lnr lnr-heart'></span> <?= $publication['rating'] ?>
+                                    </p>
+
                                 </div>
-                                
+
                             </div>
                             <!-- end /.product-purchase -->
                         </div>
                         <!-- end /.single-product -->
-                        </div>
-                        <!-- end /.col-md-4 -->";
-                }
-                ?>
-
-
-
-
-
-
+                    </div>
+                    <!-- end /.col-md-4 -->
+                <?php endforeach; ?>
             </div>
             <!-- end /.row -->
 
@@ -240,6 +224,7 @@ if (!isset($_SESSION)) {
                                 </a>
 
                                 <?php
+                                /*
                                 $page_number = ceil(($get_solutions->rowCount) / 9);
 
                                 for ($x = 1; $x < $page_number + 1; $x++) {
@@ -254,14 +239,11 @@ if (!isset($_SESSION)) {
                                 echo "<a class='next page-numbers' href='publications-grid.php?Page=$page_number'>
                                     <span class='lnr lnr-arrow-right'></span>
                                 </a>";
-
+                                */
                                 ?>
                                 <!-- <a class="page-numbers current" href="#">1</a>
                                 <a class="page-numbers" href="#">2</a>
                                 <a class="page-numbers" href="#">3</a> -->
-
-
-
 
                             </div>
                         </nav>

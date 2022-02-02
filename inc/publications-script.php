@@ -29,7 +29,7 @@ function get_author_date($user_id)
     $author_detail = "SELECT * FROM `users` WHERE `userID`=$user_id";
     $get_author_detail = $pdo->prepare($author_detail);
     $execute_author_detail = $get_author_detail->execute();
-    return 0;
+    return 0; 
 }
 */
 
@@ -40,7 +40,10 @@ function get_publications($db)
     $query = mysqli_prepare($db, "SELECT * FROM publications");
     mysqli_stmt_execute($query);
     $result = mysqli_stmt_get_result($query);
-    $publications = $result ? mysqli_fetch_assoc($result) : 0;
+    $publications  = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($publications, $row);
+    }
     return $publications;
 }
 
