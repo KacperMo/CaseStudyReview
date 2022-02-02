@@ -1,7 +1,8 @@
 <?php
-require_once('inc/head.php');
-require_once('inc/navbar.php');
-
+require_once 'inc/head.php';
+require_once 'inc/navbar.php';
+require_once 'inc/publications-script.php';
+$publication = get_publication($db, $_GET['publication_id']);
 ?>
 
 <body class="preload single_prduct2">
@@ -23,15 +24,7 @@ require_once('inc/navbar.php');
                         </ul>
                     </div>
 
-                    <?php
-                    require_once("showpublication.php");
-                    $get_solutions = get_solutions();
-                    //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
-
-                    foreach ($get_solutions->publication_data as $row) {
-                    }
-                    echo " <h1 class='page-title'>$row[title]</h1>";
-                    ?>
+                    <h1 class='page-title'><?= $publication['title'] ?></h1>";
                 </div>
                 <!-- end /.col-md-12 -->
             </div>
@@ -53,9 +46,7 @@ require_once('inc/navbar.php');
                 <div class="col-lg-8">
                     <div class="item-preview item-preview2">
                         <div class="prev-slide">
-                            <?php
-                            echo "<img src='$row[img_src]' alt='$row[title]'>";
-                            ?>
+                            <img src='<?= $publication['cover_path'] ?>' alt='<?= $publication['title'] ?>'>
 
                         </div>
 
@@ -76,25 +67,16 @@ require_once('inc/navbar.php');
 
                             <div class="tab-content">
                                 <div class="tab-pane fade product-tab active show" id="product-details">
-                                    <?php
-                                    echo "<div class='tab-content-wrapper'>
+                                    <div class='tab-content-wrapper'>
 
-                                    <h1>" . $row['title'] . "</h1>
-                                    <p>" . $row['abstract'] . "</p>
-                                    <h2>Opis</h2>
-                                    <ul>
-                                    <p>" . $row['description'] . "</p>
-                                    </ul>";
-
-                                    if (file_exists($row['src'] . 'pageone.jpg')) {
-                                        echo "<img src='" . $row['src'] . 'pageone.jpg' . "' alt='$row[title]' style='margin-bottom: 0px; padding-bottom: 0px;'>";
-                                    }
-                                    echo "</div>";
-                                    ?>
-
-
-
-
+                                        <h1><?= $publication['title'] ?></h1>
+                                        <p><?= $publication['abstract'] ?></p>
+                                        <h2>Opis</h2>
+                                        <ul>
+                                            <p><?= $publication['description'] ?></p>
+                                        </ul>";
+                                        <img src='<?= $publication['publication_preview_path'] ?>' alt='<?= $publication['title'] ?>' style='margin-bottom: 0px; padding-bottom: 0px;'>" ; }
+                                    </div>
                                 </div>
                                 <!-- end /.tab-content -->
                                 <!--============================================

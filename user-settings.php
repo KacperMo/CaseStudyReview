@@ -231,7 +231,7 @@ $user_data = get_user_data($user_id, $db);
                                             </div>
 
                                             <label for="profile_image" class="upload_btn">
-                                                <input type="file" id="profile_image" name="profile_image">
+                                                <input type="file" id="profile_image" name="profile_image" value="<?= $user_data['profile_image'] ?>">
                                                 <span class="btn btn--sm btn--round" aria-hidden="true">Prześlij zdjęcie</span>
                                             </label>
                                         </div>
@@ -243,7 +243,7 @@ $user_data = get_user_data($user_id, $db);
                                             <div class="upload_title">
                                                 <p>JPG, GIF or PNG 750x370 px</p>
                                                 <label for="banner_image" class="upload_btn">
-                                                    <input type="file" id="banner_image" name="banner_image">
+                                                    <input type="file" id="banner_image" name="banner_image" value="<?= $user_data['banner_image'] ?>">
                                                     <span class="btn btn--sm btn--round" aria-hidden="true">Prześlij zdjęcie</span>
                                                 </label>
                                             </div>

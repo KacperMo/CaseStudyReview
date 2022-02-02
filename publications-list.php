@@ -174,7 +174,7 @@ $publications = get_publications($db);
                                     <img src='<?= $publication['cover_path'] ?>' alt='Product Image'>
                                     <div class='prod_btn'>
                                         <div class='prod_btn__wrap'>
-                                            <a href='single-publication.php?publication_id=' <?= $publication['publication_id'] ?> class=' transparent btn--sm btn--round'>Czytaj Dalej</a>
+                                            <a href='single-publication.php?publication_id=<?= $publication['publication_id'] ?>' class=' transparent btn--sm btn--round'>Czytaj Dalej</a>
                                         </div>
                                     </div>
                                     <!-- end /.prod_btn -->

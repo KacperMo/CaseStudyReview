@@ -9,6 +9,7 @@ if (isset($_SESSION['user_id'])) {
 
 if (isset($_POST['update-user-settings'])) {
     $user_id =  $_SESSION["user_id"];
+
     $profile_image_path = upload_user_image($user_id, "profile_image", $db);
     $banner_image_path = upload_user_image($user_id, "banner_image", $db);
     update_user_files_paths($db, $user_id, $profile_image_path, $banner_image_path);
@@ -24,7 +25,7 @@ function get_user($user_id, $db)
 }
 function get_user_data($user_id, $db)
 {
-    $query = "SELECT * FROM `user_data` WHERE `user_id` = $user_id";
+    $query = "SELECT * FROM user_data WHERE user_id = $user_id";
     $result = mysqli_query($db, $query) or die(mysqli_error($db));
     return $result->fetch_assoc();
 }
@@ -79,7 +80,7 @@ function upload_user_image($user_id, $file_name, $db)
     if (!empty($_FILES[$file_name]) && $_FILES[$file_name]["name"] != "") {
 
         $max_file_size = 15000000;
-        $target_dir = "users/" . $user_id . "/images//";
+        $target_dir = "users/" . $user_id . "/images/";
         $target_file = $target_dir . basename($_FILES[$file_name]["name"]);
         $upload_ok = 1;
         $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -122,7 +123,7 @@ function upload_user_image($user_id, $file_name, $db)
             // if everything is ok, try to upload file
         } else {
             $final_file_name = $file_name . '.jpg';
-            $final_path = $target_dir . "/" . $final_file_name;
+            $final_path = $target_dir . $final_file_name;
             if (move_uploaded_file($_FILES[$file_name]["tmp_name"], $final_path)) {
                 $query = "UPDATE `user_data` SET `$file_name` = '$final_path' WHERE `user_id` = $user_id";
                 mysqli_query($db, $query) or die(mysqli_error($db));

@@ -2,11 +2,27 @@
 require_once "inc/connect.php";
 require_once "inc/user.php";
 
-
 if (!isset($_SESSION)) {
     session_start();
 }
-
+function get_publication($db, $publication_id)
+{
+    $query = mysqli_prepare(
+        $db,
+        "SELECT * FROM publications
+        WHERE publication_id=?
+        "
+    );
+    mysqli_stmt_bind_param(
+        $query,
+        'i',
+        $publication_id,
+    );
+    mysqli_stmt_execute($query);
+    $result = mysqli_stmt_get_result($query);
+    $publication = mysqli_fetch_assoc($result);
+    return $publication;
+}
 function get_publications($db)
 {
     /* Return all publications. */
