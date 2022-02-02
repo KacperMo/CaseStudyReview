@@ -1,8 +1,7 @@
 <?php
-require_once 'inc/add-publication-script.php';
+require_once 'inc/publications-script.php';
 require_once 'inc/navbar.php';
 require_once 'inc/head.php';
-
 ?>
 
 <body class="preload dashboard-upload">
@@ -124,13 +123,14 @@ require_once 'inc/head.php';
                                         </label>
                                         <input type="text" id="title" name="title" class="text_field" placeholder="Tytuł twojego opracowania..." onfocus="this.placeholder = '...'" required onblur="this.placeholder = 'Tytuł swojego opracowania...'">
                                     </div>
-
+                                    <!--
                                     <div class="form-group">
                                         <label for="tags">Tagi
                                             <span>(Max. 5)</span>
                                         </label>
                                         <input type="text" id="tags" name="tags" class="text_field" placeholder="Tagi" onfocus="this.placeholder = '...'" onblur="this.placeholder = 'Tagi'" required class="single-input">
                                     </div>
+                                    -->
                                     <div class="form-group">
                                         <label for="abstract">Streszczenie
                                             <span>(Max. 200 znaków )</span>
@@ -202,7 +202,7 @@ require_once 'inc/head.php';
 
                                                 <div class="custom_upload">
                                                     <label for="publication_pdf">
-                                                        <input type="file" class="files" name="publication_pdf" id="publication_pdf" multiple />
+                                                        <input required type="file" class="files" name="publication_pdf" id="publication_pdf" multiple />
                                                         <span class="btn btn--round btn--sm">Wybierz</span>
                                                     </label>
                                                 </div>
@@ -252,15 +252,6 @@ require_once 'inc/head.php';
                                         </ul>
 
                                     </div>
-                                    <?php
-                                    // Check if the user is already logged in, if yes then redirect him to welcome page
-                                    if ((@$_SESSION['logged_in'] == false)) {
-                                        echo '<div class="form-group">
-                                                    <label for="dimension">Autor</label>
-                                                    <input type="text" name="autor" id="autor" class="text_field" placeholder="np. Mgr. Jan Kowalski">
-                                                </div>';
-                                    }
-                                    ?>
 
                                 </div>
                                 <!-- end Info + Podpis-->

@@ -9,8 +9,9 @@ if (isset($_SESSION['user_id'])) {
 
 if (isset($_POST['update-user-settings'])) {
     $user_id =  $_SESSION["user_id"];
-    upload_user_image($user_id, "profile_image", $db);
-    upload_user_image($user_id, "banner_image", $db);
+    $profile_image_path = upload_user_image($user_id, "profile_image", $db);
+    $banner_image_path = upload_user_image($user_id, "banner_image", $db);
+    update_user_files_paths($db, $user_id, $profile_image_path, $banner_image_path);
     update_user_data($user_id, $db);
     header('Location: author.php');
 }
@@ -38,7 +39,21 @@ function create_user_folder($user_id)
     $path = "users/$user_id/publications";
     mkdir($path);
 }
-
+function update_user_files_paths($db, $user_id, $profile_image_path, $banner_image_path)
+{
+    $query = mysqli_prepare(
+        $db,
+        "UPDATE user_data SET profile_image=?, banner_image=? WHERE user_id=? "
+    );
+    mysqli_stmt_bind_param(
+        $query,
+        'ssi',
+        $profile_image_path,
+        $banner_image_path,
+        $user_id,
+    );
+    mysqli_stmt_execute($query);
+}
 function update_user_data($user_id, $db)
 {
     $user_data = [
@@ -56,14 +71,6 @@ function update_user_data($user_id, $db)
             mysqli_query($db, $query) or die(mysqli_error($db));
         }
     }
-
-    /*
-    $user_authorization_data = [
-        'username',
-        'email',
-        'password',
-    ];
-    */
 }
 
 function upload_user_image($user_id, $file_name, $db)
@@ -123,6 +130,7 @@ function upload_user_image($user_id, $file_name, $db)
             } else {
                 //echo "Sorry, there was an error uploading your file.";
             }
+            return $final_path;
         }
     }
 }

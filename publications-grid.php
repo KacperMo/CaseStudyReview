@@ -167,9 +167,9 @@ $publications = get_publications($db);
                         <!-- start .single-product -->
                         <div class='product product--card'>
                             <div class='product__thumbnail'>
-                                <img src='images/lp1.jpg' alt='Product Image'>
+                                <img src='<?= $publication['cover_path'] ?>' alt='Product Image'>
                                 <div class='prod_btn'>
-                                    <a href='single-publication.php?publication_id=<? $publication['publication_id'] ?>' class='transparent btn--sm btn--round'>Czytaj dalej</a>
+                                    <a href="single-publication.php?publication_id=<? $publication['publication_id'] ?>" class='transparent btn--sm btn--round'>Czytaj dalej</a>
                                 </div>
                                 <!-- end /.prod_btn -->
                             </div>
@@ -181,14 +181,14 @@ $publications = get_publications($db);
                                 </a>
                                 <ul class='titlebtm'>
                                     <li>
-                                        <img class='auth-img' src='images/usr_avatar.png' alt='author image'>
+                                        <img class='auth-img' src='<?= $publication['profile_image'] ?>' alt='author image'>
                                         <p>
-                                            <a href='#'>Mgr. Jank Kowalski</a>
+                                            <a href='#'></a>
                                         </p>
                                     </li>
                                     <li class='product_cat'>
                                         <a href='publications-grid.php'>
-                                            <span class='lnr lnr-book'></span>Plugin</a>
+                                            <span class='lnr lnr-book'></span><?= $publication['category'] ?></a>
                                     </li>
                                 </ul>
 
@@ -284,7 +284,7 @@ $publications = get_publications($db);
 
 
     <?php
-    require_once('footer.php');
+    require_once('inc/footer.php');
     ?>
 </body>
 

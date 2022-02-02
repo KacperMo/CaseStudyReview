@@ -43,7 +43,7 @@ CREATE TABLE `publications` (
     `submission_date` date DEFAULT CURRENT_DATE(),
     `title` varchar(255) NOT NULL,
     `category` varchar(31) NOT NULL,-- validation table
-    -- `views` int(32) NOT NULL, // to be implemented
+    `views` int(32) DEFAULT 0, 
     `cover_path` varchar(255) DEFAULT NULL,
     `publication_path` varchar(255) NOT NULL,
     `abstract` varchar(255) NOT NULL,

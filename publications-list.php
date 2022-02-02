@@ -170,8 +170,8 @@ $publications = get_publications($db);
                             <div class='product product--list'>
 
                                 <div class='product__thumbnail'>
-
-                                    <img src='images/lp1.jpg' alt='Product Image'>
+                                    <!-- images/lp1.jpg -->
+                                    <img src='<?= $publication['cover_path'] ?>' alt='Product Image'>
                                     <div class='prod_btn'>
                                         <div class='prod_btn__wrap'>
                                             <a href='single-publication.php?publication_id=' <?= $publication['publication_id'] ?> class=' transparent btn--sm btn--round'>Czytaj Dalej</a>
@@ -191,7 +191,7 @@ $publications = get_publications($db);
                                         <ul class='titlebtm'>
                                             <li class='product_cat'>
                                                 <a href='#'>
-                                                    <span class='lnr lnr-book'></span>IT</a>
+                                                    <span class='lnr lnr-book'></span><?= $publication['category'] ?></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -199,12 +199,12 @@ $publications = get_publications($db);
 
                                     <div class='product-meta'>
                                         <div class='author'>
-                                            <img class='auth-img' src='images/auth3.jpg' alt='author image'>
+                                            <img class='auth-img' src='<?= $publication['profile_image'] ?>' alt='author image'>
                                             <p>
-                                                <a href='#'>Imie Nazwisko</a>
+                                                <a href='#'><?= $publication['first_name'] ?> <?= $publication['surname'] ?></a>
                                             </p>
                                         </div>
-
+                                        <!--
                                         <div class='product-tags'>
                                             <span>Tags:</span>
                                             <ul>
@@ -222,17 +222,18 @@ $publications = get_publications($db);
                                                 </li>
                                             </ul>
                                         </div>
+                                        -->
 
                                     </div>
                                     <!-- end product-meta -->
 
                                     <div class='product-purchase'>
                                         <div class='price_love'>
-                                            <span>IT</span>
+                                            <span><?= $publication['category'] ?></span>
                                         </div>
                                         <div class='sell'>
                                             <p>
-                                                <span class='lnr lnr-heart'></span> 90 wyświetleń
+                                                <span class='lnr lnr-heart'></span> wyświetleń: <?= $publication['views'] ?>
                                             </p>
                                             </p>
                                         </div>
