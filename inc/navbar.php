@@ -9,7 +9,6 @@ if (!isset($_SESSION)) {
 if (isset($_SESSION["user_id"])) {
     $user = get_user($user_id, $db);
     $user_data = get_user_data($user_id, $db);
-
     $user_id =  $_SESSION["user_id"];
 }
 ?>
