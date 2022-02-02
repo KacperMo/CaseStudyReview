@@ -1,9 +1,13 @@
 <?php
 require_once 'inc/head.php';
 require_once 'inc/navbar.php';
+require_once "inc/publications-script.php";
+
 if (!isset($_SESSION)) {
     session_start();
 }
+$publications = get_publications($db);
+
 ?>
 
 <body class="preload home3">
@@ -36,9 +40,7 @@ if (!isset($_SESSION)) {
                                         <li>
                                             <a href="#products">
                                                 <?php
-                                                require_once("inc/show-publication.php");
-                                                $get_solutions = get_solutions();
-                                                echo "Znaleziono " . $get_solutions->rowCount . " publikacji";
+                                                echo "Znaleziono " . count($publications) . " publikacji";
                                                 ?>
                                             </a>
                                         </li>
@@ -159,102 +161,93 @@ if (!isset($_SESSION)) {
 
 
 
-                <?php
-                $get_solutions = get_solutions();
-                //Tutaj sprawdzić czy wnaleziono jakiekolwiek wyniki!-------------------                        
-                foreach ($get_solutions->publicationData as $row) {
-                    echo ("
-                        <!-- start .row -->
-                        <div class='row'>
-                            <!-- start .col-md-4 -->
-                            <div class='col-md-12'>
-                                <!-- start .single-product -->
-                                <div class='product product--list'>
-            
-                                    <div class='product__thumbnail'>
-                                    ");
-                    if (@!file_exists($row[img_src])) {
-                        @$row[img_src] = 'images/lp1.jpg';
-                    };
-                    echo ("
-                                    <img src='$row[img_src]' alt='Product Image'>
-                                        <div class='prod_btn'>
-                                            <div class='prod_btn__wrap'>
-                                                <a href='single-publication.php?publicationID=$row[publicationID]' class='transparent btn--sm btn--round'>Czytaj Dalej</a>
-                                            </div>
+                <?php foreach ($publications as $publication) : ?>
+                    <!-- start .row -->
+                    <div class='row'>
+                        <!-- start .col-md-4 -->
+                        <div class='col-md-12'>
+                            <!-- start .single-product -->
+                            <div class='product product--list'>
+
+                                <div class='product__thumbnail'>
+
+                                    <img src='images/lp1.jpg' alt='Product Image'>
+                                    <div class='prod_btn'>
+                                        <div class='prod_btn__wrap'>
+                                            <a href='single-publication.php?publication_id=$publication[' publication_id']}' class='transparent btn--sm btn--round'>Czytaj Dalej</a>
                                         </div>
-                                        <!-- end /.prod_btn -->
                                     </div>
-                                    <!-- end /.product__thumbnail -->
-            
-                                    <div class='product__details'>
-                                        <div class='product-desc'>
-                                            <a href='single-publication.php?publicationID=$row[publicationID]' class='product_title'>
-                                                <h4>$row[title]</h4>
-                                            </a>
-                                            <p>$row[abstract]</p>
-            
-                                            <ul class='titlebtm'>
-                                                <li class='product_cat'>
-                                                    <a href='#'>
-                                                        <span class='lnr lnr-book'></span>IT</a>
+                                    <!-- end /.prod_btn -->
+                                </div>
+                                <!-- end /.product__thumbnail -->
+
+                                <div class='product__details'>
+                                    <div class='product-desc'>
+                                        <a href='single-publication.php?publication_id=$publication[publication_id]' class='product_title'>
+                                            <h4><?= $publications['title'] ?></h4>
+                                        </a>
+                                        <p><?= $publications['abstract'] ?></p>
+
+                                        <ul class='titlebtm'>
+                                            <li class='product_cat'>
+                                                <a href='#'>
+                                                    <span class='lnr lnr-book'></span>IT</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- end /.product-desc -->
+
+                                    <div class='product-meta'>
+                                        <div class='author'>
+                                            <img class='auth-img' src='images/auth3.jpg' alt='author image'>
+                                            <p>
+                                                <a href='#'>Imie Nazwisko</a>
+                                            </p>
+                                        </div>
+
+                                        <div class='product-tags'>
+                                            <span>Tags:</span>
+                                            <ul>
+                                                <li>
+                                                    <a href='#'>plugins</a>
+                                                </li>
+                                                <li>
+                                                    <a href='#'>wordpress</a>
+                                                </li>
+                                                <li>
+                                                    <a href='#'>dynamic</a>
+                                                </li>
+                                                <li>
+                                                    <a href='#'>php</a>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <!-- end /.product-desc -->
-            
-                                        <div class='product-meta'>
-                                            <div class='author'>
-                                                <img class='auth-img' src='images/auth3.jpg' alt='author image'>
-                                                <p>
-                                                    <a href='#'>Imie Nazwisko</a>
-                                                </p>
-                                            </div>
-            
-                                            <div class='product-tags'>
-                                                <span>Tags:</span>
-                                                <ul>
-                                                    <li>
-                                                        <a href='#'>plugins</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href='#'>wordpress</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href='#'>dynamic</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href='#'>php</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-            
-                                        </div>
-                                        <!-- end product-meta -->
-            
-                                        <div class='product-purchase'>
-                                            <div class='price_love'>
-                                                <span>IT</span>
-                                            </div>
-                                            <div class='sell'>
-                                                <p>
-                                                    <span class='lnr lnr-heart'></span> 90 wyświetleń</p>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <!-- end /.product-purchase -->
+
                                     </div>
+                                    <!-- end product-meta -->
+
+                                    <div class='product-purchase'>
+                                        <div class='price_love'>
+                                            <span>IT</span>
+                                        </div>
+                                        <div class='sell'>
+                                            <p>
+                                                <span class='lnr lnr-heart'></span> 90 wyświetleń
+                                            </p>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- end /.product-purchase -->
                                 </div>
-                                <!-- end /.single-product -->
-            
-                               
                             </div>
-                            <!-- end /.col-md-4 -->
+                            <!-- end /.single-product -->
+
+
                         </div>
-                        <!-- end /.row -->
-                        ");
-                }
-                ?>
+                        <!-- end /.col-md-4 -->
+                    </div>
+                    <!-- end /.row -->
+                <?php endforeach; ?>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="pagination-area">

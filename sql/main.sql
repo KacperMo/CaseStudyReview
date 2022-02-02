@@ -44,7 +44,7 @@ CREATE TABLE `publications` (
     `title` varchar(255) NOT NULL,
     `category` varchar(31) NOT NULL,-- validation table
     -- `views` int(32) NOT NULL, // to be implemented
-    `thumbnail_path` varchar(255) DEFAULT NULL,
+    `cover_path` varchar(255) DEFAULT NULL,
     `publication_path` varchar(255) NOT NULL,
     `abstract` varchar(255) NOT NULL,
     `description` varchar(1023) NOT NULL,
