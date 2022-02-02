@@ -5,13 +5,16 @@ if (!isset($_SESSION)) {
 }
 if (isset($_SESSION['user_id'])) {
     $user_id =  $_SESSION["user_id"];
+} else {
+    header('Location: index.php');
 }
 
-if (isset($_SESSION['user_id'])) {
+if (isset($_POST['update-user-settings'])) {
     $user_id =  $_SESSION["user_id"];
     upload_user_image($user_id, "profile_image", $db);
     upload_user_image($user_id, "banner_image", $db);
     update_user_data($user_id, $db);
+    header('Location: author.php');
 }
 
 function get_user($user_id, $db)
@@ -55,6 +58,7 @@ function update_user_data($user_id, $db)
             mysqli_query($db, $query) or die(mysqli_error($db));
         }
     }
+
     /*
     $user_authorization_data = [
         'username',
