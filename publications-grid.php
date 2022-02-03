@@ -180,12 +180,15 @@ $publications = get_publications($db);
                                     <h4><?= $publication['title'] ?></h4>
                                 </a>
                                 <ul class='titlebtm'>
-                                    <li>
-                                        <img class='auth-img' src='<?= $publication['profile_image'] ?>' alt='author image'>
-                                        <p>
-                                            <a href='#'></a>
-                                        </p>
-                                    </li>
+                                    <a href="user-profile.php?user_id=<?= $publication['user_id'] ?>">
+
+                                        <li>
+                                            <img class='auth-img' src='<?= $publication['profile_image'] ?>' alt='author image'>
+                                            <p>
+                                                <?= $publication['first_name'] ?> <?= $publication['surname'] ?>
+                                            </p>
+                                        </li>
+                                    </a>
                                     <li class='product_cat'>
                                         <a href='publications-grid.php'>
                                             <span class='lnr lnr-book'></span><?= $publication['category'] ?></a>

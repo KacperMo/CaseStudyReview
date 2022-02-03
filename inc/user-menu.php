@@ -35,7 +35,6 @@
  <script src="js/vendor/jquery/jquery-1.12.3.js"></script>
  <script>
      $(".dashboard_menu li").each(function() {
-         console.log(document.URL);
          if (this.children[0].href == document.URL) {
              $(this).addClass('active');
          }

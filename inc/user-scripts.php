@@ -19,7 +19,7 @@ if (isset($_POST['update-user-settings'])) {
     }
 
     update_user_data($user_id, $db);
-    header('Location: author.php');
+    header('Location: user-profile.php');
 }
 
 function get_user($user_id, $db)

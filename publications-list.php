@@ -198,12 +198,15 @@ $publications = get_publications($db);
                                     <!-- end /.product-desc -->
 
                                     <div class='product-meta'>
-                                        <div class='author'>
-                                            <img class='auth-img' src='<?= $publication['profile_image'] ?>' alt='author image'>
-                                            <p>
-                                                <a href='#'><?= $publication['first_name'] ?> <?= $publication['surname'] ?></a>
-                                            </p>
-                                        </div>
+                                        <a href="user-profile.php?user_id=<?= $publication['user_id'] ?>">
+                                            <div class='author'>
+                                                <img class='auth-img' src='<?= $publication['profile_image'] ?>' alt='author image'>
+                                                <p>
+                                                    <?= $publication['first_name'] ?> <?= $publication['surname'] ?>
+                                                </p>
+                                            </div>
+                                        </a>
+
                                         <!--
                                         <div class='product-tags'>
                                             <span>Tags:</span>

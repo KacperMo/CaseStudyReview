@@ -8,7 +8,6 @@
 </script>
 <link rel="stylesheet" href="css/cookies.css">
 
-
 <div id="cookieNotice" class="light display-right">
     <div class="title-wrap">
         <h4>Cookies</h4>
