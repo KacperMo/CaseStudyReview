@@ -1,5 +1,5 @@
 <?php
-require_once 'inc/publications-script.php';
+require_once 'inc/publication-scripts.php';
 require_once 'inc/navbar.php';
 require_once 'inc/head.php';
 ?>
