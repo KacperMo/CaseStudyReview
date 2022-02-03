@@ -5,42 +5,7 @@ require_once "inc/user-scripts.php";
 if (!isset($_SESSION)) {
     session_start();
 }
-function get_publication($db, $publication_id)
-{
-    $query = mysqli_prepare(
-        $db,
-        "SELECT * FROM publications
-        LEFT JOIN user_data ON sender_id=user_id
-        WHERE publication_id=?
-        "
-    );
-    mysqli_stmt_bind_param(
-        $query,
-        'i',
-        $publication_id,
-    );
-    mysqli_stmt_execute($query);
-    $result = mysqli_stmt_get_result($query);
-    $publication = mysqli_fetch_assoc($result);
-    return $publication;
-}
-function get_publications($db)
-{
-    /* Return all publications. */
-    $query = mysqli_prepare(
-        $db,
-        "SELECT * FROM publications
-        LEFT JOIN user_data ON sender_id=user_id
-        "
-    );
-    mysqli_stmt_execute($query);
-    $result = mysqli_stmt_get_result($query);
-    $publications  = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        array_push($publications, $row);
-    }
-    return $publications;
-}
+
 
 if (isset($_POST['add_publication'])) {
     if (isset($_SESSION['user_id'])) {
@@ -74,8 +39,49 @@ if (isset($_POST['add_publication'])) {
         $full_publication_dir = $_SERVER['DOCUMENT_ROOT'] . "/users/" . $user_id . "/publications/" . $publication_id . "/";
         $full_publication_file_path = $full_publication_dir . 'publication_pdf' . "_" . $publication_id . ".pdf";
         convert_pdf_to_jpg($full_publication_file_path, 1);
+         header('Location: publications-list.php');
+    }else{
+        header('Location: add-publication.php');
     }
-    header('Location: publications-grid.php');
+   
+}
+
+function get_publication($db, $publication_id)
+{
+    $query = mysqli_prepare(
+        $db,
+        "SELECT * FROM publications
+        LEFT JOIN user_data ON sender_id=user_id
+        WHERE publication_id=?
+        "
+    );
+    mysqli_stmt_bind_param(
+        $query,
+        'i',
+        $publication_id,
+    );
+    mysqli_stmt_execute($query);
+    $result = mysqli_stmt_get_result($query);
+    $publication = mysqli_fetch_assoc($result);
+    return $publication;
+}
+
+function get_publications($db)
+{
+    /* Return all publications. */
+    $query = mysqli_prepare(
+        $db,
+        "SELECT * FROM publications
+        LEFT JOIN user_data ON sender_id=user_id
+        "
+    );
+    mysqli_stmt_execute($query);
+    $result = mysqli_stmt_get_result($query);
+    $publications  = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($publications, $row);
+    }
+    return $publications;
 }
 
 function insert_publication_data($user_id, $db)
@@ -97,6 +103,7 @@ function insert_publication_data($user_id, $db)
     );
     mysqli_stmt_execute($query);
 }
+
 function update_publication_files_paths($db, $publication_id, $publication_path, $publication_cover_path)
 {
     $query = mysqli_prepare(
@@ -112,6 +119,7 @@ function update_publication_files_paths($db, $publication_id, $publication_path,
     );
     mysqli_stmt_execute($query);
 }
+
 function upload_file($user_id, $publication_id, $file_name, $file_types)
 {
     $target_dir = "users/" . $user_id . "/publications/" . $publication_id . "/";

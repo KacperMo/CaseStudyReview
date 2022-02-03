@@ -78,11 +78,11 @@ $user_data = get_user_data($user_id, $db);
                                                 <sup>*</sup>
                                             </label>
                                             <input disabled name="username" type="text" id="username" class="text_field" placeholder="Username" value="<?php echo $user['username'] ?>">
-                                            <p>
+                                            <!--<p>
                                                 Twój profil będzie dostępny pod adresem URL:
                                                 <a href="https://casestudyreview.pl/<?php echo $user['username'] ?>/user-profile.php">https://casestudyreview.pl/<?php echo $user['username'] ?>/user-profile.php
                                                 </a>
-                                            </p>
+                                            </p>-->
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
