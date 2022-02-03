@@ -45,50 +45,7 @@ $user_data = get_user_data($user_id, $db);
             START DASHBOARD AREA
     =================================-->
     <section class="dashboard-area">
-        <div class="dashboard_menu_area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul class="dashboard_menu">
-                            <li>
-                                <a href="author.php">
-                                    <span class="lnr lnr-home"></span>Podgląd profilu</a>
-                            </li>
-                            <li class="active">
-                                <a href="user-settings.php">
-                                    <span class="lnr lnr-cog"></span>Ustawienia konta</a>
-                            </li>
-                            <!--  <li>
-                                <a href="dashboard-purchase.html">
-                                    <span class="lnr lnr-cart"></span>Purchase</a>
-                            </li>
-                            <li>
-                                <a href="dashboard-add-credit.html">
-                                    <span class="lnr lnr-dice"></span>Add Credits</a>
-                            </li>
-                            <li>
-                                <a href="dashboard-statement.html">
-                                    <span class="lnr lnr-chart-bars"></span>Statements</a>
-                            </li> -->
-                            <li>
-                                <a href="add-publication.php">
-                                    <span class="lnr lnr-upload"></span>Dodaj publikacje</a>
-                            </li>
-                            <li>
-                                <a href="publications-list.php">
-                                    <span class="lnr lnr-briefcase"></span>Opublikowane</a>
-                            </li>
-                        </ul>
-                        <!-- end /.dashboard_menu -->
-                    </div>
-                    <!-- end /.col-md-12 -->
-                </div>
-                <!-- end /.row -->
-            </div>
-            <!-- end /.container -->
-        </div>
-        <!-- end /.dashboard_menu_area -->
-
+        <?php include "inc/user-menu.php" ?>
         <div class="dashboard_contents">
             <div class="container">
                 <div class="row">
@@ -123,7 +80,7 @@ $user_data = get_user_data($user_id, $db);
                                             <input disabled name="username" type="text" id="username" class="text_field" placeholder="Username" value="<?php echo $user['username'] ?>">
                                             <p>
                                                 Twój profil będzie dostępny pod adresem URL:
-                                                <a href="https://casestudyreview.pl/<?php echo $user['username'] ?>/author.php">https://casestudyreview.pl/<?php echo $user['username'] ?>/author.php
+                                                <a href="https://casestudyreview.pl/<?php echo $user['username'] ?>/user-profile.php">https://casestudyreview.pl/<?php echo $user['username'] ?>/user-profile.php
                                                 </a>
                                             </p>
                                         </div>

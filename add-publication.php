@@ -1,5 +1,5 @@
 <?php
-require_once 'inc/publications-script.php';
+require_once 'inc/publication-scripts.php';
 require_once 'inc/navbar.php';
 require_once 'inc/head.php';
 ?>
@@ -35,50 +35,7 @@ require_once 'inc/head.php';
             START DASHBOARD AREA
     =================================-->
     <section class="dashboard-area">
-        <div class="dashboard_menu_area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul class="dashboard_menu">
-                            <li>
-                                <a href="author.php">
-                                    <span class="lnr lnr-home"></span>Twój profil</a>
-                            </li>
-                            <li>
-                                <a href="user-settings.php">
-                                    <span class="lnr lnr-cog"></span>Ustawienia konta</a>
-                            </li>
-                            <!--  <li>
-                                <a href="dashboard-purchase.html">
-                                    <span class="lnr lnr-cart"></span>Purchase</a>
-                            </li>
-                            <li>
-                                <a href="dashboard-add-credit.html">
-                                    <span class="lnr lnr-dice"></span>Add Credits</a>
-                            </li>
-                            <li>
-                                <a href="dashboard-statement.html">
-                                    <span class="lnr lnr-chart-bars"></span>Statements</a>
-                            </li> -->
-                            <li class="active">
-                                <a href="add-publication.php">
-                                    <span class="lnr lnr-upload"></span>Dodaj publikacje</a>
-                            </li>
-                            <li>
-                                <a href="dashboard-manage-item.html">
-                                    <span class="lnr lnr-briefcase"></span>Opublikowane</a>
-                            </li>
-                        </ul>
-                        <!-- end /.dashboard_menu -->
-                    </div>
-                    <!-- end /.col-md-12 -->
-                </div>
-                <!-- end /.row -->
-            </div>
-            <!-- end /.container -->
-        </div>
-        <!-- end /.dashboard_menu_area -->
-
+        <?php include "inc/user-menu.php" ?>
         <div class="dashboard_contents">
             <div class="container">
                 <div class="row">

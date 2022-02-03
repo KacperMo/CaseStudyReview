@@ -48,49 +48,7 @@ $user_data = get_user_data($user_id, $db);
             START DASHBOARD AREA
     =================================-->
     <section class="dashboard-area">
-        <div class="dashboard_menu_area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul class="dashboard_menu">
-                            <li class="active">
-                                <a href="author.php">
-                                    <span class="lnr lnr-home"></span>Podgląd profilu</a>
-                            </li>
-                            <li>
-                                <a href="user-settings.php">
-                                    <span class="lnr lnr-cog"></span>Ustawienia konta</a>
-                            </li>
-                            <!--  <li>
-                                <a href="dashboard-purchase.html">
-                                    <span class="lnr lnr-cart"></span>Purchase</a>
-                            </li>
-                            <li>
-                                <a href="dashboard-add-credit.html">
-                                    <span class="lnr lnr-dice"></span>Add Credits</a>
-                            </li>
-                            <li>
-                                <a href="dashboard-statement.html">
-                                    <span class="lnr lnr-chart-bars"></span>Statements</a>
-                            </li> -->
-                            <li>
-                                <a href="add-publication.php">
-                                    <span class="lnr lnr-upload"></span>Dodaj publikacje</a>
-                            </li>
-                            <li>
-                                <a href="publications-list.php">
-                                    <span class="lnr lnr-briefcase"></span>Opublikowane</a>
-                            </li>
-                        </ul>
-                        <!-- end /.dashboard_menu -->
-                    </div>
-                    <!-- end /.col-md-12 -->
-                </div>
-                <!-- end /.row -->
-            </div>
-            <!-- end /.container -->
-        </div>
-        <!-- end /.dashboard_menu_area -->
+        <?php include "inc/user-menu.php" ?>
         <!--================================
         START AUTHOR AREA
     =================================-->
@@ -110,9 +68,6 @@ $user_data = get_user_data($user_id, $db);
                                         <p>Z nami od <?= $user['registration_date'] ?> </p>
                                     </div>
                                     <!-- end /.author -->
-
-
-
                                     <div class="social social--color--filled">
                                         <ul>
                                             <li>
@@ -133,7 +88,6 @@ $user_data = get_user_data($user_id, $db);
                                         </ul>
                                     </div>
                                     <!-- end /.social -->
-
                                     <div class="author-btn">
                                         <a href="#" class="btn btn--md btn--round">Obserwuj</a>
                                     </div>
@@ -144,7 +98,6 @@ $user_data = get_user_data($user_id, $db);
 
                             </div>
                             <!-- end /.author-card -->
-
                             <div class="sidebar-card author-menu">
                                 <ul>
                                     <li>
@@ -153,7 +106,6 @@ $user_data = get_user_data($user_id, $db);
                                     <li>
                                         <a href="author-items.html">Publikacje</a>
                                     </li>
-
                                 </ul>
                             </div>
                             <!-- end /.author-menu -->
@@ -598,7 +550,6 @@ $user_data = get_user_data($user_id, $db);
         <!--================================
         END CALL TO ACTION AREA
     =================================-->
-
         <?php
         @require_once('inc/footer.php');
         ?>

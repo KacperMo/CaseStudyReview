@@ -237,6 +237,9 @@ if (!isset($_SESSION)) {
 =================================-->
     <?php
     @require_once('inc/footer.php');
+    if ($_SESSION['accept_cookies'] == false) {
+        @require_once('cookies.php');
+    }
     ?>
 </body>
 

@@ -97,6 +97,9 @@ if (isset($_SESSION["user_id"])) {
                                                 <li><a href='user-profile.php'>
                                                         <span class='lnr lnr-user'></span>Profil</a>
                                                 </li>
+                                                <li><a href='add-publication.php'>
+                                                        <span class='lnr lnr-upload'></span>Dodaj publikacje</a>
+                                                </li>
                                                 <li>
                                                     <a href='user-settings.php'>
                                                         <span class='lnr lnr-cog'></span> Ustawienia konta</a>
