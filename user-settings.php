@@ -6,7 +6,7 @@ if (isset($_SESSION['user_id'])) {
     require_once 'inc/head.php';
     require_once 'inc/navbar.php';
     require_once "inc/connect.php";
-    require_once "inc/user.php";
+    require_once "inc/user-scripts.php";
 } else {
     echo error_reporting(E_ALL);
     ini_set("display_errors", 1);
@@ -14,8 +14,8 @@ if (isset($_SESSION['user_id'])) {
     die();
 }
 $user_id =  $_SESSION["user_id"];
-/*$user = get_user($user_id, $db);
-$user_data = get_user_data($user_id, $db);*/
+$user = get_user($user_id, $db);
+$user_data = get_user_data($user_id, $db);
 ?>
 
 <body class="preload dashboard-setting">

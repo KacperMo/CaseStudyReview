@@ -1,7 +1,7 @@
 <?php
 require_once 'inc/head.php';
 require_once 'inc/navbar.php';
-require_once "inc/publications-script.php";
+require_once "inc/publication-scripts.php";
 
 if (!isset($_SESSION)) {
     session_start();
@@ -174,7 +174,7 @@ $publications = get_publications($db);
                                     <img src='<?= $publication['cover_path'] ?>' style="height:22vh;" alt='Product Image'>
                                     <div class='prod_btn'>
                                         <div class='prod_btn__wrap'>
-                                            <a href='single-publication.php?publication_id= <?= $publication['publication_id'] ?>' class=' transparent btn--sm btn--round'>Czytaj Dalej</a>
+                                            <a href='publication.php?publication_id= <?= $publication['publication_id'] ?>' class=' transparent btn--sm btn--round'>Czytaj Dalej</a>
                                         </div>
                                     </div>
                                     <!-- end /.prod_btn -->
@@ -183,7 +183,7 @@ $publications = get_publications($db);
 
                                 <div class='product__details'>
                                     <div class='product-desc'>
-                                        <a href='single-publication.php?publication_id= <?= $publication['publication_id'] ?>' class='product_title'>
+                                        <a href='publication.php?publication_id= <?= $publication['publication_id'] ?>' class='product_title'>
                                             <h4><?= $publication['title'] ?></h4>
                                         </a>
                                         <p><?= $publication['abstract'] ?></p>

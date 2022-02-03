@@ -1,6 +1,6 @@
 <?php
 require_once "inc/connect.php";
-require_once "inc/user.php";
+require_once "inc/user-scripts.php";
 require_once "inc/cookies.php";
 
 if (!isset($_SESSION)) {
@@ -94,7 +94,7 @@ if (isset($_SESSION["user_id"])) {
                                         </div>
                                         <div class='dropdowns dropdown--author'>
                                             <ul>
-                                                <li><a href='author.php'>
+                                                <li><a href='user-profile.php'>
                                                         <span class='lnr lnr-user'></span>Profil</a>
                                                 </li>
                                                 <li>
@@ -156,22 +156,6 @@ if (isset($_SESSION["user_id"])) {
                                                 <a href="#">
                                                     <span class="lnr lnr-user"></span>Profil</a>
                                             </li>
-                                            <?php
-                                            // Check if the user is already logged in, if yes then redirect him to welcome page
-                                            if (isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == true)) {
-                                                echo "<li>
-                                                    <a href='logout.php'>
-                                                        <span class='lnr lnr-exit'></span>Wyloguj</a>
-                                                </li>";
-                                            } else {
-                                                echo "<li><a href='author.php'>
-                                                    <span class='lnr lnr-user'></span>Profil</a>
-                                                </li><li>
-                                                    <a href='login.php'>
-                                                        <span class='lnr lnr-exit'></span>Zaloguj</a>
-                                                </li>";
-                                            }
-                                            ?>
                                         </ul>
                                     </div>
                                 </div>

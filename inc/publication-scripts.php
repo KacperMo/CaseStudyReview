@@ -1,6 +1,6 @@
 <?php
 require_once "inc/connect.php";
-require_once "inc/user.php";
+require_once "inc/user-scripts.php";
 
 if (!isset($_SESSION)) {
     session_start();
@@ -10,6 +10,7 @@ function get_publication($db, $publication_id)
     $query = mysqli_prepare(
         $db,
         "SELECT * FROM publications
+        LEFT JOIN user_data ON sender_id=user_id
         WHERE publication_id=?
         "
     );

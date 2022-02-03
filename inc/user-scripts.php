@@ -5,31 +5,19 @@ if (!isset($_SESSION)) {
 }
 if (isset($_SESSION['user_id'])) {
     $user_id =  $_SESSION["user_id"];
-    $user = get_user($user_id, $db);
-    $user_data = get_user_data($user_id, $db);
 }
 
 if (isset($_POST['update-user-settings'])) {
     $user_id =  $_SESSION["user_id"];
-
     $profile_image_path = upload_user_image($user_id, "profile_image", $db);
     $banner_image_path = upload_user_image($user_id, "banner_image", $db);
-    
-    switch(true)
-    {
-        case(empty($profile_image_path) && empty($banner_image_path)):
-            $profile_image_path = $user_data['profile_image'];
-            $banner_image_path = $user_data['banner_image'];
-        
-        case(empty($profile_image_path) && !empty($banner_image_path)):
-            $profile_image_path = $user_data['profile_image'];
-        
-        case(!empty($profile_image_path) && empty($banner_image_path)):
-            $banner_image_path = $user_data['banner_image'];
-
-           
+    if (!empty($profile_image_path)) {
+        update_user_profile_image_path($db, $user_id, $profile_image_path);
     }
-    update_user_files_paths($db, $user_id, $profile_image_path, $banner_image_path);
+    if (!empty($banner_image_path)) {
+        update_user_banner_image_path($db, $user_id, $banner_image_path);
+    }
+
     update_user_data($user_id, $db);
     header('Location: author.php');
 }
@@ -57,17 +45,29 @@ function create_user_folder($user_id)
     $path = "users/$user_id/publications";
     mkdir($path);
 }
-function update_user_files_paths($db, $user_id, $profile_image_path, $banner_image_path)
+function update_user_profile_image_path($db, $user_id, $profile_image_path)
 {
-    echo $profile_image_path." ". $banner_image_path;
     $query = mysqli_prepare(
         $db,
-        "UPDATE user_data SET profile_image=?, banner_image=? WHERE user_id=? "
+        "UPDATE user_data SET profile_image=? WHERE user_id=? "
     );
     mysqli_stmt_bind_param(
         $query,
-        'ssi',
+        'si',
         $profile_image_path,
+        $user_id,
+    );
+    mysqli_stmt_execute($query);
+}
+function update_user_banner_image_path($db, $user_id, $banner_image_path)
+{
+    $query = mysqli_prepare(
+        $db,
+        "UPDATE user_data SET banner_image=? WHERE user_id=? "
+    );
+    mysqli_stmt_bind_param(
+        $query,
+        'si',
         $banner_image_path,
         $user_id,
     );

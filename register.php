@@ -1,5 +1,5 @@
 <?php
-require_once 'inc/register-login-script.php';
+require_once 'inc/register-login-scripts.php';
 require_once 'inc/head.php';
 
 ?>
