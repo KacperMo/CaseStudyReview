@@ -3,11 +3,9 @@ require_once "connect.php";
 if (!isset($_SESSION)) {
     session_start();
 }
-if (isset($_SESSION['user_id'])) {
-    $user_id =  $_SESSION["user_id"];
-}
 
-if (isset($_POST['update-user-settings'])) {
+function update_user_settings($user_id, $db)
+{
     $user_id =  $_SESSION["user_id"];
     $profile_image_path = upload_user_image($user_id, "profile_image", $db);
     $banner_image_path = upload_user_image($user_id, "banner_image", $db);
@@ -17,9 +15,7 @@ if (isset($_POST['update-user-settings'])) {
     if (!empty($banner_image_path)) {
         update_user_banner_image_path($db, $user_id, $banner_image_path);
     }
-
     update_user_data($user_id, $db);
-    header('Location: user-profile.php');
 }
 
 function get_user($user_id, $db)
@@ -96,7 +92,6 @@ function upload_user_image($user_id, $file_name, $db)
 {
     // Check if user uploaded file
     if (!empty($_FILES[$file_name]) && $_FILES[$file_name]["name"] != "") {
-
         $max_file_size = 15000000;
         $target_dir = "users/" . $user_id . "/images/";
         $target_file = $target_dir . basename($_FILES[$file_name]["name"]);

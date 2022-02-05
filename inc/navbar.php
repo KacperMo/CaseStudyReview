@@ -7,9 +7,9 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (isset($_SESSION["user_id"])) {
+    $user_id =  $_SESSION["user_id"];
     $user = get_user($user_id, $db);
     $user_data = get_user_data($user_id, $db);
-    $user_id =  $_SESSION["user_id"];
 }
 ?>
 
@@ -66,8 +66,6 @@ if (isset($_SESSION["user_id"])) {
                                 <div class='author-author__info inline has_dropdown'>
 
                                     <?php
-
-
                                     // Check if the user is already logged in, if yes then redirect him to welcome page
                                     if (isset($_SESSION['user_id'])) {
                                     ?>

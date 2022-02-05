@@ -4,7 +4,6 @@ if (!isset($_SESSION)) {
 }
 if (isset($_SESSION['user_id'])) {
     require_once 'inc/head.php';
-    require_once 'inc/navbar.php';
     require_once "inc/connect.php";
     require_once "inc/user-scripts.php";
 } else {
@@ -16,6 +15,12 @@ if (isset($_SESSION['user_id'])) {
 $user_id =  $_SESSION["user_id"];
 $user = get_user($user_id, $db);
 $user_data = get_user_data($user_id, $db);
+if (isset($_POST['update-user-settings'])) {
+    update_user_settings($user_id, $db);
+    header('Location: user-profile.php');
+    die();
+}
+include 'inc/navbar.php';
 ?>
 
 <body class="preload dashboard-setting">
