@@ -1,11 +1,3 @@
-<script type="text/javascript">
-    function acceptCookieConsent() {
-        document.getElementById("cookieNotice").style.display = "none";
-        <?php
-        $_SESSION['accept_cookies'] = false;
-        ?>
-    }
-</script>
 <link rel="stylesheet" href="css/cookies.css">
 
 <div id="cookieNotice" class="light display-right">
@@ -21,3 +13,16 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    let cookiesAccepted = sessionStorage.getItem('cookiesAccepted');
+    if (cookiesAccepted == "yes") {
+        console.log('cookies are accepted');
+    } else {
+        document.getElementById("cookieNotice").style.display = "block";
+    }
+
+    function acceptCookieConsent() {
+        document.getElementById("cookieNotice").style.display = "none";
+        sessionStorage.setItem('cookiesAccepted', 'yes');
+    }
+</script>
