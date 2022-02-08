@@ -13,14 +13,16 @@
                          <a href="user-profile.php">
                              <span class="lnr lnr-home"></span>Podgląd profilu</a>
                      </li>
-                     <li>
-                         <a href="user-settings.php">
-                             <span class="lnr lnr-cog"></span>Ustawienia konta</a>
-                     </li>
-                     <li>
-                         <a href="add-publication.php">
-                             <span class="lnr lnr-upload"></span>Dodaj publikacje</a>
-                     </li>
+                     <?php if ($user_id == $_SESSION['user_id']) : ?>
+                         <li>
+                             <a href="user-settings.php">
+                                 <span class="lnr lnr-cog"></span>Ustawienia konta</a>
+                         </li>
+                         <li>
+                             <a href="add-publication.php">
+                                 <span class="lnr lnr-upload"></span>Dodaj publikacje</a>
+                         </li>
+                     <?php endif; ?>
                      <li>
                          <a href="publications-list.php?user_id=<?= $user_id ?> ">
                              <span class="lnr lnr-briefcase"></span>Opublikowane</a>
