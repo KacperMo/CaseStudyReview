@@ -24,7 +24,7 @@ $publication = get_publication($db, $_GET['publication_id']);
                         </ul>
                     </div>
 
-                    <h1 class='page-title'><?= $publication['title'] ?></h1>";
+                    <h1 class='page-title'><?= $publication['title'] ?></h1>
                 </div>
                 <!-- end /.col-md-12 -->
             </div>

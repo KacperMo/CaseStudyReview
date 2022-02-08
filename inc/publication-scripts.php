@@ -33,17 +33,17 @@ if (isset($_POST['add_publication'])) {
             'publication_cover',
             ['png', 'jpg', 'jpeg'],
         );
-        update_publication_files_paths($db, $publication_id, $publication_path, $publication_cover_path);
 
         //  create publication preview
-        $full_publication_dir = $_SERVER['DOCUMENT_ROOT'] . "/users/" . $user_id . "/publications/" . $publication_id . "/";
-        $full_publication_file_path = $full_publication_dir . 'publication_pdf' . "_" . $publication_id . ".pdf";
-        convert_pdf_to_jpg($full_publication_file_path, 1);
-         header('Location: publications-list.php');
-    }else{
+
+        $publication_preview_path = convert_pdf_to_jpg($publication_path, 1);
+
+        update_publication_files_paths($db, $publication_id, $publication_path, $publication_cover_path, $publication_preview_path);
+
+        header('Location: publications-list.php');
+    } else {
         header('Location: add-publication.php');
     }
-   
 }
 
 function get_publication($db, $publication_id)
@@ -104,17 +104,18 @@ function insert_publication_data($user_id, $db)
     mysqli_stmt_execute($query);
 }
 
-function update_publication_files_paths($db, $publication_id, $publication_path, $publication_cover_path)
+function update_publication_files_paths($db, $publication_id, $publication_path, $publication_cover_path, $publication_preview_path)
 {
     $query = mysqli_prepare(
         $db,
-        "UPDATE publications SET publication_path=?, cover_path=? WHERE publication_id=? "
+        "UPDATE publications SET publication_path=?, cover_path=?, publication_preview_path=? WHERE publication_id=? "
     );
     mysqli_stmt_bind_param(
         $query,
-        'ssi',
+        'sssi',
         $publication_path,
         $publication_cover_path,
+        $publication_preview_path,
         $publication_id,
     );
     mysqli_stmt_execute($query);
@@ -151,21 +152,40 @@ function upload_file($user_id, $publication_id, $file_name, $file_types)
     return $target_file;
 }
 
-function convert_pdf_to_jpg($pdf_src, $pages)
+function convert_pdf_to_jpg($relative_publication_pdf_path, $pages)
 {
+    /*
+    Create images from pages of given pdf file.
+    
+    Note: Function converts relative file path to absolute because Imagick requires it.
+    Warning: Currently function does not check how many pages actually exist in given pdf file,
+    so if $pages parameter exceeds the number of pages in pdf file, function will crash.
+    Warning: Currently function returns path only for the last image created.
+    This has to be reworked so that function returns the general path to all created images.
+    */
+    $absolute_publication_pdf_path = $_SERVER['DOCUMENT_ROOT'] . "/" . $relative_publication_pdf_path;
     try {
         $im = new Imagick();
         $resolution = 300;
         $im->setResolution($resolution, $resolution);
+        $relative_img_final_path = "";
         for ($i = 0; $i < $pages; $i++) {
-            $im->readimage($pdf_src . '[' . $i . ']');
+            $im->readimage($absolute_publication_pdf_path . '[' . $i . ']');
             $im->setImageFormat('jpeg');
-            $im->writeImage(substr($pdf_src, 0, -4) . '_preview_page(' . $i . ').jpg');
+            // Prepare the end of image path.
+            $img_path_end = '_preview_page(' . $i . ').jpg';
+            // Prepare the relative path to an image, this will be returned
+            // and used to create absolute path to the image.
+            $relative_img_final_path = substr($relative_publication_pdf_path, 0, -4) . $img_path_end;
+            $absolute_img_final_path = $_SERVER['DOCUMENT_ROOT'] . '/' . $relative_img_final_path;
+            $im->writeImage($absolute_img_final_path);
             $im->clear();
             $im->destroy();
         }
+        // Return path to last converted page.
+        return $relative_img_final_path;
     } catch (ImagickException $e) {
         var_dump($e);
     }
-    echo "JPG generated.<br>";
+    //echo "JPG generated.<br>";
 }
