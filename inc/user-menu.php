@@ -1,6 +1,9 @@
  <!--================================
             START DASHBOARD AREA
     =================================-->
+ <?php
+    $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
+    ?>
  <div class="dashboard_menu_area">
      <div class="container">
          <div class="row">
@@ -19,7 +22,7 @@
                              <span class="lnr lnr-upload"></span>Dodaj publikacje</a>
                      </li>
                      <li>
-                         <a href="publications-list.php?user_id=<?= $_SESSION['user_id'] ?> ">
+                         <a href="publications-list.php?user_id=<?= $user_id ?> ">
                              <span class="lnr lnr-briefcase"></span>Opublikowane</a>
                      </li>
                  </ul>

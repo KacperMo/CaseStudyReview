@@ -9,26 +9,24 @@ if (!isset($_SESSION)) {
 
 if (isset($_POST['add_publication'])) {
     if (isset($_SESSION['user_id'])) {
-        $user_id = $_SESSION["user_id"];
-        $user = get_user($user_id, $db);
-
+        $user = get_user($_SESSION["user_id"], $db);
         // insert publication data into database and get id of created record
-        insert_publication_data($user_id, $db);
+        insert_publication_data($_SESSION["user_id"], $db);
         $publication_id = mysqli_insert_id($db);
 
         //create publication folder
-        $publication_path = "users/" . $user_id . "/publications/" . $publication_id . "/";
+        $publication_path = "users/" . $_SESSION["user_id"] . "/publications/" . $publication_id . "/";
         mkdir($publication_path);
 
         // upload publication pdf and publication cover
         $publication_path = upload_file(
-            $user_id,
+            $_SESSION["user_id"],
             $publication_id,
             'publication_pdf',
             ['pdf'],
         );
         $publication_cover_path = upload_file(
-            $user_id,
+            $_SESSION["user_id"],
             $publication_id,
             'publication_cover',
             ['png', 'jpg', 'jpeg'],
@@ -66,15 +64,31 @@ function get_publication($db, $publication_id)
     return $publication;
 }
 
-function get_publications($db)
+function get_publications($db, $user_id = null)
 {
-    /* Return all publications. */
-    $query = mysqli_prepare(
-        $db,
-        "SELECT * FROM publications
-        LEFT JOIN user_data ON sender_id=user_id
-        "
-    );
+    /* Get publications of a chosen user, if user ID is not provided, select all publications from database. */
+    echo $user_id;
+    if ($user_id) {
+        $query = mysqli_prepare(
+            $db,
+            "SELECT * FROM publications
+            LEFT JOIN user_data ON sender_id=user_id
+            WHERE user_id=?
+            "
+        );
+        mysqli_stmt_bind_param(
+            $query,
+            'i',
+            $user_id,
+        );
+    } else {
+        $query = mysqli_prepare(
+            $db,
+            "SELECT * FROM publications
+            LEFT JOIN user_data ON sender_id=user_id
+            "
+        );
+    }
     mysqli_stmt_execute($query);
     $result = mysqli_stmt_get_result($query);
     $publications  = [];

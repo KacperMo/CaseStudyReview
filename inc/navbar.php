@@ -7,9 +7,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (isset($_SESSION["user_id"])) {
-    $user_id =  $_SESSION["user_id"];
-    $user = get_user($user_id, $db);
-    $user_data = get_user_data($user_id, $db);
+    $user = get_user($_SESSION["user_id"], $db);
+    $user_data = get_user_data($_SESSION["user_id"], $db);
 }
 ?>
 
