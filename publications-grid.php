@@ -6,7 +6,9 @@ require_once "inc/publication-scripts.php";
 if (!isset($_SESSION)) {
     session_start();
 }
-$publications = get_publications($db);
+// Get all publications of chosen user based on their ID, if ID is not given, use ID from session. 
+$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : null;
+$publications = get_publications($db, $user_id);
 ?>
 
 <body class="preload home3">
