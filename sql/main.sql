@@ -1,5 +1,5 @@
 -- Recreate database
-wDROP DATABASE CSR;
+DROP DATABASE CSR;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -67,6 +67,12 @@ CREATE TABLE `user_data` (
     `country` varchar(255) DEFAULT NULL,
     `website` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `password_reset` (
+    `token` varchar(64) NOT NULL,
+    `email` varchar(64) NOT NULL,
+    `drop_date` datetime NOT NULL
+)
 
 -- Create admin user.
 INSERT INTO `users` (`username`, `password`, `email`) VALUES
