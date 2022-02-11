@@ -88,9 +88,11 @@ $user_data = get_user_data($user_id, $db);
                                         </ul>
                                     </div>
                                     <!-- end /.social -->
+                                    <!--
                                     <div class="author-btn">
                                         <a href="#" class="btn btn--md btn--round">Obserwuj</a>
                                     </div>
+                                    -->
                                     <!-- end /.author-btn -->
                                 </div>
                                 <!-- end /.author-infos -->
@@ -101,15 +103,16 @@ $user_data = get_user_data($user_id, $db);
                             <div class="sidebar-card author-menu">
                                 <ul>
                                     <li>
-                                        <a href="#" class="active">Profil</a>
+                                        <a href="user-profile.php?user_id=<?= $user_id ?>" class="active">Profil</a>
                                     </li>
                                     <li>
-                                        <a href="author-items.html">Publikacje</a>
+                                        <a href="publications-list.php?user_id=<?= $user_id ?>">Publikacje</a>
                                     </li>
                                 </ul>
                             </div>
-                            <!-- end /.author-menu -->
 
+                            <!-- end /.author-menu -->
+                            <!--
                             <div class="sidebar-card freelance-status">
                                 <div class="custom-radio">
                                     <input type="radio" id="opt1" class="" name="filter_opt" checked>
@@ -117,6 +120,7 @@ $user_data = get_user_data($user_id, $db);
                                         <span class="circle"></span>Chętnie podejmuje dyskusje</label>
                                 </div>
                             </div>
+                            -->
                             <!-- end /.author-card -->
 
                             <div class="sidebar-card message-card">
@@ -176,15 +180,14 @@ $user_data = get_user_data($user_id, $db);
                                 <div class="author_module">
                                     <img src="<?= $user_data['banner_image'] ?>" alt="author image">
                                 </div>
-
-                                <div class="author_module about_author">
-                                    <h2>O
-                                        <span>Mnie</span>
-                                    </h2>
-                                    <p>Cześć jestem ..... i bardzo lubie nauki ścisłe. Specjalizuję się w inżynierii oprogramowania.</p>
-                                    <p>Nunc placerat mi id nisi interdum mollis. Praesent pharetra, justo ut scelerisque the mattisleo
-                                        quam aliquet congue. Nunc placerat mi id nisi interdum mollis. Praesent pharetra.</p>
-                                </div>
+                                <?php if ($user_data['description']) : ?>
+                                    <div class="author_module about_author">
+                                        <h2>O
+                                            <span>Mnie</span>
+                                        </h2>
+                                        <p><?= $user_data['description'] ?></p>
+                                    </div>
+                                <?php endif ?>
                             </div>
                         </div>
                         <!-- end /.row -->

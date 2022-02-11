@@ -161,7 +161,7 @@ include 'inc/navbar.php';
 
                                         <div class="form-group">
                                             <label for="description">Dodaj coś od siebie</label>
-                                            <textarea name="description" id="description" class="text_field" placeholder="Short brief about yourself or your account..."><?php echo $user_data['description'] ?>
+                                            <textarea name="description" id="description" class="text_field" placeholder="Short brief about yourself or your account...">
                                         </textarea>
                                         </div>
                                     </div>
