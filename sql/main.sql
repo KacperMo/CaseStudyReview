@@ -1,3 +1,6 @@
+-- Recreate database
+DROP DATABASE CSR;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -14,7 +17,11 @@ CREATE TABLE `comments`(
     `comment_id` int(32) AUTO_INCREMENT PRIMARY KEY,
     `publication_id` int(32) NOT NULL,
     `comment_content` varchar(1023) NOT NULL,
-    `comment_author` varchar(255) NOT NULL
+    `user_id` varchar(255) NOT NULL
+    -- uncomment later
+    -- `creation_date`,
+    -- `modification_date`,
+    -- `like_count`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `users`(
@@ -23,21 +30,26 @@ CREATE TABLE `users`(
     `password` varchar(255) NOT NULL,
     `registration_date` date DEFAULT CURRENT_DATE(),
     `email` varchar(255) NOT NULL UNIQUE,
-    `user_permissions` varchar(255) NOT NULL,
-    `last_login_date` date NOT NULL
+    `email_verified` tinyint(1) NOT NULL,
+    -- `user_permissions` varchar(255) NOT NULL, -- validation table
+    `last_login_date` date NOT NULL,
+    `anonymous` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `publications` (
     `publication_id` int(32) AUTO_INCREMENT PRIMARY KEY,
     `is_public` tinyint(1) NOT NULL,
-    `author_id` int(32) NOT NULL,
-    `case_supervisor` varchar(255) DEFAULT NULL,
+    `is_active` tinyint(1) NOT NULL,
+    `sender_id` int(32) NOT NULL,
+    `publication_supervisor` varchar(255) DEFAULT NULL,
+    `author_name` varchar(255) DEFAULT NULL,
     `submission_date` date DEFAULT CURRENT_DATE(),
     `title` varchar(255) NOT NULL,
-    `category` varchar(31) NOT NULL,
-    `views` int(32) NOT NULL,
-    `thumbnail_path` varchar(255) DEFAULT NULL,
+    `category` varchar(31) NOT NULL,-- validation table
+    `views` int(32) DEFAULT 0, 
+    `cover_path` varchar(255) DEFAULT NULL,
     `publication_path` varchar(255) NOT NULL,
+    `publication_preview_path` varchar(255) NOT NULL,
     `abstract` varchar(255) NOT NULL,
     `description` varchar(1023) NOT NULL,
     `rating` float(3,2) NOT NULL
@@ -47,7 +59,7 @@ CREATE TABLE `user_data` (
     `user_id` int(32) UNIQUE NOT NULL,
     `first_name` varchar(63) DEFAULT NULL,
     `surname` varchar(127) DEFAULT NULL,
-    `college` varchar(255) DEFAULT NULL,
+    `college` varchar(255) DEFAULT NULL, -- maybe many colleges?
     `profile_image` varchar(255) DEFAULT "images/usr_avatar.png",
     `banner_image` varchar(255) DEFAULT "images/cvrplc.jpg",
     `birth_date` date DEFAULT NULL,
@@ -55,6 +67,12 @@ CREATE TABLE `user_data` (
     `country` varchar(255) DEFAULT NULL,
     `website` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `password_reset` (
+    `token` varchar(64) NOT NULL,
+    `email` varchar(64) NOT NULL,
+    `drop_date` datetime NOT NULL
+)
 
 -- Create admin user.
 INSERT INTO `users` (`username`, `password`, `email`) VALUES
