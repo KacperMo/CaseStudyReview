@@ -85,7 +85,7 @@ include 'inc/navbar.php';
                                             <input disabled name="username" type="text" id="username" class="text_field" placeholder="Username" value="<?php echo $user['username'] ?>">
                                             <!--<p>
                                                 Twój profil będzie dostępny pod adresem URL:
-                                                <a href="https://casestudyreview.pl/<?php echo $user['username'] ?>/user-profile.php">https://casestudyreview.pl/<?php echo $user['username'] ?>/user-profile.php
+                                                <a href="https://casestudyreview.com/<?php echo $user['username'] ?>/user-profile.php">https://casestudyreview.com/<?php echo $user['username'] ?>/user-profile.php
                                                 </a>
                                             </p>-->
                                         </div>
@@ -114,7 +114,7 @@ include 'inc/navbar.php';
                                             </label>
                                             <input disabled name="email" type="text" id="email" class="text_field" placeholder="Email address" value="<?php echo $user['email'] ?>">
                                         </div>
-
+                                        <!--
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -134,7 +134,7 @@ include 'inc/navbar.php';
                                                 </div>
                                             </div>
                                         </div>
-
+                                                -->
                                         <div class=" form-group">
                                             <label for="website">Strona internetowa</label>
                                             <input name="website" type="text" id="website" class="text_field" placeholder="<?= $user_data['website'] ?>" value="<?= $user_data['website'] ?>">
@@ -164,6 +164,11 @@ include 'inc/navbar.php';
                                             <textarea name="description" id="description" class="text_field" placeholder="Short brief about yourself or your account...">
                                         </textarea>
                                         </div>
+                                        <a href="/password-reset.php">
+                                            <div class="btn btn--round btn--md">
+                                                Zmień hasło
+                                            </div>
+                                        </a>
                                     </div>
                                     <!-- end /.information_wrapper -->
                                 </div>

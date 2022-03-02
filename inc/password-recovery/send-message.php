@@ -29,28 +29,28 @@ if (isset($email) && isset($_POST['email-submit'])) {
             $mail->CharSet = "utf-8";
             $mail->SMTPDebug = 2;
             $mail->isSMTP();
-            $mail->Host       = 'ssl0.ovh.net;';
+            $mail->Host       = 'casestudyreview.com';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'casestudyreview@akayee.net';
-            $mail->Password   = 'casestudy11';
+            $mail->Username   = 'kontakt@casestudyreview.com';
+            $mail->Password   = '461oxPX!R-L#-sOk';
             $mail->SMTPSecure = 'ssl';
             $mail->Port       = 465;
 
             $query = mysqli_prepare($db, "SELECT * FROM users WHERE email=? AND password=?");
 
             $mail->Encoding = 'base64';
-            $mail->setFrom('casestudyreview@akayee.net', 'no-reply');
+            $mail->setFrom('kontakt@casestudyreview.com', 'no-reply');
             $mail->addAddress($email);           // Add a recipient
             $mail->isHTML(true);
             $mail->Subject = 'Procedura resetowania hasła';
             $mail->Body    = '<p style="font-weight:800; font-size:20px">Case Study Review</p><br><p style="font-size:12px">Jeżeli widzisz tą wiadomość, oznacza to, że użyłeś procedury resetowania hasła. Jeżeli nie byłeś to ty, spokojnie, po prostu nie klikaj w żaden link w tej wiadomości.<br><br>Jeżeli chcesz zresetować swoje hasło, kliknij w link poniżej.</p>
-            <p style="font-size:12px"><a href="localhost/casestudyreview/password-change.php?token=' . $token . '">localhost/casestudyreview/password-change.php?token=' . $token . '</a></p>';
+            <p style="font-size:12px"><a href="localhost/password-change.php?token=' . $token . '">localhost/casestudyreview/password-change.php?token=' . $token . '</a></p>';
             $mail->AltBody = 'Case Study Review. Jeżeli widzisz tą wiadomość oznacza to, że użyłeś procedury resetowania hasła. Jeżeli nie byłeś to ty, spokojnie, po prostu nie używaj linku podanego w następnym zdaniu. Jeżeli chcesz zresetować swoje hasło, wejdź w następujący link: localhost/casestudyreview/password-change.php?token=' . $token;
             $mail->send();
-            die("wyslane.");
+            die("Message sent");
         } else {
             //udaj ze wysylasz maila
-            die("wyslane xD");
+            die("Error sending email");
         }
     }
 } else {
