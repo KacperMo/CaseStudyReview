@@ -39,7 +39,7 @@ include_once('inc/head.php');
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-3">
-                    <form action="/inc/password-recovery/change-password.php?token=<?php echo $_GET['token'] ?>" method="POST" autocomplete="on">
+                    <form action="inc/password-recovery/change-password.php?token=<?php echo $_GET['token'] ?>" method="POST" autocomplete="on">
                         <div class="cardify recover_pass">
                             <div class="login--header">
                                 <p>Wpisz nowe hasło, którego będziesz używał do logowania do twojego konta.

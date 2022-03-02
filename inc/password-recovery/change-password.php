@@ -26,14 +26,15 @@ if (isset($_POST['password-submit'])) {
             mysqli_stmt_bind_param($query, 'ss', $hashed_password, $fetched_data['email']);
             mysqli_stmt_execute($query);
             $rows_affected_2 = mysqli_stmt_affected_rows($query);
+
             // Check if password changed succesfully.
             if ($rows_affected_1 > 0 && $rows_affected_2 > 0) {
-                header('location: index.php');
+                header('location: ../../index.php');
             }
         } else {
-            die("Error changing password.");
+            die("Error changing password 1.");
         }
     }
 } else {
-    die("Error changing password.");
+    die("Error changing password 2.");
 }

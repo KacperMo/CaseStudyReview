@@ -164,7 +164,7 @@ include 'inc/navbar.php';
                                             <textarea name="description" id="description" class="text_field" placeholder="Short brief about yourself or your account...">
                                         </textarea>
                                         </div>
-                                        <a href="/password-reset.php">
+                                        <a href="password-reset.php">
                                             <div class="btn btn--round btn--md">
                                                 Zmień hasło
                                             </div>
