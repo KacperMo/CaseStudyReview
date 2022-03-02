@@ -19,7 +19,7 @@ if (isset($email) && isset($_POST['email-submit'])) {
         $user = $result ? mysqli_fetch_assoc($result) : null;
 
         if ($user) {
-            $token = bin2hex(random_bytes(64));
+            $token = bin2hex(random_bytes(32));
 
             $user_token_query = mysqli_prepare($db, "INSERT INTO password_reset (token, email, drop_date) VALUES (?, ?, ADDTIME(CURRENT_TIMESTAMP(), '0:15:0'))");
             mysqli_stmt_bind_param($user_token_query, 'ss', $token, $user['email']);
