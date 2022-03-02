@@ -27,7 +27,7 @@ if (isset($email) && isset($_POST['email-submit'])) {
 
             $mail = new PHPMailer(TRUE);
             $mail->CharSet = "utf-8";
-            $mail->SMTPDebug = 2;
+            // $mail->SMTPDebug = 2;
             $mail->isSMTP();
             $mail->Host       = 'casestudyreview.com';
             $mail->SMTPAuth   = true;
