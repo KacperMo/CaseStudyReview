@@ -47,7 +47,7 @@ if (isset($email) && isset($_POST['email-submit'])) {
             <p style="font-size:12px"><a href="localhost/password-change.php?token=' . $token . '">localhost/casestudyreview/password-change.php?token=' . $token . '</a></p>';
             $mail->AltBody = 'Case Study Review. Jeżeli widzisz tą wiadomość oznacza to, że użyłeś procedury resetowania hasła. Jeżeli nie byłeś to ty, spokojnie, po prostu nie używaj linku podanego w następnym zdaniu. Jeżeli chcesz zresetować swoje hasło, wejdź w następujący link: localhost/casestudyreview/password-change.php?token=' . $token;
             $mail->send();
-            die("Message sent");
+            header('location: ../../email-sent.php');
         } else {
             //udaj ze wysylasz maila
             die("Error sending email");
